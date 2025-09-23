@@ -4,7 +4,6 @@ import { usersTable } from '@/db/schema';
 import { db } from '@/db';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { Env } from '@/env';
 
 // The Kinde issuer URL should already be in your `.env` file
@@ -16,17 +15,11 @@ const client = jwksClient({
 
 export async function POST(req: Request) {
 	try {
-		const { getUser } = getKindeServerSession();
-		const user = await getUser();
-		console.log('[user from webhook]', user);
-
 		// Get the token from the request
 		const token = await req.text();
-		console.log('[token]', token);
 
 		// Decode the token
 		const jwtDecoded = jwt.decode(token, { complete: true });
-		console.log('[jwtDecoded]', jwtDecoded);
 
 		// Verify the token
 		if (!jwtDecoded) {
@@ -34,19 +27,10 @@ export async function POST(req: Request) {
 		}
 
 		const header = jwtDecoded.header;
-		console.log('[header]', header);
-
 		const kid = header.kid;
-		console.log('[kid]', kid);
-
 		const key = await client.getSigningKey(kid);
-		console.log('[key]', key);
-
 		const signingKey = key.getPublicKey();
-		console.log('[signingKey]', signingKey);
-
 		const event = jwt.verify(token, signingKey) as JwtPayload;
-		console.log('[event]', event);
 
 		// ! todo: create crud functions in a different file and import them here
 		switch (event?.type) {
