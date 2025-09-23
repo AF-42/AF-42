@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import type { JwtPayload } from 'jsonwebtoken';
 import { usersTable } from '@/db/schema';
 import { db } from '@/db';
+import { createUser } from '@/db/queries/insert';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
 
@@ -56,7 +57,7 @@ export async function POST(req: Request) {
 					}
 					const database = await db;
 					console.log('[database] ', database);
-					const newUser = await database.insert(usersTable).values({
+					const newUser = await createUser({
 						kinde_id: user.id,
 						email: user.email,
 						first_name: user.first_name,
@@ -70,7 +71,7 @@ export async function POST(req: Request) {
 						created_at: new Date(),
 						updated_at: new Date(),
 					});
-					if (!newUser) {
+					if (newUser === undefined) {
 						return NextResponse.json({ message: 'Failed to create user' }, { status: 400 });
 					}
 					return NextResponse.json({ message: 'User created' }, { status: 200 });
