@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { NavigationMenu, NavigationMenuItem, NavigationMenuList } from '@/components/ui/navigation-menu';
 import { Button } from '@/components/ui/button';
+import { RegisterLink, LoginLink, LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 const navLinks = [
 	{
@@ -30,7 +32,11 @@ const navLinks = [
 	},
 ];
 
-export default async function Header() {
+export default async function SignedOutHeader() {
+	// const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const { isAuthenticated } = getKindeServerSession();
+	const isAuthed = await isAuthenticated();
+
 	return (
 		<>
 			<header className="border-b border-gray-800 shadow-lg sticky top-0 z-50 bg-black/95 backdrop-blur-sm">
@@ -66,31 +72,37 @@ export default async function Header() {
 
 					{/* Desktop Auth Buttons - Hidden on mobile/tablet */}
 					<div className="hidden md:flex flex-row gap-2">
-						{/* {isAuthed ? ( */}
-						<>
-							<Button
-								size="sm"
-								className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
-							>
-								Sign Out
-							</Button>
-						</>
-						{/* ) : ( */}
-						<>
-							<Button
-								size="sm"
-								className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
-							>
-								Log In
-							</Button>
-							<Button
-								size="sm"
-								className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
-							>
-								Sign Up
-							</Button>
-						</>
-						{/* )} */}
+						{isAuthed ? (
+							<>
+								<LogoutLink>
+									<Button
+										size="sm"
+										className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
+									>
+										Sign Out
+									</Button>
+								</LogoutLink>
+							</>
+						) : (
+							<>
+								<LoginLink>
+									<Button
+										size="sm"
+										className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
+									>
+										Log In
+									</Button>
+								</LoginLink>
+								<RegisterLink>
+									<Button
+										size="sm"
+										className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
+									>
+										Sign Up
+									</Button>
+								</RegisterLink>
+							</>
+						)}
 					</div>
 
 					{/* Mobile Menu Toggle - Visible on mobile/tablet */}
@@ -126,22 +138,28 @@ export default async function Header() {
 
 					{/* Mobile Auth Section */}
 					<div className="flex flex-col gap-3 w-full">
-						{/* {isAuthed ? ( */}
-						<>
-							<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
-								Sign Out
-							</Button>
-						</>
-						{/* ) : (*/}
-						<>
-							<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
-								Sign In
-							</Button>
-							<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
-								Sign Up
-							</Button>
-						</>
-						{/* )} */}
+						{isAuthed ? (
+							<>
+								<LogoutLink>
+									<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
+										Sign Out
+									</Button>
+								</LogoutLink>
+							</>
+						) : (
+							<>
+								<LoginLink>
+									<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
+										Sign In
+									</Button>
+								</LoginLink>
+								<RegisterLink>
+									<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
+										Sign Up
+									</Button>
+								</RegisterLink>
+							</>
+						)}
 					</div>
 				</div>
 			</div>
