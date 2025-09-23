@@ -2,8 +2,24 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
-hello
+### Environment Variables
+
+Before running the development server, you need to set up your environment variables:
+
+1. Copy the example environment file:
+   ```bash
+   cp env.example .env
+   ```
+
+2. Fill in your environment variables in the `.env` file:
+   - `TURSO_DATABASE_URL`: Your Turso database URL (e.g., `libsql://your-database-url.turso.io`)
+   - `TURSO_AUTH_TOKEN`: Your Turso authentication token
+   - `KINDE_ISSUER_URL`: Your Kinde issuer URL (e.g., `https://your-domain.kinde.com`)
+   - `OPENAI_API_KEY`: Your OpenAI API key
+
+3. For Vercel deployment, make sure to add these environment variables in your Vercel project settings under Settings > Environment Variables.
+
+### Running the Development Server
 
 ```bash
 npm run dev

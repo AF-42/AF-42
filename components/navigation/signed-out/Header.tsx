@@ -34,9 +34,8 @@ const navLinks = [
 
 export default async function SignedOutHeader() {
 	// const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const { isAuthenticated, getUser } = getKindeServerSession();
+	const { isAuthenticated } = getKindeServerSession();
 	const isUserAuthenticated = await isAuthenticated();
-	const user = await getUser();
 
 	return (
 		<>
