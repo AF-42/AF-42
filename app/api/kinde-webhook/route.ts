@@ -12,8 +12,6 @@ const client = jwksClient({
 	jwksUri: `${process.env.KINDE_ISSUER_URL}/.well-known/jwks.json`,
 });
 
-console.log('[client]', client);
-
 export async function POST(req: Request) {
 	try {
 		// Get the token from the request
