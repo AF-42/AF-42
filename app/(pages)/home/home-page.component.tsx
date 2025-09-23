@@ -202,7 +202,7 @@ export default function HomePage() {
 							<h3 className="text-xl font-semibold text-white mb-4">AI Generates Challenges</h3>
 							<p className="text-gray-300 leading-relaxed">
 								Our advanced AI creates custom technical challenges that accurately assess the skills
-								you're looking for in candidates.
+								you&apos;re looking for in candidates.
 							</p>
 						</div>
 
