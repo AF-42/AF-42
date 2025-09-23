@@ -4,16 +4,22 @@ import { usersTable } from '@/db/schema';
 import { db } from '@/db';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { Env } from '@/env';
 
 // The Kinde issuer URL should already be in your `.env` file
 // from when you initially set up Kinde. This will fetch your
 // public JSON web keys file
 const client = jwksClient({
-	jwksUri: `${process.env.KINDE_ISSUER_URL}/.well-known/jwks.json`,
+	jwksUri: `${Env.get('KINDE_ISSUER_URL')}/.well-known/jwks.json`,
 });
 
 export async function POST(req: Request) {
 	try {
+		const { getUser } = getKindeServerSession();
+		const user = await getUser();
+		console.log('[user from webhook]', user);
+
 		// Get the token from the request
 		const token = await req.text();
 		console.log('[token]', token);
