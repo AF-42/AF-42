@@ -132,7 +132,7 @@ export default async function Header() {
 								Sign Out
 							</Button>
 						</>
-						{/* ) : ( */}
+						{/* ) : (*/}
 						<>
 							<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
 								Sign In
