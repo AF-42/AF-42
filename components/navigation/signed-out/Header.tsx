@@ -34,8 +34,9 @@ const navLinks = [
 
 export default async function SignedOutHeader() {
 	// const [isMenuOpen, setIsMenuOpen] = useState(false);
-	const { isAuthenticated } = getKindeServerSession();
-	const isAuthed = await isAuthenticated();
+	const { isAuthenticated, getUser } = getKindeServerSession();
+	const isUserAuthenticated = await isAuthenticated();
+	const user = await getUser();
 
 	return (
 		<>
@@ -72,12 +73,12 @@ export default async function SignedOutHeader() {
 
 					{/* Desktop Auth Buttons - Hidden on mobile/tablet */}
 					<div className="hidden md:flex flex-row gap-2">
-						{isAuthed ? (
+						{isUserAuthenticated ? (
 							<>
 								<LogoutLink>
 									<Button
 										size="sm"
-										className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
+										className="bg-amber-800 hover:bg-amber-900 text-white border-2 border-amber-800 hover:border-amber-900 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
 									>
 										Sign Out
 									</Button>
@@ -138,10 +139,10 @@ export default async function SignedOutHeader() {
 
 					{/* Mobile Auth Section */}
 					<div className="flex flex-col gap-3 w-full">
-						{isAuthed ? (
+						{isUserAuthenticated ? (
 							<>
 								<LogoutLink>
-									<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
+									<Button className="w-full bg-amber-800 hover:bg-amber-900 text-white border-2 border-amber-800 hover:border-amber-900 transition-all duration-300">
 										Sign Out
 									</Button>
 								</LogoutLink>
