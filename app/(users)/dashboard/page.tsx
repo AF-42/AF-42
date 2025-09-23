@@ -4,5 +4,5 @@ export default async function DashboardPage() {
 	const { getUser } = getKindeServerSession();
 	const user = await getUser();
 
-	return <div>Dashboard {user?.username}</div>;
+	return <div>Welcome to the Dashboard user: {user?.username}</div>;
 }

@@ -8,6 +8,13 @@
       "when": 1758622087859,
       "tag": "0000_silky_doctor_spectrum",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1758635138581,
+      "tag": "0001_faithful_korg",
+      "breakpoints": true
     }
   ]
 }
