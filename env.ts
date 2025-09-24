@@ -3,8 +3,6 @@ import { z } from 'zod';
 const envSchema = z.object({
 	TURSO_DATABASE_URL: z.string(),
 	TURSO_AUTH_TOKEN: z.string(),
-	KINDE_M2M_CLIENT_ID: z.string(),
-	KINDE_M2M_CLIENT_SECRET: z.string(),
 	KINDE_ISSUER_URL: z.string(),
 	OPENAI_API_KEY: z.string(),
 });
@@ -16,8 +14,6 @@ const publicEnv: Record<string, string> = {
 	TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL as string,
 	TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN as string,
 	KINDE_ISSUER_URL: process.env.KINDE_ISSUER_URL as string,
-	KINDE_M2M_CLIENT_ID: process.env.KINDE_M2M_CLIENT_ID as string,
-	KINDE_M2M_CLIENT_SECRET: process.env.KINDE_M2M_CLIENT_SECRET as string,
 };
 
 export type EnvType = z.infer<typeof envSchema>;
