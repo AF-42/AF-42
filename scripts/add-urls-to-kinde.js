@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server.js';
 import { jwt } from 'jsonwebtoken';
-import { usersTable } from '@/db/schema';
-import { db } from '@/db';
+import { usersTable } from '../db/schema.js';
+import { db } from '../db/index.js';
 import jwksClient from 'jwks-rsa';
-import { Env } from '@/env';
+import { Env } from '../env.js';
 
 async function getAuthToken() {
 	try {
