@@ -1,16 +1,15 @@
 import { LoginLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
-import { Roles, Users } from '@kinde/management-api-js';
+
+// Todo: add management api js to get the roles and users ???
+// import { Roles, Users } from '@kinde/management-api-js';
+
 import { PortalLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Button } from '@/components/ui/button';
 
 export default async function DashboardPage() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
-	const { roles } = await Roles.getRoles();
-	const { users } = await Users.getUsers();
-	console.log('roles', roles);
-	console.log('users', users);
 
 	// todo: add a toast message or a popup message to let the user know that they are not authenticated and to login
 	if (!(await isAuthenticated())) {

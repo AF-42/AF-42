@@ -1,13 +1,7 @@
 import type { Metadata } from 'next';
-import { Inter, IBM_Plex_Mono } from 'next/font/google';
+import { IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from './AuthProvider';
-
-// Todo: install all the fonts from google fonts properly
-const inter = Inter({
-	variable: '--font-inter',
-	subsets: ['latin'],
-});
 
 const ibmPlexMono = IBM_Plex_Mono({
 	variable: '--font-ibm-plex-mono',
