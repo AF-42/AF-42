@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server.js';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-import { usersTable } from '../db/schema.js';
-import { db } from '../db/index.js';
+import jwt from 'jsonwebtoken';
+import { usersTable } from '../db/schema.ts';
+import { db } from '../db/index.ts';
 import jwksClient from 'jwks-rsa';
-import { Env } from '../env.js';
+import { Env } from '../env.ts';
 
 async function getAuthToken() {
 	try {
@@ -14,10 +14,10 @@ async function getAuthToken() {
 				Accept: 'application/json',
 			},
 			body: new URLSearchParams({
-				client_id: process.env.KINDE_M2M_CLIENT_ID as string,
-				client_secret: process.env.KINDE_M2M_CLIENT_SECRET as string,
+				client_id: process.env.KINDE_M2M_CLIENT_ID,
+				client_secret: process.env.KINDE_M2M_CLIENT_SECRET,
 				grant_type: 'client_credentials',
-				audience: `${process.env.KINDE_ISSUER_URL as string}/api`,
+				audience: `${process.env.KINDE_ISSUER_URL}/api`,
 			}),
 		});
 
@@ -33,10 +33,10 @@ async function getAuthToken() {
 	}
 }
 
-async function addLogoutUrlToKinde(token: string) {
+async function addLogoutUrlToKinde(token) {
 	try {
 		const response = await fetch(
-			`${process.env.KINDE_ISSUER_URL as string}/api/v1/applications/${process.env.KINDE_CLIENT_ID as string}/auth_logout_urls`,
+			`${process.env.KINDE_ISSUER_URL}/api/v1/applications/${process.env.KINDE_CLIENT_ID}/auth_logout_urls`,
 			{
 				method: 'POST',
 				headers: {
@@ -45,7 +45,7 @@ async function addLogoutUrlToKinde(token: string) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					urls: [`https://${process.env.VERCEL_URL as string}`],
+					urls: [`https://${process.env.VERCEL_URL}`],
 				}),
 			},
 		);
@@ -55,17 +55,17 @@ async function addLogoutUrlToKinde(token: string) {
 		}
 
 		const responseData = await response.json();
-		console.log(`SUCCESS: Logout URL added to Kinde: ${process.env.VERCEL_URL as string}`, responseData);
+		console.log(`SUCCESS: Logout URL added to Kinde: ${process.env.VERCEL_URL}`, responseData);
 	} catch (error) {
 		console.error('Failed to add logout URL to Kinde', error);
 		throw error;
 	}
 }
 
-async function addCallbackUrlToKinde(token: string) {
+async function addCallbackUrlToKinde(token) {
 	try {
 		const response = await fetch(
-			`${process.env.KINDE_ISSUER_URL as string}/api/v1/applications/${process.env.KINDE_CLIENT_ID as string}/auth_redirect_urls`,
+			`${process.env.KINDE_ISSUER_URL}/api/v1/applications/${process.env.KINDE_CLIENT_ID}/auth_redirect_urls`,
 			{
 				method: 'POST',
 				headers: {
@@ -74,7 +74,7 @@ async function addCallbackUrlToKinde(token: string) {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					urls: [`https://${process.env.VERCEL_URL as string}/api/auth/kinde_callback`],
+					urls: [`https://${process.env.VERCEL_URL}/api/auth/kinde_callback`],
 				}),
 			},
 		);
@@ -85,7 +85,7 @@ async function addCallbackUrlToKinde(token: string) {
 
 		const responseData = await response.json();
 		console.log(
-			`SUCCESS: Callback URL added to Kinde: ${process.env.VERCEL_URL as string}/api/auth/kinde_callback`,
+			`SUCCESS: Callback URL added to Kinde: ${process.env.VERCEL_URL}/api/auth/kinde_callback`,
 			responseData,
 		);
 	} catch (error) {
@@ -95,7 +95,7 @@ async function addCallbackUrlToKinde(token: string) {
 }
 
 (async () => {
-	if (process.env.VERCEL as string == '1') {
+	if (process.env.VERCEL == 1) {
 		try {
 			const authToken = await getAuthToken();
 			await addCallbackUrlToKinde(authToken);
@@ -113,7 +113,7 @@ const client = jwksClient({
 	jwksUri: `${Env.get('KINDE_ISSUER_URL')}/.well-known/jwks.json`,
 });
 
-export async function POST(req: Request) {
+export async function POST(req) {
 	try {
 		// Get the token from the request
 		const token = await req.text();
@@ -130,7 +130,7 @@ export async function POST(req: Request) {
 		const kid = header.kid;
 		const key = await client.getSigningKey(kid);
 		const signingKey = key.getPublicKey();
-		const event = jwt.verify(token, signingKey) as JwtPayload;
+		const event = jwt.verify(token, signingKey);
 
 		// ! todo: create crud functions in a different file and import them here
 		switch (event?.type) {
