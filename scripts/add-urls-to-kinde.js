@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server.js';
 import { jwt } from 'jsonwebtoken';
 import { usersTable } from '@/db/schema';
 import { db } from '@/db';
