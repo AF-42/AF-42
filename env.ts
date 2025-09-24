@@ -4,6 +4,11 @@ const envSchema = z.object({
 	TURSO_DATABASE_URL: z.string(),
 	TURSO_AUTH_TOKEN: z.string(),
 	KINDE_ISSUER_URL: z.string(),
+	KINDE_CLIENT_ID: z.string(),
+	KINDE_CLIENT_SECRET: z.string(),
+	KINDE_POST_LOGIN_REDIRECT_URL: z.string().optional(),
+	KINDE_POST_LOGOUT_REDIRECT_URL: z.string().optional(),
+	KINDE_SITE_URL: z.string().optional(),
 	OPENAI_API_KEY: z.string(),
 });
 
