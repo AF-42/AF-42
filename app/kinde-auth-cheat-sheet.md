@@ -1,4 +1,6 @@
-# Server Methods
+# Kinde Auth data - Server
+
+You can get an authorized user’s Kinde Auth data from any server component using the `getKindeServerSession` helper.
 
 | Method | Description |
 |--------|-------------|
