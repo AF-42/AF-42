@@ -110,7 +110,7 @@ async function addCallbackUrlToKinde(token) {
 // from when you initially set up Kinde. This will fetch your
 // public JSON web keys file
 const client = jwksClient({
-	jwksUri: `${Env.get('KINDE_ISSUER_URL')}/.well-known/jwks.json`,
+	jwksUri: `${Env.KINDE_ISSUER_URL}/.well-known/jwks.json`,
 });
 
 export async function POST(req) {
