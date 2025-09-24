@@ -1,9 +1,6 @@
 import { LoginLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
-// Todo: add management api js to get the roles and users ???
-// import { Roles, Users } from '@kinde/management-api-js';
-
 import { PortalLink } from '@kinde-oss/kinde-auth-nextjs/components';
 import { Button } from '@/components/ui/button';
 
