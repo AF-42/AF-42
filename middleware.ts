@@ -6,7 +6,7 @@ export default withAuth(
 		// console.log('look at me', req.kindeAuth);
 	},
 	{
-		publicPaths: ['/home', '/dashboard', '/login'],
+		// publicPaths: ['/home', '/dashboard', '/login'],
 		// Add proper error handling
 		onError: (error: Error) => {
 			console.error('Middleware error:', error);
@@ -14,16 +14,16 @@ export default withAuth(
 	},
 );
 
-export const config = {
-	matcher: [
-		/*
-		 * Match all request paths except for the ones starting with:
-		 * - api (API routes)
-		 * - _next/static (static files)
-		 * - _next/image (image optimization files)
-		 * - favicon.ico (favicon file)
-		 * - public folder files
-		 */
-		'/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-	],
-};
+// export const config = {
+// 	matcher: [
+// 		/*
+// 		 * Match all request paths except for the ones starting with:
+// 		 * - api (API routes)
+// 		 * - _next/static (static files)
+// 		 * - _next/image (image optimization files)
+// 		 * - favicon.ico (favicon file)
+// 		 * - public folder files
+// 		 */
+// 		'/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+// 	],
+// };
