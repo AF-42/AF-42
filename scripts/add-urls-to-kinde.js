@@ -1,3 +1,4 @@
+// ! FIX: this script is not working - it might be interferring with the kinde-webhook
 async function getAuthToken() {
 	try {
 		const response = await fetch(`${process.env.KINDE_ISSUER_URL}/oauth2/token`, {
