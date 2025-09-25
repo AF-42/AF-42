@@ -1,4 +1,4 @@
-import { LoginLink, getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
 import { PortalLink } from '@kinde-oss/kinde-auth-nextjs/components';
@@ -8,11 +8,11 @@ export default async function DashboardPage() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
 
-	// if (!(await isAuthenticated())) {
-	// 	redirect('/home');
-	// }
+	if (!(await isAuthenticated())) {
+		redirect('/home');
+	}
 
-	return (await isAuthenticated()) ? (
+	return (
 		<>
 			<div>Welcome to the Dashboard user: {user?.username}</div>
 
@@ -22,9 +22,5 @@ export default async function DashboardPage() {
 				</Button>
 			</PortalLink>
 		</>
-	) : (
-		<div>
-			This page is protected, please <LoginLink>Login</LoginLink> to view it
-		</div>
 	);
 }
