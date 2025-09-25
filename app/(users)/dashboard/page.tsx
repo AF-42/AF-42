@@ -8,10 +8,9 @@ export default async function DashboardPage() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
 
-	// todo: add a toast message or a popup message to let the user know that they are not authenticated and to login
-	if (!(await isAuthenticated())) {
-		redirect('/home');
-	}
+	// if (!(await isAuthenticated())) {
+	// 	redirect('/home');
+	// }
 
 	return (await isAuthenticated()) ? (
 		<>
