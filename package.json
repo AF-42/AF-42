@@ -6,8 +6,7 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "eslint",
-		"postbuild": "node ./scripts/add-urls-to-kinde.js"
+		"lint": "eslint"
 	},
 	"dependencies": {
 		"@ai-sdk/openai": "^1.3.24",
