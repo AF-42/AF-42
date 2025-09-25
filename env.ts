@@ -12,9 +12,6 @@ const envSchema = z.object({
 	OPENAI_API_KEY: z.string(),
 });
 
-//* Need to explicitly extract the public env variables from the process.env
-//* because the env variables are not available in the frontend
-
 const publicEnv: Record<string, string> = {
 	TURSO_DATABASE_URL: process.env.TURSO_DATABASE_URL as string,
 	TURSO_AUTH_TOKEN: process.env.TURSO_AUTH_TOKEN as string,
