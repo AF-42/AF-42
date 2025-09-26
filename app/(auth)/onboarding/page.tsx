@@ -2,21 +2,22 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { OnboardingForm } from './onboarding-form';
-import { getAllUserController } from '@/controllers/users/getAllUser';
+import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
 
 export default async function Onboarding() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
 	console.log('[user] ', user);
-	const users = await getAllUserController();
-	console.log('[users] ', users);
+	const serviceUser = await getUserByKindeIdController(user?.id || '');
+	console.log('[serviceUser] ', serviceUser);
 
 	if (!(await isAuthenticated())) {
 		redirect('/home');
 	}
 
 	// Check if user has completed onboarding (you can add this logic based on your user model)
-	const isNewUser = !user?.created_at || new Date(user.created_at) > new Date(Date.now() - 5 * 60 * 1000); // Created within last 5 minutes
+	const isNewUser =
+		!serviceUser[0]?.created_at || new Date(serviceUser[0].created_at) > new Date(Date.now() - 5 * 60 * 1000); // Created within last 5 minutes
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -31,7 +32,11 @@ export default async function Onboarding() {
 					<CardContent className="space-y-6">
 						<div className="text-center">
 							<p className="text-sm text-gray-500 mb-4">
-								Hello, <span className="font-semibold">{user?.given_name || user?.username}</span>!
+								Hello,{' '}
+								<span className="font-semibold">
+									{serviceUser[0]?.first_name || serviceUser[0]?.username}
+								</span>
+								!
 							</p>
 							<p className="text-sm text-gray-600">
 								{isNewUser
@@ -41,8 +46,8 @@ export default async function Onboarding() {
 						</div>
 
 						<div className="text-center text-sm text-gray-500 mb-4">
-							<p>User ID: {user?.id}</p>
-							<p>Email: {user?.email}</p>
+							<p>User ID: {serviceUser[0]?.id}</p>
+							<p>Email: {serviceUser[0]?.email}</p>
 						</div>
 
 						<OnboardingForm isNewUser={isNewUser} />

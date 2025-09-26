@@ -1,9 +1,9 @@
 import { db } from '@/db';
-import { InsertUser, usersTable } from '@/db/schema';
+import { usersTable } from '@/db/schema';
 import { eq } from 'drizzle-orm';
 
 export const usersService = {
-	createUser: async (user: InsertUser) => {
+	createUser: async (user: typeof usersTable.$inferInsert) => {
 		const database = await db;
 		if (!database) {
 			throw new Error('Database not found');
