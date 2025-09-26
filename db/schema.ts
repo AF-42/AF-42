@@ -14,7 +14,7 @@ export const usersTable = sqliteTable('users', {
 	phone: text('phone'),
 	is_password_reset_requested: integer('is_password_reset_requested', { mode: 'boolean' }).notNull(),
 	is_suspended: integer('is_suspended', { mode: 'boolean' }).notNull(),
-	role: text('role', { enum: ['company', 'jedi'] }).notNull(),
+	role: text('role').notNull().default(''),
 	created_at: integer('created_at', { mode: 'timestamp' })
 		.notNull()
 		.$defaultFn(() => new Date()),
@@ -26,4 +26,3 @@ export const usersTable = sqliteTable('users', {
 
 export type InsertUser = typeof usersTable.$inferInsert;
 export type SelectUser = typeof usersTable.$inferSelect;
-

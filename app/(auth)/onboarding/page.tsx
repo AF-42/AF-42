@@ -1,13 +1,15 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { OnboardingForm } from './onboarding-form';
+import { getAllUserController } from '@/controllers/users/getAllUser';
 
 export default async function Onboarding() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
 	console.log('[user] ', user);
+	const users = await getAllUserController();
+	console.log('[users] ', users);
 
 	if (!(await isAuthenticated())) {
 		redirect('/home');
