@@ -15,7 +15,6 @@ export default async function DashboardPage() {
 	return (
 		<>
 			<div>Welcome to the Dashboard user: {user?.username}</div>
-
 			<PortalLink>
 				<Button className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm">
 					Portal Link Name Dashboard
