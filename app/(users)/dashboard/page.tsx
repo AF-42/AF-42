@@ -1,9 +1,6 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 
-import { PortalLink } from '@kinde-oss/kinde-auth-nextjs/components';
-import { Button } from '@/components/ui/button';
-
 export default async function DashboardPage() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
@@ -13,13 +10,18 @@ export default async function DashboardPage() {
 	}
 
 	return (
-		<>
-			<div>Welcome to the Dashboard user: {user?.username}</div>
-			<PortalLink>
-				<Button className="bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm">
-					Portal Link Name Dashboard
-				</Button>
-			</PortalLink>
-		</>
+		<div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+			<div className="grid auto-rows-min gap-4 md:grid-cols-3">
+				<div className="bg-muted/50 aspect-video rounded-xl flex items-center justify-center">
+					<div className="text-center">
+						<h2 className="text-lg font-semibold">Welcome back!</h2>
+						<p className="text-sm text-muted-foreground">Hello, {user?.username}</p>
+					</div>
+				</div>
+				<div className="bg-muted/50 aspect-video rounded-xl" />
+				<div className="bg-muted/50 aspect-video rounded-xl" />
+			</div>
+			<div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-min" />
+		</div>
 	);
 }

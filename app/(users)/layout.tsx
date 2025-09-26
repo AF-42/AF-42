@@ -1,10 +1,6 @@
-import MainLayout from '@/components/layouts/main-layout';
 import { AuthProvider } from '../AuthProvider';
+import DevLayout from '@/components/layouts/dev-layout';
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-	return (
-		<AuthProvider>
-			<MainLayout>{children}</MainLayout>
-		</AuthProvider>
-	);
+	return <AuthProvider><DevLayout>{children}</DevLayout></AuthProvider>;
 }
