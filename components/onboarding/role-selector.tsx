@@ -28,7 +28,8 @@ export function RoleSelector({ userKindeId }: RoleSelectorProps) {
 				throw new Error('Failed to update role');
 			}
 
-			// Redirect to dashboard after successful role update
+			// todo: redirect to proper form based on role
+			//! Redirect to dashboard after successful role update
 			router.push('/dashboard');
 		} catch (error) {
 			console.error('Error updating role:', error);
