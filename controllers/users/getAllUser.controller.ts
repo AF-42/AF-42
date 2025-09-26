@@ -1,10 +1,10 @@
 import { usersService } from '@/services/users/users.service';
 
 export const getAllUserController = async () => {
-    try {
-	const users = await usersService.getAllUsers();
-	if (!users) {
-		throw new Error('Users not found');
+	try {
+		const users = await usersService.getAllUsers();
+		if (!users) {
+			throw new Error('Users found in the database');
 		}
 		return users;
 	} catch (error) {
