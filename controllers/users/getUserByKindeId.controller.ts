@@ -2,6 +2,9 @@ import { usersService } from '@/services/users/users.service';
 
 export const getUserByKindeIdController = async (kindeId: string) => {
 	try {
+		if (!kindeId) {
+			throw new Error('Kinde id is required');
+		}
 		const user = await usersService.getUserByKindeId(kindeId);
 		if (!user) {
 			throw new Error('User not found');
