@@ -97,4 +97,11 @@ export const usersService = {
 		}
 		return database.select().from(usersTable).where(eq(usersTable.updated_at, updatedAt));
 	},
+	updateUserRole: async (kindeId: string, role: string) => {
+		const database = await db;
+		if (!database) {
+			throw new Error('Database not found');
+		}
+		return database.update(usersTable).set({ role }).where(eq(usersTable.kinde_id, kindeId));
+	},
 };
