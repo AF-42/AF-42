@@ -74,7 +74,7 @@ export default async function SignedOutHeader() {
 					<div className="hidden md:flex flex-row gap-2">
 						{isUserAuthenticated ? (
 							<>
-								<LogoutLink>
+								<LogoutLink postLogoutRedirectURL="/home">
 									<Button
 										size="sm"
 										className="bg-amber-800 hover:bg-amber-900 text-white border-2 border-amber-800 hover:border-amber-900 transition-all duration-300 transform hover:scale-105 text-xs lg:text-sm"
@@ -140,7 +140,7 @@ export default async function SignedOutHeader() {
 					<div className="flex flex-col gap-3 w-full">
 						{isUserAuthenticated ? (
 							<>
-								<LogoutLink>
+								<LogoutLink postLogoutRedirectURL="/home">
 									<Button className="w-full bg-amber-800 hover:bg-amber-900 text-white border-2 border-amber-800 hover:border-amber-900 transition-all duration-300">
 										Sign Out
 									</Button>
@@ -153,7 +153,7 @@ export default async function SignedOutHeader() {
 										Sign In
 									</Button>
 								</LoginLink>
-								<RegisterLink>
+								<RegisterLink postLoginRedirectURL="/onboarding">
 									<Button className="w-full bg-cyan-600 hover:bg-cyan-700 text-white border-2 border-cyan-600 hover:border-cyan-700 transition-all duration-300">
 										Sign Up
 									</Button>
