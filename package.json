@@ -8,6 +8,11 @@
 		"start": "next start",
 		"lint": "eslint"
 	},
+	"xo": {
+		"ignores": [
+			"!**/*"
+		]
+	},
 	"dependencies": {
 		"@ai-sdk/openai": "^1.3.24",
 		"@hookform/resolvers": "^5.2.2",
