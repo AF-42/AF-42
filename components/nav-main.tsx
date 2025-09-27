@@ -57,7 +57,12 @@ export function NavMain({
 					return (
 						<Collapsible key={item.title} asChild defaultOpen={shouldBeOpen}>
 							<SidebarMenuItem>
-								<SidebarMenuButton asChild tooltip={item.title} isActive={itemIsActive}>
+								<SidebarMenuButton
+									asChild
+									tooltip={item.title}
+									isActive={itemIsActive}
+									className={itemIsActive ? 'bg-sidebar-accent/60 hover:bg-sidebar-accent/80' : ''}
+								>
 									<a href={item.url}>
 										<item.icon />
 										<span>{item.title}</span>
@@ -90,6 +95,11 @@ export function NavMain({
 																<SidebarMenuSubButton
 																	asChild
 																	isActive={subItemIsActive}
+																	className={
+																		subItemIsActive
+																			? 'bg-sidebar-accent/50 hover:bg-sidebar-accent/70'
+																			: ''
+																	}
 																>
 																	<a href={subItem.url}>
 																		{subItem.icon && <subItem.icon />}
@@ -118,6 +128,11 @@ export function NavMain({
 																								asChild
 																								isActive={
 																									subSubItemIsActive
+																								}
+																								className={
+																									subSubItemIsActive
+																										? 'bg-sidebar-accent/40 hover:bg-sidebar-accent/60'
+																										: ''
 																								}
 																							>
 																								<a
