@@ -15,6 +15,11 @@ import {
 	UserPen,
 	Building2,
 	ContactRound,
+	BadgeCheck,
+	Sparkles,
+	LaptopMinimalCheck,
+	Settings,
+	SquareTerminal,
 } from 'lucide-react';
 import { NavMain } from '@/components/nav-main';
 import { NavSecondary } from '@/components/nav-secondary';
@@ -35,10 +40,11 @@ const devNavData = {
 		{
 			title: 'Challenges',
 			url: '/challenge',
-			icon: Terminal,
+			icon: Sparkles,
 			items: [
 				{
 					title: 'All',
+					icon: LaptopMinimalCheck,
 					url: '/challenge/challenge-board',
 				},
 				{
@@ -47,10 +53,12 @@ const devNavData = {
 					items: [
 						{
 							title: 'Ongoing',
+							icon: SquareTerminal,
 							url: '/challenge/my-challenges/ongoing',
 						},
 						{
 							title: 'Completed',
+							icon: BadgeCheck,
 							url: '/challenge/my-challenges/completed',
 						},
 					],
@@ -64,11 +72,13 @@ const devNavData = {
 			items: [
 				{
 					title: 'Profile',
-					url: '#',
+					icon: User,
+					url: '/dashboard/profile',
 				},
 				{
 					title: 'Settings',
-					url: '#',
+					icon: Settings,
+					url: '/dashboard/settings',
 				},
 			],
 		},
@@ -139,11 +149,11 @@ const companyNavData = {
 		{
 			title: 'Challenge',
 			url: '/challenge',
-			icon: CodeXml,
+			icon: Sparkles,
 			items: [
 				{
 					title: 'Generate',
-					icon: Terminal,
+					icon: CodeXml,
 					url: '/challenge/generate',
 				},
 				{
@@ -166,17 +176,17 @@ const companyNavData = {
 				{
 					title: 'Profile',
 					icon: User,
-					url: '#',
+					url: '/dashboard/user-profile',
 				},
 				{
 					title: 'Company Profile',
 					icon: Building2,
-					url: '#',
+					url: '/dashboard/company-profile',
 				},
 				{
 					title: 'Members',
 					icon: ContactRound,
-					url: '#',
+					url: '/dashboard/members',
 				},
 			],
 		},
