@@ -1,5 +1,7 @@
 'use client';
 
+// ! todo : make sure to link menu items to the kinde api to process upgrades and billing and etc.
+
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -31,6 +33,7 @@ export function NavUser({ user }: { user: typeof usersTable.$inferSelect }) {
 							className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
 						>
 							<Avatar className="h-8 w-8 rounded-lg">
+								{/* todo: add avatar image */}
 								{/* <AvatarImage src={user.avatar} alt={user.first_name + ' ' + user.last_name} /> */}
 								<AvatarFallback className="rounded-lg">
 									{user.first_name.charAt(0) + user.last_name.charAt(0)}
