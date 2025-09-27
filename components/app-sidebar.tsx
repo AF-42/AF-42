@@ -31,33 +31,27 @@ import {
 import { usersTable } from '@/db/schema';
 
 const devNavData = {
-	user: {
-		name: 'Engineer',
-		email: 'engineer@example.com',
-		avatar: '/avatars/shadcn.jpg',
-	},
 	navMain: [
 		{
 			title: 'Challenges',
-			url: '#',
-			isActive: true,
+			url: '/challenge',
 			icon: Terminal,
 			items: [
 				{
 					title: 'All',
-					url: '#',
+					url: '/challenge/challenge-board',
 				},
 				{
 					title: 'My Challenges',
-					url: '#',
+					url: '/challenge/my-challenges',
 					items: [
 						{
 							title: 'Ongoing',
-							url: '#',
+							url: '/challenge/my-challenges/ongoing',
 						},
 						{
 							title: 'Completed',
-							url: '#',
+							url: '/challenge/my-challenges/completed',
 						},
 					],
 				},
@@ -141,32 +135,26 @@ const devNavData = {
 };
 
 const companyNavData = {
-	user: {
-		name: 'Company Admin',
-		email: 'company_admin@example.com',
-		avatar: '/avatars/shadcn.jpg',
-	},
 	navMain: [
 		{
 			title: 'Challenge',
-			url: '#',
-			isActive: true,
+			url: '/challenge',
 			icon: CodeXml,
 			items: [
 				{
 					title: 'Generate',
 					icon: Terminal,
-					url: '#',
+					url: '/challenge/generate',
 				},
 				{
 					title: 'Published',
 					icon: ScreenShare,
-					url: '#',
+					url: '/challenge/published',
 				},
 				{
 					title: 'Candidates',
 					icon: UserPen,
-					url: '#',
+					url: '/challenge/candidates',
 				},
 			],
 		},
@@ -285,7 +273,7 @@ export function AppSidebar({
 				/>
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={currentUser.role === 'engineer' ? devNavData.user : companyNavData.user} />
+				<NavUser user={currentUser} />
 			</SidebarFooter>
 		</Sidebar>
 	);

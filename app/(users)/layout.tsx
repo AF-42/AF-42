@@ -14,10 +14,7 @@ import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
 
-export default async function Layout({
-	children,
-	...props
-}: { children: React.ReactNode } & React.ComponentProps<typeof AppSidebar>) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	// todo: redirect to proper page if user is not authenticated
 	if (!(await isAuthenticated())) {
