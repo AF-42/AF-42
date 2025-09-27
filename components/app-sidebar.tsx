@@ -3,24 +3,18 @@
 import * as React from 'react';
 import {
 	BookOpen,
-	Bot,
-	Code,
 	Command,
-	Frame,
 	LayoutDashboardIcon,
-	LifeBuoy,
-	List,
-	Map,
-	PieChart,
 	Send,
-	Settings2,
-	SquareTerminal,
-	Activity,
 	Terminal,
 	CodeXml,
-	LoaderCircle,
-	CheckCircle,
-	XCircle,
+	Bug,
+	InfoIcon,
+	User,
+	ScreenShare,
+	UserPen,
+	Building2,
+	ContactRound,
 } from 'lucide-react';
 import { NavMain } from '@/components/nav-main';
 import { NavSecondary } from '@/components/nav-secondary';
@@ -34,39 +28,53 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { usersTable } from '@/db/schema';
 
-const data = {
+const devNavData = {
 	user: {
-		name: 'shadcn',
-		email: 'm@example.com',
+		name: 'Engineer',
+		email: 'engineer@example.com',
 		avatar: '/avatars/shadcn.jpg',
 	},
 	navMain: [
 		{
+			title: 'Challenges',
+			url: '#',
+			isActive: true,
+			icon: Terminal,
+			items: [
+				{
+					title: 'All',
+					url: '#',
+				},
+				{
+					title: 'My Challenges',
+					url: '#',
+					items: [
+						{
+							title: 'Ongoing',
+							url: '#',
+						},
+						{
+							title: 'Completed',
+							url: '#',
+						},
+					],
+				},
+			],
+		},
+		{
 			title: 'Dashboard',
 			url: '/dashboard',
 			icon: LayoutDashboardIcon,
-			isActive: true,
-		},
-		{
-			title: 'My Challenges',
-			url: '#',
-			icon: CodeXml,
 			items: [
 				{
-					title: 'Ongoing',
+					title: 'Profile',
 					url: '#',
-					icon: LoaderCircle,
 				},
 				{
-					title: 'Completed',
+					title: 'Settings',
 					url: '#',
-					icon: CheckCircle,
-				},
-				{
-					title: 'Failed',
-					url: '#',
-					icon: XCircle,
 				},
 			],
 		},
@@ -93,24 +101,165 @@ const data = {
 				},
 			],
 		},
+		{
+			// todo: add resources like blog posts, videos, links, etc.??
+			title: 'Resources',
+			url: '#',
+			icon: InfoIcon,
+			items: [
+				{
+					title: 'Introduction',
+					url: '#',
+				},
+				{
+					title: 'Get Started',
+					url: '#',
+				},
+				{
+					title: 'Tutorials',
+					url: '#',
+				},
+				{
+					title: 'Changelog',
+					url: '#',
+				},
+			],
+		},
 	],
 	navSecondary: [
 		{
-			title: 'Support',
+			title: 'Bug Report',
 			url: '#',
-			icon: LifeBuoy,
+			icon: Bug,
 		},
 		{
-			title: 'Feedback',
+			title: 'Feature Request',
 			url: '#',
 			icon: Send,
 		},
 	],
 };
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+const companyNavData = {
+	user: {
+		name: 'Company Admin',
+		email: 'company_admin@example.com',
+		avatar: '/avatars/shadcn.jpg',
+	},
+	navMain: [
+		{
+			title: 'Challenge',
+			url: '#',
+			isActive: true,
+			icon: CodeXml,
+			items: [
+				{
+					title: 'Generate',
+					icon: Terminal,
+					url: '#',
+				},
+				{
+					title: 'Published',
+					icon: ScreenShare,
+					url: '#',
+				},
+				{
+					title: 'Candidates',
+					icon: UserPen,
+					url: '#',
+				},
+			],
+		},
+		{
+			title: 'Dashboard',
+			url: '/dashboard',
+			icon: LayoutDashboardIcon,
+			items: [
+				{
+					title: 'Profile',
+					icon: User,
+					url: '#',
+				},
+				{
+					title: 'Company Profile',
+					icon: Building2,
+					url: '#',
+				},
+				{
+					title: 'Members',
+					icon: ContactRound,
+					url: '#',
+				},
+			],
+		},
+		{
+			title: 'Documentation',
+			url: '#',
+			icon: BookOpen,
+			items: [
+				{
+					title: 'Introduction',
+					url: '#',
+				},
+				{
+					title: 'Get Started',
+					url: '#',
+				},
+				{
+					title: 'Tutorials',
+					url: '#',
+				},
+				{
+					title: 'Changelog',
+					url: '#',
+				},
+			],
+		},
+		{
+			// todo: add resources like blog posts, videos, links, etc.??
+			title: 'Resources',
+			url: '#',
+			icon: InfoIcon,
+			items: [
+				{
+					title: 'Introduction',
+					url: '#',
+				},
+				{
+					title: 'Get Started',
+					url: '#',
+				},
+				{
+					title: 'Tutorials',
+					url: '#',
+				},
+				{
+					title: 'Changelog',
+					url: '#',
+				},
+			],
+		},
+	],
+	navSecondary: [
+		{
+			title: 'Bug Report',
+			url: '#',
+			icon: Bug,
+		},
+		{
+			title: 'Feature Request',
+			url: '#',
+			icon: Send,
+		},
+	],
+};
+
+export function AppSidebar({
+	currentUser,
+}: React.ComponentProps<typeof Sidebar> & { currentUser: typeof usersTable.$inferSelect }) {
+	console.log('currentUser', currentUser.role);
 	return (
-		<Sidebar variant="inset" {...props}>
+		<Sidebar variant="inset">
 			<SidebarHeader>
 				<SidebarMenu>
 					<SidebarMenuItem>
@@ -120,8 +269,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 									<Command className="size-4" />
 								</div>
 								<div className="grid flex-1 text-left text-sm leading-tight">
-									<span className="truncate font-medium">Acme Inc</span>
-									<span className="truncate text-xs">Enterprise</span>
+									<span className="truncate font-medium">{currentUser.username}</span>
+									<span className="truncate text-xs">{currentUser.role}</span>
 								</div>
 							</a>
 						</SidebarMenuButton>
@@ -129,11 +278,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 				</SidebarMenu>
 			</SidebarHeader>
 			<SidebarContent>
-				<NavMain items={data.navMain} />
-				<NavSecondary items={data.navSecondary} className="mt-auto" />
+				<NavMain items={currentUser.role === 'engineer' ? devNavData.navMain : companyNavData.navMain} />
+				<NavSecondary
+					items={currentUser.role === 'engineer' ? devNavData.navSecondary : companyNavData.navSecondary}
+					className="mt-auto"
+				/>
 			</SidebarContent>
 			<SidebarFooter>
-				<NavUser user={data.user} />
+				<NavUser user={currentUser.role === 'engineer' ? devNavData.user : companyNavData.user} />
 			</SidebarFooter>
 		</Sidebar>
 	);
