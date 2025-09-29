@@ -61,12 +61,6 @@ export function TaskGeneratorFormFromFileUpload() {
 		},
 	});
 
-	// Handle JSON config changes from DataSelectionComponent
-	const handleJsonChange = (json: string) => {
-		setJsonConfig(json);
-		form.setValue('jsonConfig', json);
-	};
-
 	// Automatically extract tech stack from formatted text and merge with existing JSON config
 	const extractAndMergeTechStack = async (formattedText: string, existingJsonConfig: string) => {
 		if (!formattedText || formattedText.trim() === '') {
@@ -310,11 +304,7 @@ export function TaskGeneratorFormFromFileUpload() {
 									<pre className="text-sm font-mono whitespace-pre-wrap overflow-auto">
 										{jsonConfig}
 									</pre>
-								) : (
-									<div className="flex items-center justify-center h-full text-muted-foreground">
-										Select items from the data selection component above to generate JSON config
-									</div>
-								)}
+								) : null}
 							</div>
 						</FormControl>
 					</FormItem>
