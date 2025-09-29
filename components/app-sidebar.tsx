@@ -33,7 +33,7 @@ import {
 	SidebarMenuButton,
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { usersTable } from '@/db/schema';
+import { usersTable } from '@/db/schema/users';
 
 const devNavData = {
 	navMain: [

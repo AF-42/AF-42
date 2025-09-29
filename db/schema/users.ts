@@ -14,6 +14,8 @@ export const usersTable = sqliteTable('users', {
 	is_password_reset_requested: integer('is_password_reset_requested', { mode: 'boolean' }).notNull(),
 	is_suspended: integer('is_suspended', { mode: 'boolean' }).notNull(),
 	role: text('role').notNull().default(''),
+	user_since: integer('user_since', { mode: 'timestamp' }).notNull(),
+	last_login: integer('last_login', { mode: 'timestamp' }).notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' })
 		.notNull()
 		.$defaultFn(() => new Date()),

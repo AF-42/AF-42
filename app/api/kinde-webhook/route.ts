@@ -48,6 +48,8 @@ export async function POST(req: Request) {
 					is_password_reset_requested: user.is_password_reset_requested,
 					is_suspended: user.is_suspended,
 					role: '',
+					user_since: new Date(),
+					last_login: new Date(),
 					created_at: new Date(),
 					updated_at: new Date(),
 				});
