@@ -17,6 +17,8 @@ export const companiesTable = sqliteTable('companies', {
 	description: text('description', { length: 255 }).notNull(),
 	logo: text('logo', { length: 255 }).notNull(),
 	banner: text('banner', { length: 255 }).notNull(),
+	owner_id: text('owner_id', { length: 255 }).notNull(),
+	members: text('members', { length: 255 }).notNull(),
 	created_at: integer('created_at', { mode: 'timestamp' })
 		.notNull()
 		.$defaultFn(() => new Date()),
