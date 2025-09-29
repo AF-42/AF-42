@@ -2,9 +2,21 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
 import { eq } from 'drizzle-orm';
+import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 export async function PUT(request: NextRequest) {
 	try {
+		const { getUser, isAuthenticated } = getKindeServerSession();
+
+		if (!(await isAuthenticated())) {
+			return NextResponse.json({ error: 'User not authenticated' }, { status: 401 });
+		}
+
+		const user = await getUser();
+		if (!user?.id) {
+			return NextResponse.json({ error: 'User ID not found' }, { status: 400 });
+		}
+
 		const body = await request.json();
 
 		const { name, email, country, city, industry, description, website, phone, logo, banner, owner_id, members } =

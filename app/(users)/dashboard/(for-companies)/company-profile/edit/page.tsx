@@ -32,19 +32,6 @@ const companyProfileSchema = z.object({
 
 type CompanyProfileForm = z.infer<typeof companyProfileSchema>;
 
-// Sample data - replace with actual data fetching
-const initialData: CompanyProfileForm = {
-	name: 'Enter company name here',
-	email: 'Enter company email here',
-	country: 'Select country',
-	city: 'Select city',
-	industry: 'Select industry',
-	description: 'Enter company description here',
-	website: 'https://company.com',
-	logo: '',
-	banner: '',
-};
-
 const industries = [
 	'Technology',
 	'Healthcare',
@@ -97,7 +84,18 @@ export default function EditCompanyProfilePage() {
 
 	const form = useForm<CompanyProfileForm>({
 		resolver: zodResolver(companyProfileSchema),
-		defaultValues: initialData,
+		defaultValues: {
+			name: '',
+			email: '',
+			country: '',
+			city: '',
+			industry: '',
+			description: '',
+			website: '',
+			phone: '',
+			logo: '',
+			banner: '',
+		},
 	});
 
 	// Fetch company data on component mount
@@ -118,7 +116,7 @@ export default function EditCompanyProfilePage() {
 					if (response.status === 404) {
 						// Company not found - use initial data for new company
 						setCompanyData(null);
-						form.reset(initialData);
+						form.reset(form.getValues());
 						return;
 					}
 					throw new Error('Failed to fetch company data');
@@ -143,7 +141,7 @@ export default function EditCompanyProfilePage() {
 					form.reset(formattedData);
 				} else {
 					setCompanyData(null);
-					form.reset(initialData);
+					form.reset(form.getValues());
 				}
 			} catch (err) {
 				console.error('Error fetching company data:', err);

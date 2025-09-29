@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, Phone, ExternalLink } from 'lucide-react';
+import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, ExternalLink } from 'lucide-react';
 
 // Company profile data type
 interface CompanyProfile {
@@ -17,13 +17,14 @@ interface CompanyProfile {
 	industry: string;
 	description: string;
 	website: string;
-	phone: string;
 	logo: string;
 	banner: string;
+	phone: string;
 }
 
 export default function CompanyProfilePage() {
 	const { user, isAuthenticated } = useKindeBrowserClient();
+	console.log('[user]', user);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [companyData, setCompanyData] = useState<CompanyProfile | null>(null);
@@ -33,6 +34,8 @@ export default function CompanyProfilePage() {
 	useEffect(() => {
 		const fetchCompanyData = async () => {
 			if (!isAuthenticated || !user?.id) {
+				console.log('[isAuthenticated]', isAuthenticated);
+
 				setIsLoading(false);
 				return;
 			}
@@ -42,6 +45,7 @@ export default function CompanyProfilePage() {
 				setError(null);
 
 				const response = await fetch('/api/companies/profile/user');
+				console.log('[response]', response);
 
 				if (!response.ok) {
 					if (response.status === 404) {
@@ -63,9 +67,9 @@ export default function CompanyProfilePage() {
 						industry: company.industry || '',
 						description: company.description || '',
 						website: company.website || '',
-						phone: company.phone || '',
 						logo: company.logo || '',
 						banner: company.banner || '',
+						phone: company.phone || '',
 					};
 					setCompanyData(formattedData);
 				} else {
@@ -243,15 +247,6 @@ export default function CompanyProfilePage() {
 										>
 											{companyData.website}
 										</a>
-									</div>
-								</div>
-							)}
-							{companyData.phone && (
-								<div className="flex items-center gap-2">
-									<Phone className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Phone</p>
-										<p className="text-sm">{companyData.phone}</p>
 									</div>
 								</div>
 							)}
