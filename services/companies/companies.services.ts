@@ -111,4 +111,20 @@ export const companiesService = {
 		}
 		return database.select().from(companiesTable).where(eq(companiesTable.updated_at, updatedAt));
 	},
+	getCompanyMembers: async (companyId: string) => {
+		const database = db;
+		if (!database) {
+			throw new Error('Database not found');
+		}
+
+		// Get all members of the company with their user details
+		return database
+			.select({
+				member: companyMembersTable,
+				user: usersTable,
+			})
+			.from(companyMembersTable)
+			.innerJoin(usersTable, eq(companyMembersTable.user_id, usersTable.id))
+			.where(eq(companyMembersTable.company_id, companyId));
+	},
 };
