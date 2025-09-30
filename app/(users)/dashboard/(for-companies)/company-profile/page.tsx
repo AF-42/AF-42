@@ -18,8 +18,6 @@ interface CompanyProfile {
 	description: string;
 	website: string;
 	logo: string;
-	banner: string;
-	phone: string;
 }
 
 export default function CompanyProfilePage() {
@@ -65,8 +63,6 @@ export default function CompanyProfilePage() {
 						description: company.description || '',
 						website: company.website || '',
 						logo: company.logo || '',
-						banner: company.banner || '',
-						phone: company.phone || '',
 					};
 					setCompanyData(formattedData);
 				} else {
