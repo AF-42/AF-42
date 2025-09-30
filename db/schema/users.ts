@@ -10,7 +10,6 @@ export const usersTable = sqliteTable('users', {
 	username: text('username', { length: 255 }).notNull().unique(),
 	email: text('email', { length: 255 }).notNull().unique(),
 	organizations: text('organizations'),
-	phone: text('phone'),
 	is_password_reset_requested: integer('is_password_reset_requested', { mode: 'boolean' }).notNull(),
 	is_suspended: integer('is_suspended', { mode: 'boolean' }).notNull(),
 	role: text('role').notNull().default(''),

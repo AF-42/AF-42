@@ -92,9 +92,7 @@ export default function EditCompanyProfilePage() {
 			industry: '',
 			description: '',
 			website: '',
-			phone: '',
 			logo: '',
-			banner: '',
 		},
 	});
 
@@ -191,18 +189,6 @@ export default function EditCompanyProfilePage() {
 		}
 	};
 
-	const handleBannerUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				setBannerPreview(e.target?.result as string);
-				form.setValue('banner', e.target?.result as string);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
-
 	const handleCancel = () => {
 		router.push('/dashboard/company-profile');
 	};
@@ -272,55 +258,6 @@ export default function EditCompanyProfilePage() {
 
 				<Form {...form}>
 					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-						{/* Banner Section */}
-						<Card>
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Globe className="h-5 w-5" />
-									Company Banner
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="space-y-4">
-									<div className="relative">
-										<div className="aspect-[3/1] w-full rounded-lg border-2 border-dashed border-muted-foreground/25 bg-muted/10 flex items-center justify-center overflow-hidden">
-											{bannerPreview || form.watch('banner') ? (
-												<img
-													src={bannerPreview || form.watch('banner')}
-													alt="Company banner"
-													className="w-full h-full object-cover"
-												/>
-											) : (
-												<div className="text-center">
-													<Upload className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-													<p className="text-sm text-muted-foreground">
-														Upload company banner
-													</p>
-												</div>
-											)}
-										</div>
-										<div className="absolute top-2 right-2">
-											<input
-												type="file"
-												accept="image/*"
-												onChange={handleBannerUpload}
-												className="hidden"
-												id="banner-upload"
-											/>
-											<Button
-												type="button"
-												size="sm"
-												variant="secondary"
-												onClick={() => document.getElementById('banner-upload')?.click()}
-											>
-												<Upload className="h-4 w-4" />
-											</Button>
-										</div>
-									</div>
-								</div>
-							</CardContent>
-						</Card>
-
 						{/* Company Information */}
 						<Card>
 							<CardHeader>
