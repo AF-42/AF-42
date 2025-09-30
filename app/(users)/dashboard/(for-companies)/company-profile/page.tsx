@@ -44,7 +44,6 @@ export default function CompanyProfilePage() {
 				if (!response.ok) {
 					if (response.status === 404) {
 						// Company not found - redirect to create/edit page
-						console.log('[!response from company-profile/page]', response);
 						router.push('/dashboard/company-profile/edit');
 						return;
 					}
