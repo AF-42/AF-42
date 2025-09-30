@@ -1,3 +1,11 @@
+/**
+ * API endpoint to retrieve a company profile associated with the authenticated user.
+ * This route fetches the company information for the currently logged-in user by first
+ * authenticating the user through Kinde, then looking up their user record, and finally
+ * retrieving the associated company profile. Returns the company data if found, or appropriate
+ * error responses for authentication failures or missing records.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { companiesService } from '@/services/companies/companies.services';
 import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
@@ -25,7 +33,6 @@ export async function GET(request: NextRequest) {
 
 		// Get company by user ID
 		const companyResult = await companiesService.getCompanyByUserId(userResult[0].id);
-
 		if (!companyResult || companyResult.length === 0) {
 			return NextResponse.json(
 				{
@@ -35,7 +42,6 @@ export async function GET(request: NextRequest) {
 				{ status: 404 },
 			);
 		}
-
 		return NextResponse.json({
 			success: true,
 			company: companyResult[0].company,

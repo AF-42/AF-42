@@ -1,8 +1,20 @@
+/**
+ * API endpoint for managing company profiles with both PUT and GET operations.
+ * PUT: Creates a new company profile or updates an existing one based on email lookup.
+ *      Requires authentication and validates all required fields including name, email,
+ *      location, industry, description, owner_id, and members. GET: Retrieves a company
+ *      profile by email query parameter. Both operations handle authentication through Kinde
+ *      and provide appropriate error responses for validation failures or missing data.
+ */
+
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
+import { companyMembersTable } from '@/db/schema/members';
+import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
 import { eq } from 'drizzle-orm';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
+import { updateUserCompanyId } from '@/controllers/users/updateUserCompanyId.controller';
 
 export async function PUT(request: NextRequest) {
 	try {
@@ -17,10 +29,19 @@ export async function PUT(request: NextRequest) {
 			return NextResponse.json({ error: 'User ID not found' }, { status: 400 });
 		}
 
-		const body = await request.json();
+		const userResult = await getUserByKindeIdController(user.id);
+		console.log('[userResult from create/update company route]', userResult);
+		if (!userResult || userResult.length === 0) {
+			return NextResponse.json({ error: 'User not found' }, { status: 404 });
+		}
 
-		const { name, email, country, city, industry, description, website, phone, logo, banner, owner_id, members } =
-			body;
+		const body = await request.json();
+		const owner_id = userResult[0].id;
+		const members = userResult.map((user) => user.id);
+		console.log('[owner_id from create/update company route]', owner_id);
+		console.log('[members from create/update company route]', members);
+
+		const { name, email, country, city, industry, description, website, logo } = body;
 
 		// Validate required fields
 		if (!name || !email || !country || !city || !industry || !description || !owner_id || !members) {
@@ -43,16 +64,24 @@ export async function PUT(request: NextRequest) {
 					industry,
 					description,
 					website: website || '',
-					phone: phone || '',
 					logo: logo || '',
-					banner: banner || '',
-					address: '', // You might want to add this field
-					state: '', // You might want to add this field
-					zip: '', // You might want to add this field
+					address: '',
+					state: '',
+					zip: '',
 					owner_id: owner_id,
 					members: members,
 				})
 				.returning();
+
+			// Update user's organization field
+			await updateUserCompanyId(userResult[0].id, newCompany[0].id);
+
+			// Insert company member record
+			await db.insert(companyMembersTable).values({
+				company_id: newCompany[0].id,
+				user_id: owner_id,
+				is_admin: true,
+			});
 
 			return NextResponse.json({
 				success: true,
@@ -69,9 +98,7 @@ export async function PUT(request: NextRequest) {
 					industry,
 					description,
 					website: website || '',
-					phone: phone || '',
 					logo: logo || '',
-					banner: banner || '',
 					owner_id: owner_id,
 					members: members,
 					updated_at: new Date(),

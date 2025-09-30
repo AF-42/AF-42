@@ -255,7 +255,6 @@ const companyNavData = {
 export function AppSidebar({
 	currentUser,
 }: React.ComponentProps<typeof Sidebar> & { currentUser: typeof usersTable.$inferSelect }) {
-	console.log('currentUser', currentUser.role);
 	return (
 		<Sidebar variant="inset">
 			<SidebarHeader>

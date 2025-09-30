@@ -169,9 +169,6 @@ export default function EditCompanyProfilePage() {
 				throw new Error('Failed to save company profile');
 			}
 
-			const result = await response.json();
-			console.log('Company profile saved:', result);
-
 			// Redirect to the profile page after successful save
 			router.push('/dashboard/company-profile');
 		} catch (error) {

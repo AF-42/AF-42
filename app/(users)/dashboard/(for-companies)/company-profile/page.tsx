@@ -24,7 +24,6 @@ interface CompanyProfile {
 
 export default function CompanyProfilePage() {
 	const { user, isAuthenticated } = useKindeBrowserClient();
-	console.log('[user]', user);
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [companyData, setCompanyData] = useState<CompanyProfile | null>(null);
@@ -43,11 +42,11 @@ export default function CompanyProfilePage() {
 				setError(null);
 
 				const response = await fetch('/api/companies/profile/user');
-				console.log('[response]', response);
 
 				if (!response.ok) {
 					if (response.status === 404) {
 						// Company not found - redirect to create/edit page
+						console.log('[!response from company-profile/page]', response);
 						router.push('/dashboard/company-profile/edit');
 						return;
 					}
@@ -150,32 +149,6 @@ export default function CompanyProfilePage() {
 						Edit Profile
 					</Button>
 				</div>
-
-				{/* Banner Section */}
-				<Card>
-					<CardHeader>
-						<CardTitle className="flex items-center gap-2">
-							<Globe className="h-5 w-5" />
-							Company Banner
-						</CardTitle>
-					</CardHeader>
-					<CardContent>
-						<div className="aspect-[3/1] w-full rounded-lg border bg-muted/10 flex items-center justify-center overflow-hidden">
-							{companyData.banner ? (
-								<img
-									src={companyData.banner}
-									alt="Company banner"
-									className="w-full h-full object-cover"
-								/>
-							) : (
-								<div className="text-center">
-									<Globe className="h-8 w-8 mx-auto mb-2 text-muted-foreground" />
-									<p className="text-sm text-muted-foreground">No banner uploaded</p>
-								</div>
-							)}
-						</div>
-					</CardContent>
-				</Card>
 
 				{/* Company Information */}
 				<Card>

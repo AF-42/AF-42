@@ -104,4 +104,11 @@ export const usersService = {
 		}
 		return database.update(usersTable).set({ role }).where(eq(usersTable.kinde_id, kindeId));
 	},
+	updateUserCompanyId: async (userId: string, companyId: string) => {
+		const database = db;
+		if (!database) {
+			throw new Error('Database not found');
+		}
+		return database.update(usersTable).set({ organizations: companyId }).where(eq(usersTable.id, userId));
+	},
 };

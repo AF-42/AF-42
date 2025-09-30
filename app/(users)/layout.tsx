@@ -18,7 +18,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
 	const userKindeId = user?.id;
 
 	const currentUser = await getUserByKindeIdController(userKindeId || '');
-	console.log('currentUser', currentUser);
 
 	return (
 		<AuthProvider>

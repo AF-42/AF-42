@@ -1,6 +1,7 @@
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
 import { companyMembersTable } from '@/db/schema/members';
+import { usersTable } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 
 export const companiesService = {
@@ -37,8 +38,9 @@ export const companiesService = {
 		if (!database) {
 			throw new Error('Database not found');
 		}
-		// Join company_members with companies to get company data for a user
-		return database
+
+		// First try to get company through company_members table
+		const companyFromMembers = await database
 			.select({
 				company: companiesTable,
 			})
@@ -46,6 +48,26 @@ export const companiesService = {
 			.innerJoin(companiesTable, eq(companyMembersTable.company_id, companiesTable.id))
 			.where(eq(companyMembersTable.user_id, userId))
 			.limit(1);
+
+		if (companyFromMembers.length > 0) {
+			return companyFromMembers;
+		}
+
+		// Fallback: check if user has organization field set and get company by that ID
+		const user = await database.select().from(usersTable).where(eq(usersTable.id, userId)).limit(1);
+		if (user.length > 0 && user[0].organizations) {
+			const companyFromOrg = await database
+				.select({
+					company: companiesTable,
+				})
+				.from(companiesTable)
+				.where(eq(companiesTable.id, user[0].organizations))
+				.limit(1);
+
+			return companyFromOrg;
+		}
+
+		return [];
 	},
 	getCompanyByAddress: async (address: string) => {
 		const database = db;
@@ -53,13 +75,6 @@ export const companiesService = {
 			throw new Error('Database not found');
 		}
 		return database.select().from(companiesTable).where(eq(companiesTable.address, address));
-	},
-	getCompanyByPhone: async (phone: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(companiesTable).where(eq(companiesTable.phone, phone));
 	},
 	getCompanyByWebsite: async (website: string) => {
 		const database = db;
