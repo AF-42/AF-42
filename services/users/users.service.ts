@@ -52,13 +52,6 @@ export const usersService = {
 		}
 		return database.select().from(usersTable).where(eq(usersTable.organizations, organizations));
 	},
-	getUserByPhone: async (phone: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(usersTable).where(eq(usersTable.phone, phone));
-	},
 	getUserByIsPasswordResetRequested: async (isPasswordResetRequested: boolean) => {
 		const database = db;
 		if (!database) {
@@ -110,5 +103,16 @@ export const usersService = {
 			throw new Error('Database not found');
 		}
 		return database.update(usersTable).set({ organizations: companyId }).where(eq(usersTable.id, userId));
+	},
+	updateUser: async (userId: string, userData: Partial<typeof usersTable.$inferInsert>) => {
+		const database = db;
+		if (!database) {
+			throw new Error('Database not found');
+		}
+		return database
+			.update(usersTable)
+			.set({ ...userData, updated_at: new Date() })
+			.where(eq(usersTable.id, userId))
+			.returning();
 	},
 };
