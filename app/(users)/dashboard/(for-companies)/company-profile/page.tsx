@@ -34,8 +34,6 @@ export default function CompanyProfilePage() {
 	useEffect(() => {
 		const fetchCompanyData = async () => {
 			if (!isAuthenticated || !user?.id) {
-				console.log('[isAuthenticated]', isAuthenticated);
-
 				setIsLoading(false);
 				return;
 			}
