@@ -44,7 +44,6 @@ export async function POST(req: Request) {
 					last_name: user.last_name,
 					username: user.username,
 					organizations: user.organizations,
-					phone: user.phone,
 					is_password_reset_requested: user.is_password_reset_requested,
 					is_suspended: user.is_suspended,
 					role: '',
