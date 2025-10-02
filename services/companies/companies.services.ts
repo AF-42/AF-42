@@ -1,6 +1,6 @@
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
-import { companyMembersTable } from '@/db/schema/members';
+import { companyMembersTable } from '@/db/schema/company-members';
 import { usersTable } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 

@@ -161,11 +161,6 @@ const companyNavData = {
 					icon: ScreenShare,
 					url: '/challenge/published',
 				},
-				{
-					title: 'Candidates',
-					icon: UserPen,
-					url: '/challenge/candidates',
-				},
 			],
 		},
 		{
