@@ -8,13 +8,12 @@
 'use client';
 
 import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { FileUploaderComponent } from './file-uploader.component';
 import { type TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatFileSize } from '@/lib/file-utils';
-import { Loader2, FileText, AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 
 interface FileTextExtractorProps {
 	onTextExtracted?: (result: TextExtractionResult) => void;
