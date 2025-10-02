@@ -5,12 +5,15 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Form } from '@/components/ui/form';
 import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/generate/action';
 import { useState } from 'react';
 import { FileTextExtractor } from '@/components/file-text-extractor.component';
 import { TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Progress } from '@/components/ui/progress';
+import { CheckCircle, AlertCircle, Loader2, FileText, Zap } from 'lucide-react';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
@@ -40,6 +43,25 @@ const formSchema = z.object({
 	jsonConfig: z.string().optional(),
 });
 
+// Define the automated processing steps
+interface ProcessingStep {
+	id: string;
+	name: string;
+	description: string;
+	status: 'pending' | 'in_progress' | 'completed' | 'error';
+	error?: string;
+}
+
+interface AutomatedProcessingState {
+	isProcessing: boolean;
+	currentStep: number;
+	totalSteps: number;
+	steps: ProcessingStep[];
+	progress: number;
+	error: string | null;
+	result: string | null;
+}
+
 export function TaskGeneratorFormFromFileUpload() {
 	const [result, setResult] = useState<string | null>(null);
 	const [jsonConfig, setJsonConfig] = useState<string>('');
@@ -50,6 +72,43 @@ export function TaskGeneratorFormFromFileUpload() {
 	const [isExtractingTechStack, setIsExtractingTechStack] = useState<boolean>(false);
 	const [techStackError, setTechStackError] = useState<string | null>(null);
 	const [extractedTechStack, setExtractedTechStack] = useState<StackSelectionJson | null>(null);
+	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+	// Automated processing state
+	const [processingState, setProcessingState] = useState<AutomatedProcessingState>({
+		isProcessing: false,
+		currentStep: 0,
+		totalSteps: 4,
+		steps: [
+			{
+				id: 'extract',
+				name: 'Extract Text',
+				description: 'Extracting text from uploaded file',
+				status: 'pending',
+			},
+			{
+				id: 'translate',
+				name: 'Translate Text',
+				description: 'Translating extracted text to English',
+				status: 'pending',
+			},
+			{
+				id: 'tech_stack',
+				name: 'Extract Tech Stack',
+				description: 'Analyzing and extracting technical requirements',
+				status: 'pending',
+			},
+			{
+				id: 'generate',
+				name: 'Generate Challenge',
+				description: 'Creating the final technical challenge',
+				status: 'pending',
+			},
+		],
+		progress: 0,
+		error: null,
+		result: null,
+	});
 
 	// 1. Define your form.
 	const form = useForm<z.infer<typeof formSchema>>({
@@ -61,261 +120,289 @@ export function TaskGeneratorFormFromFileUpload() {
 		},
 	});
 
-	// Automatically extract tech stack from formatted text and merge with existing JSON config
-	const extractAndMergeTechStack = async (formattedText: string, existingJsonConfig: string) => {
-		if (!formattedText || formattedText.trim() === '') {
+	// Helper function to update processing state
+	const updateProcessingState = (updates: Partial<AutomatedProcessingState>) => {
+		setProcessingState((prev) => {
+			const newState = { ...prev, ...updates };
+			// Calculate progress based on completed steps
+			const completedSteps = newState.steps.filter((step) => step.status === 'completed').length;
+			newState.progress = (completedSteps / newState.totalSteps) * 100;
+			return newState;
+		});
+	};
+
+	// Helper function to update a specific step
+	const updateStep = (stepId: string, updates: Partial<ProcessingStep>) => {
+		setProcessingState((prev) => ({
+			...prev,
+			steps: prev.steps.map((step) => (step.id === stepId ? { ...step, ...updates } : step)),
+		}));
+	};
+
+	// Main automated processing function
+	const handleAutomatedProcessing = async () => {
+		if (!selectedFile) {
+			updateProcessingState({ error: 'Please select a file first' });
 			return;
 		}
 
-		setIsExtractingTechStack(true);
-		setTechStackError(null);
+		// Reset state and start processing
+		updateProcessingState({
+			isProcessing: true,
+			currentStep: 0,
+			progress: 0,
+			error: null,
+			result: null,
+			steps: processingState.steps.map((step) => ({ ...step, status: 'pending', error: undefined })),
+		});
 
 		try {
-			// Call the API route to extract tech stack
-			const response = await fetch('/api/extract-tech-stack', {
+			// Step 1: Extract text from file
+			updateStep('extract', { status: 'in_progress' });
+			const formData = new FormData();
+			formData.append('file', selectedFile);
+
+			const extractResponse = await fetch('/api/extract-text', {
 				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
+				body: formData,
+			});
+
+			if (!extractResponse.ok) {
+				const errorData = await extractResponse.json();
+				throw new Error(errorData.error || 'Failed to extract text');
+			}
+
+			const extractResult: TextExtractionResult = await extractResponse.json();
+			if (!extractResult.success) {
+				throw new Error(extractResult.error || 'Text extraction failed');
+			}
+
+			setExtractedText(extractResult.extractedText);
+			updateStep('extract', { status: 'completed' });
+
+			// Step 2: Translate text
+			updateStep('translate', { status: 'in_progress' });
+			const translateResponse = await fetch('/api/translate-text', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ text: extractResult.extractedText }),
+			});
+
+			if (!translateResponse.ok) {
+				const errorData = await translateResponse.json();
+				throw new Error(errorData.error || 'Translation failed');
+			}
+
+			const { translatedText } = await translateResponse.json();
+			setTranslatedText(translatedText);
+			updateStep('translate', { status: 'completed' });
+
+			// Step 3: Extract tech stack
+			updateStep('tech_stack', { status: 'in_progress' });
+			const formattedText = formatTextToMarkdown(translatedText);
+
+			const techStackResponse = await fetch('/api/extract-tech-stack', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
 					formattedText,
-					existingJsonConfig,
+					existingJsonConfig: jsonConfig,
 				}),
 			});
 
-			if (!response.ok) {
-				const errorData = await response.json();
+			if (!techStackResponse.ok) {
+				const errorData = await techStackResponse.json();
 				throw new Error(errorData.error || 'Tech stack extraction failed');
 			}
 
-			const result = await response.json();
-
-			if (result.success && result.techStack) {
-				setExtractedTechStack(result.techStack);
-
-				// Update the JSON config with the extracted tech stack
-				const mergedJsonString = JSON.stringify(result.techStack, null, 2);
-				setJsonConfig(mergedJsonString);
-				form.setValue('jsonConfig', mergedJsonString);
-
-				console.log('✅ Tech stack extracted and merged successfully:', result.techStack);
-			} else {
-				setTechStackError(result.error || 'Failed to extract tech stack');
-				console.error('❌ Tech stack extraction failed:', result.error);
+			const techStackResult = await techStackResponse.json();
+			if (!techStackResult.success) {
+				throw new Error(techStackResult.error || 'Failed to extract tech stack');
 			}
+
+			setExtractedTechStack(techStackResult.techStack);
+			const mergedJsonString = JSON.stringify(techStackResult.techStack, null, 2);
+			setJsonConfig(mergedJsonString);
+			updateStep('tech_stack', { status: 'completed' });
+
+			// Step 4: Generate challenge
+			updateStep('generate', { status: 'in_progress' });
+			const challengeResult = await createTechChallenge(extractResult.extractedText, mergedJsonString);
+			setResult(challengeResult);
+			updateStep('generate', { status: 'completed' });
+
+			// Mark processing as complete
+			updateProcessingState({
+				isProcessing: false,
+				result: challengeResult,
+			});
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
-			setTechStackError(errorMessage);
-			console.error('❌ Tech stack extraction error:', error);
-		} finally {
-			setIsExtractingTechStack(false);
+			updateProcessingState({
+				isProcessing: false,
+				error: errorMessage,
+			});
+			console.error('Automated processing failed:', error);
 		}
 	};
 
-	// Handle text extraction result
-	const handleTextExtracted = async (result: TextExtractionResult) => {
-		if (result.success) {
-			setExtractedText(result.extractedText);
-			form.setValue('extractedText', result.extractedText);
-
-			// Automatically translate the extracted text
-			setTranslationError(null);
-			try {
-				const response = await fetch('/api/translate-text', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({ text: result.extractedText }),
-				});
-
-				if (!response.ok) {
-					const errorData = await response.json();
-					throw new Error(errorData.error || 'Translation failed');
-				}
-
-				const { translatedText } = await response.json();
-				setTranslatedText(translatedText);
-
-				const formattedText = formatTextToMarkdown(translatedText);
-
-				// Automatically extract tech stack from formatted text and merge with exiMergeTechStack(formattedText, jsonConfig);
-				const techStack = await extractAndMergeTechStack(formattedText, jsonConfig);
-			} catch (error) {
-				console.error('Translation failed:', error);
-				setTranslationError(error instanceof Error ? error.message : 'Translation failed');
-			} finally {
-				setIsTranslating(false);
-			}
-		} else {
-			setExtractedText('');
-			form.setValue('extractedText', '');
-			setTranslatedText('');
-			setTranslationError(null);
-		}
+	// Handle file selection from FileTextExtractor
+	const handleFileSelect = (file: File | null) => {
+		setSelectedFile(file);
+		// Reset all states when a new file is selected
+		setExtractedText('');
+		setTranslatedText('');
+		setJsonConfig('');
+		setExtractedTechStack(null);
+		setResult(null);
+		setTranslationError(null);
+		setTechStackError(null);
+		updateProcessingState({
+			isProcessing: false,
+			currentStep: 0,
+			progress: 0,
+			error: null,
+			result: null,
+			steps: processingState.steps.map((step) => ({ ...step, status: 'pending', error: undefined })),
+		});
 	};
-
-	// 2. Define a submit handler.
-	async function handleSubmit(formData: z.infer<typeof formSchema>) {
-		let jobOfferContent = '';
-
-		// Use extracted text if available, otherwise fall back to reading file content
-		if (formData.extractedText) {
-			jobOfferContent = formData.extractedText;
-		} else if (formData.jobOfferFile) {
-			// Read file content as fallback
-			jobOfferContent = await formData.jobOfferFile.text();
-		}
-
-		const res = await createTechChallenge(jobOfferContent, jsonConfig || '');
-		setResult(res);
-	}
 
 	return (
 		<>
 			<Form {...form}>
-				<form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-8 flex flex-col gap-4">
-					<FormField
-						control={form.control}
-						name="extractedText"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<FileTextExtractor onTextExtracted={handleTextExtracted} />
-								</FormControl>
-							</FormItem>
-						)}
-					/>
+				<form className="space-y-8 flex flex-col gap-4">
+					{/* File Upload Section */}
+					<Card>
+						<CardHeader>
+							<CardTitle className="flex items-center gap-2">
+								<FileText className="h-5 w-5" />
+								Upload Job Offer File
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<FileTextExtractor onFileSelect={handleFileSelect} />
+						</CardContent>
+					</Card>
 
-					{/* Translation Status */}
-					{(isTranslating || translatedText || translationError) && (
-						<FormItem>
-							<FormLabel>Translation Status</FormLabel>
-							<FormControl>
-								<div className="min-h-[100px] border rounded-lg p-4 bg-muted/50">
-									{isTranslating ? (
-										<div className="flex items-center justify-center h-full text-muted-foreground">
-											<div className="flex items-center gap-2">
-												<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
-												Translating extracted text...
-											</div>
-										</div>
-									) : translationError ? (
-										<div className="text-red-600 text-sm">
-											<strong>Translation Error:</strong> {translationError}
-										</div>
-									) : translatedText ? (
-										<div className="space-y-2">
-											<div className="text-sm text-green-600 font-medium">
-												✓ Translation completed successfully
-											</div>
-											<details className="group">
-												<summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground">
-													View Translated Text ({translatedText.length} characters)
-												</summary>
-												<div className="mt-2 p-3 bg-background rounded-md max-h-60 overflow-y-auto">
-													<pre className="text-xs whitespace-pre-wrap break-words">
-														{translatedText}
-													</pre>
-												</div>
-											</details>
-										</div>
-									) : null}
-								</div>
-							</FormControl>
-							<FormDescription>
-								The extracted text is automatically translated for better processing
-							</FormDescription>
-						</FormItem>
+					{/* Generate Challenge Button */}
+					{selectedFile && (
+						<Card>
+							<CardContent className="pt-6">
+								<Button
+									type="button"
+									onClick={handleAutomatedProcessing}
+									disabled={processingState.isProcessing}
+									className="w-full h-12 text-lg"
+									size="lg"
+								>
+									{processingState.isProcessing ? (
+										<>
+											<Loader2 className="h-5 w-5 animate-spin mr-2" />
+											Generating Challenge...
+										</>
+									) : (
+										<>
+											<Zap className="h-5 w-5 mr-2" />
+											Generate Challenge
+										</>
+									)}
+								</Button>
+							</CardContent>
+						</Card>
 					)}
 
-					{/* Tech Stack Extraction Status */}
-					{(isExtractingTechStack || extractedTechStack || techStackError) && (
-						<FormItem>
-							<FormLabel>Tech Stack Extraction Status</FormLabel>
-							<FormControl>
-								<div className="min-h-[100px] border rounded-lg p-4 bg-muted/50">
-									{isExtractingTechStack ? (
-										<div className="flex items-center justify-center h-full text-muted-foreground">
-											<div className="flex items-center gap-2">
-												<div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
-												Extracting tech stack from translated text...
-											</div>
-										</div>
-									) : techStackError ? (
-										<div className="text-red-600 text-sm">
-											<strong>Tech Stack Extraction Error:</strong> {techStackError}
-										</div>
-									) : extractedTechStack ? (
-										<div className="space-y-2">
-											<div className="text-sm text-green-600 font-medium">
-												✓ Tech stack extracted and merged successfully
-											</div>
-											<div className="text-xs text-muted-foreground">
-												Role: {extractedTechStack.role_title} | Seniority:{' '}
-												{extractedTechStack.seniority} | Technologies:{' '}
-												{extractedTechStack.technical_stack?.length || 0}
-											</div>
-											<details className="group">
-												<summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground">
-													View Extracted Tech Stack
-												</summary>
-												<div className="mt-2 p-3 bg-background rounded-md max-h-60 overflow-y-auto">
-													<pre className="text-xs whitespace-pre-wrap break-words">
-														{JSON.stringify(extractedTechStack, null, 2)}
-													</pre>
-												</div>
-											</details>
-										</div>
-									) : null}
+					{/* Processing Progress */}
+					{processingState.isProcessing && (
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Loader2 className="h-5 w-5 animate-spin" />
+									Processing Challenge Generation
+								</CardTitle>
+							</CardHeader>
+							<CardContent className="space-y-4">
+								<Progress value={processingState.progress} className="w-full" />
+								<div className="text-sm text-muted-foreground">
+									{Math.round(processingState.progress)}% Complete
 								</div>
-							</FormControl>
-							<FormDescription>
-								Tech stack is automatically extracted from translated text and merged with your
-								selections
-							</FormDescription>
-							{translatedText && !isExtractingTechStack && (
-								<div className="mt-2">
-									<Button
-										type="button"
-										variant="outline"
-										size="sm"
-										onClick={() => extractAndMergeTechStack(translatedText, jsonConfig)}
-										disabled={isExtractingTechStack}
-									>
-										{isExtractingTechStack ? 'Extracting...' : 'Re-extract Tech Stack'}
-									</Button>
+
+								<div className="space-y-3">
+									{processingState.steps.map((step, index) => (
+										<div key={step.id} className="flex items-center gap-3">
+											{step.status === 'completed' ? (
+												<CheckCircle className="h-4 w-4 text-green-500" />
+											) : step.status === 'in_progress' ? (
+												<Loader2 className="h-4 w-4 animate-spin text-blue-500" />
+											) : step.status === 'error' ? (
+												<AlertCircle className="h-4 w-4 text-red-500" />
+											) : (
+												<div className="h-4 w-4 rounded-full border-2 border-muted-foreground/30" />
+											)}
+											<div className="flex-1">
+												<div className="text-sm font-medium">{step.name}</div>
+												<div className="text-xs text-muted-foreground">{step.description}</div>
+												{step.error && (
+													<div className="text-xs text-red-600 mt-1">{step.error}</div>
+												)}
+											</div>
+										</div>
+									))}
 								</div>
-							)}
-						</FormItem>
+							</CardContent>
+						</Card>
 					)}
 
-					<FormItem>
-						<FormLabel>JSON Config</FormLabel>
-						<FormDescription>
-							<span className="font-bold">Important: </span>
-							This JSON config is automatically generated from your selections above and tech stack
-							extraction from translated text. It will be used to generate the challenge.
-						</FormDescription>
+					{/* Error Display */}
+					{processingState.error && (
+						<Card className="border-red-200 bg-red-50/50">
+							<CardContent className="pt-6">
+								<div className="flex items-center gap-2 text-red-600">
+									<AlertCircle className="h-5 w-5" />
+									<span className="font-medium">Processing Error</span>
+								</div>
+								<p className="text-sm text-red-600 mt-2">{processingState.error}</p>
+							</CardContent>
+						</Card>
+					)}
 
-						<FormControl>
-							<div className="min-h-[200px] border rounded-lg p-4 bg-muted/50">
-								{jsonConfig ? (
-									<pre className="text-sm font-mono whitespace-pre-wrap overflow-auto">
-										{jsonConfig}
-									</pre>
-								) : null}
-							</div>
-						</FormControl>
-					</FormItem>
-					<Button type="submit">Submit</Button>
+					{/* Results Display */}
+					{processingState.result && (
+						<Card className="border-green-200 bg-green-50/50">
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2 text-green-600">
+									<CheckCircle className="h-5 w-5" />
+									Challenge Generated Successfully
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="space-y-4">
+									{/* Extracted Tech Stack Summary */}
+									{extractedTechStack && (
+										<div className="p-3 bg-background rounded-md">
+											<h4 className="font-medium text-sm mb-2">Extracted Requirements:</h4>
+											<div className="text-xs text-muted-foreground space-y-1">
+												<div>Role: {extractedTechStack.role_title || 'Not specified'}</div>
+												<div>Seniority: {extractedTechStack.seniority || 'Not specified'}</div>
+												<div>
+													Technologies: {extractedTechStack.technical_stack?.length || 0}{' '}
+													identified
+												</div>
+											</div>
+										</div>
+									)}
+
+									{/* Generated Challenge */}
+									<div className="p-4 bg-background rounded-md max-h-96 overflow-y-auto">
+										<pre className="text-sm whitespace-pre-wrap break-words">
+											{processingState.result}
+										</pre>
+									</div>
+								</div>
+							</CardContent>
+						</Card>
+					)}
 				</form>
 			</Form>
-
-			<div className="w-full mt-4 border rounded-lg p-4 bg-muted/50">
-				<h1 className="text-2xl text-green-600 font-bold pb-4">Result:</h1>
-				<pre className="text-lg font-mono  mt-4">{result}</pre>
-			</div>
 		</>
 	);
 }

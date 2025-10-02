@@ -18,10 +18,11 @@ import { Loader2, FileText, AlertCircle, CheckCircle } from 'lucide-react';
 
 interface FileTextExtractorProps {
 	onTextExtracted?: (result: TextExtractionResult) => void;
+	onFileSelect?: (file: File | null) => void;
 	className?: string;
 }
 
-export const FileTextExtractor = ({ onTextExtracted, className }: FileTextExtractorProps) => {
+export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: FileTextExtractorProps) => {
 	// State for the currently selected file
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -35,6 +36,7 @@ export const FileTextExtractor = ({ onTextExtracted, className }: FileTextExtrac
 	const handleFileSelect = (file: File | null) => {
 		setSelectedFile(file);
 		setExtractionResult(null);
+		onFileSelect?.(file);
 	};
 
 	// Main function to handle text extraction from uploaded file
@@ -105,21 +107,6 @@ export const FileTextExtractor = ({ onTextExtracted, className }: FileTextExtrac
 									<Badge variant="secondary">{formatFileSize(selectedFile.size)}</Badge>
 									<Badge variant="outline">{selectedFile.type}</Badge>
 								</div>
-								<Button
-									onClick={handleExtractText}
-									disabled={isExtracting}
-									className="flex items-center gap-2"
-								>
-									{/* Show loading spinner during extraction */}
-									{isExtracting ? (
-										<>
-											<Loader2 className="h-4 w-4 animate-spin" />
-											Extracting...
-										</>
-									) : (
-										'Extract Text'
-									)}
-								</Button>
 							</div>
 
 							{/* Display extraction results if available */}
