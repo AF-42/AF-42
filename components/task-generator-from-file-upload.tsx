@@ -1,3 +1,25 @@
+/**
+ * TaskGeneratorFormFromFileUpload Component
+ *
+ * An automated challenge generation component that processes job offer files through a complete pipeline:
+ * 1. File upload and text extraction from various document formats (PDF, DOCX, TXT, etc.)
+ * 2. Automatic translation of extracted text to English for better processing
+ * 3. AI-powered tech stack extraction and analysis of job requirements
+ * 4. Generation of customized technical challenges based on the extracted requirements
+ *
+ * The component provides a streamlined user experience with a single "Generate Challenge" button
+ * that runs all processing steps in the background, showing real-time progress and detailed
+ * status updates for each step. Users can upload a job offer file and receive a complete
+ * technical challenge without manual intervention.
+ *
+ * Features:
+ * - Supports multiple file formats (PDF, DOCX, TXT, XLSX, etc.)
+ * - Real-time progress tracking with visual indicators
+ * - Comprehensive error handling and user feedback
+ * - Automatic tech stack extraction and requirement analysis
+ * - Clean, card-based UI with detailed results display
+ */
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
