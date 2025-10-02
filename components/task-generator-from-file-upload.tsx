@@ -37,8 +37,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, AlertCircle, Loader2, FileText, Zap } from 'lucide-react';
 
-import { addChallengeToDb } from '@/actions/challenge';
-
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
 	role_title?: string;
@@ -252,20 +250,6 @@ export function TaskGeneratorFormFromFileUpload() {
 			// Step 4: Generate challenge
 			updateStep('generate', { status: 'in_progress' });
 			const challengeResult = await createTechChallenge(extractResult.extractedText, mergedJsonString);
-			const newChallenge = await addChallengeToDb({
-				challenge_name: extractResult.extractedText,
-				challenge_description: mergedJsonString,
-				challenge_difficulty: 'junior',
-				challenge_type: 'technical',
-				challenge_status: 'published',
-				company_id: '1',
-				challenge_id: '1',
-				challenge_requirements: [],
-				challenge_candidates_list: [],
-				created_at: new Date(),
-				updated_at: new Date(),
-			});
-			console.log('[newChallenge]', newChallenge);
 			setResult(challengeResult);
 			updateStep('generate', { status: 'completed' });
 
@@ -430,6 +414,7 @@ export function TaskGeneratorFormFromFileUpload() {
 									)}
 
 									{/* Generated Challenge */}
+									{/* TODO: Update the result to be a link to the challenge page where the challenge can be viewed, edited and published */}
 									<div className="p-4 bg-background rounded-md max-h-96 overflow-y-auto">
 										<pre className="text-sm whitespace-pre-wrap break-words">
 											{processingState.result}

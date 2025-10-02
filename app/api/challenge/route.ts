@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { addChallengeToDb } from "@/actions/challenge";
+import { challengeService } from '@/services/challenge/challenge.service';
 
 const apiUrl = process.env.KINDE_SITE_URL;
 
@@ -9,9 +9,9 @@ if (!apiUrl) {
 
 export async function POST(request: NextRequest) {
 	try {
-	const challenge = await request.json();
-	const newChallenge = await addChallengeToDb(challenge);
-	return NextResponse.json(newChallenge);
+		const challenge = await request.json();
+		const newChallenge = await challengeService.createChallenge(challenge);
+		return NextResponse.json(newChallenge);
 	} catch (error) {
 		console.error('Error adding challenge to db:', error);
 		return NextResponse.json({ error: 'Failed to add challenge to db' }, { status: 500 });

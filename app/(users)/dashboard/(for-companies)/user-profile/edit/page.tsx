@@ -14,6 +14,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Save, Upload, X, Building2, Mail, MapPin, Globe, Briefcase, ArrowLeft } from 'lucide-react';
+import * as models from '@/models';
 import * as z from 'zod';
 
 // Form validation schema
@@ -90,19 +91,7 @@ export default function EditUserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const response = await fetch('/api/users/profile');
-
-				if (!response.ok) {
-					if (response.status === 404) {
-						// User not found - use initial data for new user
-						setUserData(null);
-						form.reset(form.getValues());
-						return;
-					}
-					throw new Error('Failed to fetch user data');
-				}
-
-				const result = await response.json();
+				const result = (await models.users.getUserProfile()) as { success: boolean; user: UserProfileForm };
 				if (result.success && result.user) {
 					const userProfile = result.user;
 					const formattedData: UserProfileForm = {
