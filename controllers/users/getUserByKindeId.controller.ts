@@ -6,6 +6,7 @@ export const getUserByKindeIdController = async (kindeId: string) => {
 			throw new Error('Kinde id is required');
 		}
 		const user = await usersService.getUserByKindeId(kindeId);
+
 		if (!user) {
 			throw new Error('User not found');
 		}
