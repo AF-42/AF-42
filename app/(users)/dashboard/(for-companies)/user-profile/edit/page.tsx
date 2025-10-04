@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Resolver, SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { useRouter } from 'next/navigation';
@@ -13,9 +13,10 @@ import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Save, Upload, X, Building2, Mail, MapPin, Globe, Briefcase, ArrowLeft } from 'lucide-react';
-import * as models from '@/models';
+import { Save, Upload, X, Building2, Mail, MapPin, Briefcase, ArrowLeft } from 'lucide-react';
+import { UserProfileType } from '@/types/user-profile.type';
 import * as z from 'zod';
+import { getUserData } from '@/app/actions/get-user-data.action';
 
 // Form validation schema
 const userProfileSchema = z.object({
@@ -29,8 +30,6 @@ const userProfileSchema = z.object({
 	website: z.string().url('Invalid website URL').optional().or(z.literal('')),
 	avatar: z.string().optional(),
 });
-
-type UserProfileForm = z.infer<typeof userProfileSchema>;
 
 const roles = [
 	'Software Engineer',
@@ -58,14 +57,13 @@ export default function EditUserProfilePage() {
 	const { user, isAuthenticated } = useKindeBrowserClient();
 	const router = useRouter();
 	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
-	const [bannerPreview, setBannerPreview] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const [userData, setUserData] = useState<UserProfileForm | null>(null);
+	const [userData, setUserData] = useState<UserProfileType | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
-	const form = useForm<UserProfileForm>({
-		resolver: zodResolver(userProfileSchema),
+	const form = useForm<UserProfileType>({
+		resolver: zodResolver(userProfileSchema) as Resolver<UserProfileType>,
 		defaultValues: {
 			first_name: '',
 			last_name: '',
@@ -91,10 +89,10 @@ export default function EditUserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const result = (await models.users.getUserProfile()) as { success: boolean; user: UserProfileForm };
+				const result = (await getUserData()) as { success: boolean; user: UserProfileType };
 				if (result.success && result.user) {
 					const userProfile = result.user;
-					const formattedData: UserProfileForm = {
+					const formattedData: UserProfileType = {
 						first_name: userProfile.first_name || '',
 						last_name: userProfile.last_name || '',
 						username: userProfile.username || '',
@@ -122,7 +120,7 @@ export default function EditUserProfilePage() {
 		fetchUserData();
 	}, [form, isAuthenticated, user?.id]);
 
-	const onSubmit = async (data: UserProfileForm) => {
+	const onSubmit = async (data: UserProfileType) => {
 		try {
 			setIsSubmitting(true);
 			const response = await fetch('/api/users/profile', {
@@ -227,7 +225,7 @@ export default function EditUserProfilePage() {
 				</div>
 
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+					<form onSubmit={form.handleSubmit(onSubmit as SubmitHandler<UserProfileType>)} className="space-y-6">
 						{/* User Information */}
 						<Card>
 							<CardHeader>

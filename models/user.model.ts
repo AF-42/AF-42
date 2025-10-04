@@ -1,4 +1,3 @@
-import { usersTable } from '@/db/schema/users';
 import { api } from '@/lib/api-client';
 
 // Users model: this is used to interact with the users api endpoint in order to handle all fetching
