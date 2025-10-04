@@ -6,13 +6,11 @@ import {
 	Command,
 	LayoutDashboardIcon,
 	Send,
-	Terminal,
 	CodeXml,
 	Bug,
 	InfoIcon,
 	User,
 	ScreenShare,
-	UserPen,
 	Building2,
 	ContactRound,
 	BadgeCheck,
@@ -165,7 +163,7 @@ const companyNavData = {
 		},
 		{
 			title: 'Dashboard',
-			url: '/dashboard',
+			url: '/dashboard/user-profile',
 			icon: LayoutDashboardIcon,
 			items: [
 				{
