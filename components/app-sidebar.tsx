@@ -69,18 +69,18 @@ export function AppSidebar({
 			},
 			{
 				title: 'Dashboard',
-				url: `/dashboard/${username}`,
+				url: `/dashboard/`,
 				icon: LayoutDashboardIcon,
 				items: [
 					{
 						title: 'Profile',
 						icon: User,
-						url: `/dashboard/profile/${username}`,
+						url: `/dashboard/profile/`,
 					},
 					{
 						title: 'Settings',
 						icon: Settings,
-						url: `/dashboard/settings/${username}`,
+						url: `/dashboard/settings/`,
 					},
 				],
 			},
@@ -166,7 +166,7 @@ export function AppSidebar({
 			},
 			{
 				title: 'Dashboard',
-				url: '/dashboard/user-profile',
+				url: `/dashboard/user-profile/${username}`,
 				icon: LayoutDashboardIcon,
 				items: [
 					{

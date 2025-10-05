@@ -25,7 +25,6 @@ export async function GET(request: NextRequest) {
 		if (!userResult || userResult.length === 0) {
 			return NextResponse.json({ error: 'User not found' }, { status: 404 });
 		}
-// 
 		const userProfile = userResult[0];
 
 		// Return user profile data

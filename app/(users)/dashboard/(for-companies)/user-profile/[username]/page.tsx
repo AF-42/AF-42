@@ -28,7 +28,6 @@ interface UserProfile {
 export default function UserProfilePage() {
 	const { user, isAuthenticated, isLoading: authLoading } = useKindeBrowserClient();
 	const params = useParams();
-	print.log('[params]', params);
 	const username = params.username as string;
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
@@ -69,12 +68,12 @@ export default function UserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const response = await fetch(`/api/users/profile/${username}`);
+				const response = await fetch(`/api/users/profile/`);
 
 				if (!response.ok) {
 					if (response.status === 404) {
 						// User not found - redirect to create/edit page
-						router.push(`/dashboard/user-profile/edit/${username}`);
+						router.push(`/dashboard/user-profile/edit/`);
 						return;
 					}
 					throw new Error('Failed to fetch user data');
@@ -99,7 +98,7 @@ export default function UserProfilePage() {
 					setUserData(formattedData);
 				} else {
 					// No user found - redirect to create/edit page
-					router.push(`/dashboard/user-profile/edit/${username}`);
+					router.push(`/dashboard/user-profile/edit/`);
 				}
 			} catch (err) {
 				print.error('Error fetching user data:', err);
@@ -113,7 +112,7 @@ export default function UserProfilePage() {
 	}, [authLoading, isAuthenticated, user?.id, router]);
 
 	const handleEdit = () => {
-		router.push(`/dashboard/user-profile/edit/${username}`);
+		router.push(`/dashboard/user-profile/edit/`);
 	};
 
 	// Show loading state while auth is loading or data is loading

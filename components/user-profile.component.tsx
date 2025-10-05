@@ -7,18 +7,15 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Edit2, Building2, Mail, MapPin, Briefcase, ExternalLink } from 'lucide-react';
 import { UserProfileType } from '@/types/user-profile.type';
-import { useParams } from 'next/navigation';
 import * as print from '@/lib/print-helpers';
 
 export default function UserProfileComponent({ userData }: { userData: UserProfileType }) {
 	const router = useRouter();
-	const params = useParams();
-	const username = params.username as string;
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 
 	const handleEdit = () => {
-		router.push(`/dashboard/user-profile/edit/${username}`);
+		router.push(`/dashboard/user-profile/edit/`);
 	};
 
 	// Show loading state
