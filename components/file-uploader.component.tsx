@@ -126,13 +126,13 @@ export const FileUploaderComponent = ({
 				<Card
 					{...getRootProps()}
 					className={cn(
-						'cursor-pointer transition-colors hover:bg-muted/50',
+						'cursor-pointer transition-colors hover:bg-muted/50 border-none',
 						isDragActive && 'bg-muted/50 border-primary',
 						disabled && 'cursor-not-allowed opacity-50',
 						error && 'border-destructive',
 					)}
 				>
-					<CardContent className="flex flex-col items-center justify-center p-8 text-center">
+					<CardContent className="flex flex-col items-center justify-center p-8 text-center border-none">
 						<input {...getInputProps()} />
 						<div className="mb-4">
 							{error ? (
@@ -169,8 +169,8 @@ export const FileUploaderComponent = ({
 					</CardContent>
 				</Card>
 			) : (
-				<Card className="border-green-200 bg-green-50/50">
-					<CardContent className="p-4">
+				<Card className="border-none">
+					<CardContent className="p-4 border-none">
 						<div className="flex items-center justify-between">
 							<div className="flex items-center space-x-3">
 								<div className="text-2xl">{getFileIcon(uploadedFile)}</div>

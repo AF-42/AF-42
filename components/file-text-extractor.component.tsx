@@ -87,8 +87,8 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 
 	return (
 		<div className={className}>
-			<Card>
-				<CardContent className="space-y-4">
+			<Card className="border-none">
+				<CardContent className="space-y-4 border-none">
 					{/* File upload component with size limit */}
 					<FileUploaderComponent
 						onFileSelect={handleFileSelect}
@@ -117,7 +117,7 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 											: 'border-red-200 bg-red-50/50' // Red styling for errors
 									}
 								>
-									<CardContent className="p-4">
+									<CardContent className="p-4 border-none">
 										<div className="flex items-start gap-3">
 											{/* Success/error icon */}
 											{extractionResult.success ? (

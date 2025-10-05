@@ -30,8 +30,8 @@ export function ChallengeGeneratorSelectorComponent() {
 				</TabsList>
 
 				<TabsContent value="file-upload" className="space-y-4">
-					<Card>
-						<CardHeader>
+					<Card className="border-none">
+						<CardHeader className="border-none">
 							<CardTitle className="flex items-center gap-2">
 								<Upload className="h-5 w-5" />
 								Upload Job Description File
@@ -41,15 +41,15 @@ export function ChallengeGeneratorSelectorComponent() {
 								requirements automatically. Perfect for when you have a complete job posting document.
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardContent className="border-none p-0">
 							<TaskGeneratorFormFromFileUpload />
 						</CardContent>
 					</Card>
 				</TabsContent>
 
 				<TabsContent value="data-selection" className="space-y-4">
-					<Card>
-						<CardHeader>
+					<Card className="border-none">
+						<CardHeader className="border-none">
 							<CardTitle className="flex items-center gap-2">
 								<Database className="h-5 w-5" />
 								Manual Data Selection
@@ -60,7 +60,7 @@ export function ChallengeGeneratorSelectorComponent() {
 								process.
 							</CardDescription>
 						</CardHeader>
-						<CardContent>
+						<CardContent className="border-none p-0">
 							<TaskGeneratorFormFromDataSelection />
 						</CardContent>
 					</Card>

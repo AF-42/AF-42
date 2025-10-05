@@ -294,22 +294,12 @@ export function TaskGeneratorFormFromFileUpload() {
 			<Form {...form}>
 				<form className="space-y-8 flex flex-col gap-4">
 					{/* File Upload Section */}
-					<Card>
-						<CardHeader>
-							<CardTitle className="flex items-center gap-2">
-								<FileText className="h-5 w-5" />
-								Upload Job Offer File
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							<FileTextExtractor onFileSelect={handleFileSelect} />
-						</CardContent>
-					</Card>
+					<FileTextExtractor onFileSelect={handleFileSelect} />
 
 					{/* Generate Challenge Button */}
 					{selectedFile && (
-						<Card>
-							<CardContent className="pt-6">
+						<Card className="border-none">
+							<CardContent className="pt-6 border-none p-0">
 								<Button
 									type="button"
 									onClick={handleAutomatedProcessing}
@@ -335,14 +325,14 @@ export function TaskGeneratorFormFromFileUpload() {
 
 					{/* Processing Progress */}
 					{processingState.isProcessing && (
-						<Card>
-							<CardHeader>
+						<Card className="border-none">
+							<CardHeader className="border-none">
 								<CardTitle className="flex items-center gap-2">
 									<Loader2 className="h-5 w-5 animate-spin" />
 									Processing Challenge Generation
 								</CardTitle>
 							</CardHeader>
-							<CardContent className="space-y-4">
+							<CardContent className="space-y-4 border-none p-0">
 								<Progress value={processingState.progress} className="w-full" />
 								<div className="text-sm text-muted-foreground">
 									{Math.round(processingState.progress)}% Complete
@@ -376,8 +366,8 @@ export function TaskGeneratorFormFromFileUpload() {
 
 					{/* Error Display */}
 					{processingState.error && (
-						<Card className="border-red-200 bg-red-50/50">
-							<CardContent className="pt-6">
+						<Card className="border-none">
+							<CardContent className="pt-6 border-none">
 								<div className="flex items-center gap-2 text-red-600">
 									<AlertCircle className="h-5 w-5" />
 									<span className="font-medium">Processing Error</span>
@@ -389,14 +379,14 @@ export function TaskGeneratorFormFromFileUpload() {
 
 					{/* Results Display */}
 					{processingState.result && (
-						<Card className="border-green-200 bg-green-50/50">
-							<CardHeader>
+						<Card className="border-none">
+							<CardHeader className="border-none">
 								<CardTitle className="flex items-center gap-2 text-green-600">
 									<CheckCircle className="h-5 w-5" />
 									Challenge Generated Successfully
 								</CardTitle>
 							</CardHeader>
-							<CardContent>
+							<CardContent className="border-none p-0">
 								<div className="space-y-4">
 									{/* Extracted Tech Stack Summary */}
 									{extractedTechStack && (
