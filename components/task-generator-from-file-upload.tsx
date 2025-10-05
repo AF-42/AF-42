@@ -36,7 +36,7 @@ import { getCompanyDescriptionAction } from '@/app/actions/get-company-descripti
 import { getUserData } from '@/app/actions/get-user-data.action';
 import { UserProfileType } from '@/types/user-profile.type';
 import * as print from '@/lib/print-helpers';
-import { CompanyType } from '@/types/company.type';
+import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
@@ -455,20 +455,19 @@ export function TaskGeneratorFormFromFileUpload() {
 											</div>
 										</div>
 									)}
-
-									{/* Generated Challenge */}
-									{/* TODO: Update the result to be a link to the challenge page where the challenge can be viewed, edited and published */}
-									<div className="p-4 bg-background rounded-md max-h-96 overflow-y-auto">
-										<pre className="text-sm whitespace-pre-wrap break-words">
-											{processingState.result}
-										</pre>
-									</div>
 								</div>
 							</CardContent>
 						</Card>
 					)}
 				</form>
 			</Form>
+			{processingState.result && (
+				<div className="p-4 bg-background rounded-md overflow-y-auto">
+					<pre className="text-sm whitespace-pre-wrap break-words">
+						<ChallengeDraftEditor challengeDraft={processingState.result} />
+					</pre>
+				</div>
+			)}
 		</>
 	);
 }
