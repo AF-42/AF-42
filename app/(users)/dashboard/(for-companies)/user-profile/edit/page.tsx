@@ -55,6 +55,8 @@ const roles = [
 
 export default function EditUserProfilePage() {
 	const { user, isAuthenticated } = useKindeBrowserClient();
+	console.log(['user', user]);
+	console.log(['isAuthenticated', isAuthenticated]);
 	const router = useRouter();
 	const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
 	const [isLoading, setIsLoading] = useState(true);
@@ -225,7 +227,10 @@ export default function EditUserProfilePage() {
 				</div>
 
 				<Form {...form}>
-					<form onSubmit={form.handleSubmit(onSubmit as SubmitHandler<UserProfileType>)} className="space-y-6">
+					<form
+						onSubmit={form.handleSubmit(onSubmit as SubmitHandler<UserProfileType>)}
+						className="space-y-6"
+					>
 						{/* User Information */}
 						<Card>
 							<CardHeader>

@@ -33,221 +33,220 @@ import {
 } from '@/components/ui/sidebar';
 import { usersTable } from '@/db/schema/users';
 
-const devNavData = {
-	navMain: [
-		{
-			title: 'Challenges',
-			url: '/challenge',
-			icon: Sparkles,
-			items: [
-				{
-					title: 'All',
-					icon: LaptopMinimalCheck,
-					url: '/challenge/challenge-board',
-				},
-				{
-					title: 'My Challenges',
-					url: '/challenge/my-challenges',
-					items: [
-						{
-							title: 'Ongoing',
-							icon: SquareTerminal,
-							url: '/challenge/my-challenges/ongoing',
-						},
-						{
-							title: 'Completed',
-							icon: BadgeCheck,
-							url: '/challenge/my-challenges/completed',
-						},
-					],
-				},
-			],
-		},
-		{
-			title: 'Dashboard',
-			url: '/dashboard',
-			icon: LayoutDashboardIcon,
-			items: [
-				{
-					title: 'Profile',
-					icon: User,
-					url: '/dashboard/profile',
-				},
-				{
-					title: 'Settings',
-					icon: Settings,
-					url: '/dashboard/settings',
-				},
-			],
-		},
-		{
-			title: 'Documentation',
-			url: '#',
-			icon: BookOpen,
-			items: [
-				{
-					title: 'Introduction',
-					url: '#',
-				},
-				{
-					title: 'Get Started',
-					url: '#',
-				},
-				{
-					title: 'Tutorials',
-					url: '#',
-				},
-				{
-					title: 'Changelog',
-					url: '#',
-				},
-			],
-		},
-		{
-			// todo: add resources like blog posts, videos, links, etc.??
-			title: 'Resources',
-			url: '#',
-			icon: InfoIcon,
-			items: [
-				{
-					title: 'Introduction',
-					url: '#',
-				},
-				{
-					title: 'Get Started',
-					url: '#',
-				},
-				{
-					title: 'Tutorials',
-					url: '#',
-				},
-				{
-					title: 'Changelog',
-					url: '#',
-				},
-			],
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Bug Report',
-			url: '#',
-			icon: Bug,
-		},
-		{
-			title: 'Feature Request',
-			url: '#',
-			icon: Send,
-		},
-	],
-};
-
-const companyNavData = {
-	navMain: [
-		{
-			title: 'Challenge',
-			url: '/challenge',
-			icon: Sparkles,
-			items: [
-				{
-					title: 'Generate',
-					icon: CodeXml,
-					url: '/challenge/generate',
-				},
-				{
-					title: 'Published',
-					icon: ScreenShare,
-					url: '/challenge/published',
-				},
-			],
-		},
-		{
-			title: 'Dashboard',
-			url: '/dashboard/user-profile',
-			icon: LayoutDashboardIcon,
-			items: [
-				{
-					title: 'Profile',
-					icon: User,
-					url: '/dashboard/user-profile',
-				},
-				{
-					title: 'Company Profile',
-					icon: Building2,
-					url: '/dashboard/company-profile',
-				},
-				{
-					title: 'Members',
-					icon: ContactRound,
-					url: '/dashboard/members',
-				},
-			],
-		},
-		{
-			title: 'Documentation',
-			url: '#',
-			icon: BookOpen,
-			items: [
-				{
-					title: 'Introduction',
-					url: '#',
-				},
-				{
-					title: 'Get Started',
-					url: '#',
-				},
-				{
-					title: 'Tutorials',
-					url: '#',
-				},
-				{
-					title: 'Changelog',
-					url: '#',
-				},
-			],
-		},
-		{
-			// todo: add resources like blog posts, videos, links, etc.??
-			title: 'Resources',
-			url: '#',
-			icon: InfoIcon,
-			items: [
-				{
-					title: 'Introduction',
-					url: '#',
-				},
-				{
-					title: 'Get Started',
-					url: '#',
-				},
-				{
-					title: 'Tutorials',
-					url: '#',
-				},
-				{
-					title: 'Changelog',
-					url: '#',
-				},
-			],
-		},
-	],
-	navSecondary: [
-		{
-			title: 'Bug Report',
-			url: '#',
-			icon: Bug,
-		},
-		{
-			title: 'Feature Request',
-			url: '#',
-			icon: Send,
-		},
-	],
-};
-
 export function AppSidebar({
 	currentUser,
 }: React.ComponentProps<typeof Sidebar> & { currentUser: typeof usersTable.$inferSelect }) {
+	const username = currentUser.username;
+	const devNavData = {
+		navMain: [
+			{
+				title: 'Challenges',
+				url: '/challenge',
+				icon: Sparkles,
+				items: [
+					{
+						title: 'All',
+						icon: LaptopMinimalCheck,
+						url: '/challenge/challenge-board',
+					},
+					{
+						title: 'My Challenges',
+						url: '/challenge/my-challenges',
+						items: [
+							{
+								title: 'Ongoing',
+								icon: SquareTerminal,
+								url: '/challenge/my-challenges/ongoing',
+							},
+							{
+								title: 'Completed',
+								icon: BadgeCheck,
+								url: '/challenge/my-challenges/completed',
+							},
+						],
+					},
+				],
+			},
+			{
+				title: 'Dashboard',
+				url: `/dashboard/${username}`,
+				icon: LayoutDashboardIcon,
+				items: [
+					{
+						title: 'Profile',
+						icon: User,
+						url: `/dashboard/profile/${username}`,
+					},
+					{
+						title: 'Settings',
+						icon: Settings,
+						url: `/dashboard/settings/${username}`,
+					},
+				],
+			},
+			{
+				title: 'Documentation',
+				url: '#',
+				icon: BookOpen,
+				items: [
+					{
+						title: 'Introduction',
+						url: '#',
+					},
+					{
+						title: 'Get Started',
+						url: '#',
+					},
+					{
+						title: 'Tutorials',
+						url: '#',
+					},
+					{
+						title: 'Changelog',
+						url: '#',
+					},
+				],
+			},
+			{
+				// todo: add resources like blog posts, videos, links, etc.??
+				title: 'Resources',
+				url: '#',
+				icon: InfoIcon,
+				items: [
+					{
+						title: 'Introduction',
+						url: '#',
+					},
+					{
+						title: 'Get Started',
+						url: '#',
+					},
+					{
+						title: 'Tutorials',
+						url: '#',
+					},
+					{
+						title: 'Changelog',
+						url: '#',
+					},
+				],
+			},
+		],
+		navSecondary: [
+			{
+				title: 'Bug Report',
+				url: '#',
+				icon: Bug,
+			},
+			{
+				title: 'Feature Request',
+				url: '#',
+				icon: Send,
+			},
+		],
+	};
+	const companyNavData = {
+		navMain: [
+			{
+				title: 'Challenge',
+				url: '/challenge',
+				icon: Sparkles,
+				items: [
+					{
+						title: 'Generate',
+						icon: CodeXml,
+						url: '/challenge/generate',
+					},
+					{
+						title: 'Published',
+						icon: ScreenShare,
+						url: '/challenge/published',
+					},
+				],
+			},
+			{
+				title: 'Dashboard',
+				url: '/dashboard/user-profile',
+				icon: LayoutDashboardIcon,
+				items: [
+					{
+						title: 'Profile',
+						icon: User,
+						url: `/dashboard/user-profile/${username}`,
+					},
+					{
+						title: 'Company Profile',
+						icon: Building2,
+						url: `/dashboard/company-profile`,
+					},
+					{
+						title: 'Members',
+						icon: ContactRound,
+						url: '/dashboard/members',
+					},
+				],
+			},
+			{
+				title: 'Documentation',
+				url: '#',
+				icon: BookOpen,
+				items: [
+					{
+						title: 'Introduction',
+						url: '#',
+					},
+					{
+						title: 'Get Started',
+						url: '#',
+					},
+					{
+						title: 'Tutorials',
+						url: '#',
+					},
+					{
+						title: 'Changelog',
+						url: '#',
+					},
+				],
+			},
+			{
+				// todo: add resources like blog posts, videos, links, etc.??
+				title: 'Resources',
+				url: '#',
+				icon: InfoIcon,
+				items: [
+					{
+						title: 'Introduction',
+						url: '#',
+					},
+					{
+						title: 'Get Started',
+						url: '#',
+					},
+					{
+						title: 'Tutorials',
+						url: '#',
+					},
+					{
+						title: 'Changelog',
+						url: '#',
+					},
+				],
+			},
+		],
+		navSecondary: [
+			{
+				title: 'Bug Report',
+				url: '#',
+				icon: Bug,
+			},
+			{
+				title: 'Feature Request',
+				url: '#',
+				icon: Send,
+			},
+		],
+	};
 	return (
 		<Sidebar variant="inset">
 			<SidebarHeader>

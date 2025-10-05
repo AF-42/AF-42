@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, ExternalLink } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import * as print from '@/lib/print-helpers';
 
 // User profile data type
@@ -26,6 +27,9 @@ interface UserProfile {
 
 export default function UserProfilePage() {
 	const { user, isAuthenticated, isLoading: authLoading } = useKindeBrowserClient();
+	const params = useParams();
+	print.log('[params]', params);
+	const username = params.username as string;
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [userData, setUserData] = useState<UserProfile | null>(null);
@@ -65,13 +69,12 @@ export default function UserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const response = await fetch('/api/users/profile');
-				print.log('[response from user profile page]', response);
+				const response = await fetch(`/api/users/profile/${username}`);
 
 				if (!response.ok) {
 					if (response.status === 404) {
 						// User not found - redirect to create/edit page
-						router.push('/dashboard/user-profile/edit');
+						router.push(`/dashboard/user-profile/edit/${username}`);
 						return;
 					}
 					throw new Error('Failed to fetch user data');
@@ -96,7 +99,7 @@ export default function UserProfilePage() {
 					setUserData(formattedData);
 				} else {
 					// No user found - redirect to create/edit page
-					router.push('/dashboard/user-profile/edit');
+					router.push(`/dashboard/user-profile/edit/${username}`);
 				}
 			} catch (err) {
 				print.error('Error fetching user data:', err);
@@ -110,7 +113,7 @@ export default function UserProfilePage() {
 	}, [authLoading, isAuthenticated, user?.id, router]);
 
 	const handleEdit = () => {
-		router.push('/dashboard/user-profile/edit');
+		router.push(`/dashboard/user-profile/edit/${username}`);
 	};
 
 	// Show loading state while auth is loading or data is loading
