@@ -25,6 +25,7 @@
 
 import { openai } from '@ai-sdk/openai';
 import { generateText } from 'ai';
+import * as print from '@/lib/print-helpers';
 
 // Define interfaces for better type safety
 interface TechStackExtractionResult {
@@ -243,7 +244,6 @@ function extractRoleTitle(text: string): string {
 
 	for (const pattern of rolePatterns) {
 		const match = text.match(pattern);
-		console.log('Pattern match:', pattern, match);
 		if (match && match[1]) {
 			return match[1].trim();
 		}
@@ -440,13 +440,12 @@ export async function extractTechStackFromFormattedText(
 		if (issueDescription) {
 			finalJson.issue_description = issueDescription;
 		}
-		console.log('Final JSON:', finalJson);
 
 		const processingTime = Date.now() - startTime;
 		const extractedCount = Object.values(extractedTechStack.tech_stack || {}).flat().length;
 
-		console.log(`Tech stack extraction completed successfully in ${processingTime}ms`);
-		console.log(`Extracted ${extractedCount} technologies`);
+		print.message(`Tech stack extraction completed successfully in ${processingTime}ms`);
+		print.message(`Extracted ${extractedCount} technologies`);
 
 		return {
 			success: true,
@@ -461,7 +460,7 @@ export async function extractTechStackFromFormattedText(
 		const processingTime = Date.now() - startTime;
 		const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
 
-		console.error('Tech stack extraction failed:', {
+		print.error('Tech stack extraction failed:', {
 			error: errorMessage,
 			processingTimeMs: processingTime,
 			textLength: formattedText?.length || 0,
