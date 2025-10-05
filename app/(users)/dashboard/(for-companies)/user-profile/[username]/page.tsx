@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, ExternalLink } from 'lucide-react';
+import { Edit2, Building2, Mail, MapPin, Briefcase, ExternalLink } from 'lucide-react';
+import { getUserData } from '@/app/actions/get-user-data.action';
 import * as print from '@/lib/print-helpers';
 
 // User profile data type
@@ -19,9 +20,7 @@ interface UserProfile {
 	bio: string;
 	location: string;
 	website: string;
-	phone: string;
 	avatar: string;
-	banner: string;
 }
 
 export default function UserProfilePage() {
@@ -65,18 +64,7 @@ export default function UserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const response = await fetch(`/api/users/profile/`);
-
-				if (!response.ok) {
-					if (response.status === 404) {
-						// User not found - redirect to create/edit page
-						router.push(`/dashboard/user-profile/edit/`);
-						return;
-					}
-					throw new Error('Failed to fetch user data');
-				}
-
-				const result = await response.json();
+				const result = (await getUserData()) as { success: boolean; user: UserProfile };
 				if (result.success && result.user) {
 					const userProfile = result.user;
 					const formattedData: UserProfile = {
@@ -88,9 +76,7 @@ export default function UserProfilePage() {
 						bio: userProfile.bio || '',
 						location: userProfile.location || '',
 						website: userProfile.website || '',
-						phone: userProfile.phone || '',
 						avatar: userProfile.avatar || '',
-						banner: userProfile.banner || '',
 					};
 					setUserData(formattedData);
 				} else {
@@ -251,15 +237,6 @@ export default function UserProfilePage() {
 										>
 											{userData.website}
 										</a>
-									</div>
-								</div>
-							)}
-							{userData.phone && (
-								<div className="flex items-center gap-2">
-									<Globe className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Phone</p>
-										<p className="text-sm">{userData.phone}</p>
 									</div>
 								</div>
 							)}
