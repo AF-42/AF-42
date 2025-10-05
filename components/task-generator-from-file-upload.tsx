@@ -27,7 +27,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
-import { Form } from '@/components/ui/form';
+import { Form, FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Textarea } from '@/components/ui/textarea';
 import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/generate/action';
 import { useState } from 'react';
 import { FileTextExtractor } from '@/components/file-text-extractor.component';
@@ -56,6 +57,7 @@ interface StackSelectionJson {
 	prohibited_items?: string[];
 	extra_credit_themes?: string[];
 	technical_stack?: string[];
+	issue_description?: string;
 	[key: string]: any;
 }
 
@@ -63,6 +65,7 @@ const formSchema = z.object({
 	jobOfferFile: z.instanceof(File).optional(),
 	extractedText: z.string().optional(),
 	jsonConfig: z.string().optional(),
+	issueDescription: z.string().min(1, 'Issue description is required'),
 });
 
 // Define the automated processing steps
@@ -139,6 +142,7 @@ export function TaskGeneratorFormFromFileUpload() {
 			jobOfferFile: undefined,
 			extractedText: '',
 			jsonConfig: '',
+			issueDescription: '',
 		},
 	});
 
@@ -165,6 +169,11 @@ export function TaskGeneratorFormFromFileUpload() {
 	const handleAutomatedProcessing = async () => {
 		if (!selectedFile) {
 			updateProcessingState({ error: 'Please select a file first' });
+			return;
+		}
+
+		if (!form.getValues('issueDescription')) {
+			updateProcessingState({ error: 'Please describe the issue for which you want to generate a challenge' });
 			return;
 		}
 
@@ -200,6 +209,7 @@ export function TaskGeneratorFormFromFileUpload() {
 			}
 
 			setExtractedText(extractResult.extractedText);
+			form.setValue('extractedText', extractResult.extractedText);
 			updateStep('extract', { status: 'completed' });
 
 			// Step 2: Translate text
@@ -229,6 +239,7 @@ export function TaskGeneratorFormFromFileUpload() {
 				body: JSON.stringify({
 					formattedText,
 					existingJsonConfig: jsonConfig,
+					issueDescription: form.getValues('issueDescription'),
 				}),
 			});
 
@@ -249,7 +260,12 @@ export function TaskGeneratorFormFromFileUpload() {
 
 			// Step 4: Generate challenge
 			updateStep('generate', { status: 'in_progress' });
-			const challengeResult = await createTechChallenge(extractResult.extractedText, mergedJsonString);
+			const issueDescription = form.getValues('issueDescription');
+			const challengeResult = await createTechChallenge(
+				extractResult.extractedText,
+				mergedJsonString,
+				issueDescription,
+			);
 			setResult(challengeResult);
 			updateStep('generate', { status: 'completed' });
 
@@ -298,29 +314,42 @@ export function TaskGeneratorFormFromFileUpload() {
 
 					{/* Generate Challenge Button */}
 					{selectedFile && (
-						<Card className="border-none">
-							<CardContent className="pt-6 border-none p-0">
-								<Button
-									type="button"
-									onClick={handleAutomatedProcessing}
-									disabled={processingState.isProcessing}
-									className="w-full h-12 text-lg"
-									size="lg"
-								>
-									{processingState.isProcessing ? (
-										<>
-											<Loader2 className="h-5 w-5 animate-spin mr-2" />
-											Generating Challenge...
-										</>
-									) : (
-										<>
-											<Zap className="h-5 w-5 mr-2" />
-											Generate Challenge
-										</>
-									)}
-								</Button>
-							</CardContent>
-						</Card>
+						<>
+							<FormItem>
+								<FormLabel>Describe the issue for which you want to generate a challenge</FormLabel>
+								<FormControl>
+									<Textarea
+										{...form.register('issueDescription')}
+										placeholder="Describe the issue for which you want to generate a challenge"
+										className="h-24"
+									/>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+							<Card className="border-none">
+								<CardContent className="pt-6 border-none p-0">
+									<Button
+										type="button"
+										onClick={handleAutomatedProcessing}
+										disabled={processingState.isProcessing}
+										className="w-full h-12 text-lg"
+										size="lg"
+									>
+										{processingState.isProcessing ? (
+											<>
+												<Loader2 className="h-5 w-5 animate-spin mr-2" />
+												Generating Challenge...
+											</>
+										) : (
+											<>
+												<Zap className="h-5 w-5 mr-2" />
+												Generate Challenge
+											</>
+										)}
+									</Button>
+								</CardContent>
+							</Card>
+						</>
 					)}
 
 					{/* Processing Progress */}

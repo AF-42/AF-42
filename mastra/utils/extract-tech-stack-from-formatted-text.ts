@@ -70,6 +70,7 @@ interface StackSelectionJson {
 	prohibited_items?: string[];
 	extra_credit_themes?: string[];
 	technical_stack?: string[];
+	issue_description?: string;
 	[key: string]: any;
 }
 
@@ -348,6 +349,7 @@ function convertToStackSelectionJson(extractedTechStack: any): StackSelectionJso
 export async function extractTechStackFromFormattedText(
 	formattedText: string,
 	existingJson?: StackSelectionJson,
+	issueDescription?: string,
 ): Promise<TechStackExtractionResult> {
 	const startTime = Date.now();
 
@@ -395,6 +397,7 @@ export async function extractTechStackFromFormattedText(
                     - Extract the exact role title as it appears in the job offer
                     - Determine seniority level based on the role title and requirements
                     - Identify all technical technologies, tools, frameworks mentioned
+                    ${issueDescription ? `- Focus on technologies relevant to addressing this specific issue: ${issueDescription}` : ''}
 
                     Job offer text: ${cleanedText}
                     `,
@@ -432,6 +435,11 @@ export async function extractTechStackFromFormattedText(
 
 		// Merge with existing JSON if provided
 		const finalJson = existingJson ? { ...existingJson, ...stackSelectionJson } : stackSelectionJson;
+
+		// Add issue description if provided
+		if (issueDescription) {
+			finalJson.issue_description = issueDescription;
+		}
 		console.log('Final JSON:', finalJson);
 
 		const processingTime = Date.now() - startTime;

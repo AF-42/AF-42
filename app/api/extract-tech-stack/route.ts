@@ -17,7 +17,7 @@ import { extractTechStackFromFormattedText } from '@/mastra/utils/extract-tech-s
 
 export async function POST(request: NextRequest) {
 	try {
-		const { formattedText, existingJsonConfig } = await request.json();
+		const { formattedText, existingJsonConfig, issueDescription } = await request.json();
 
 		if (!formattedText || typeof formattedText !== 'string') {
 			return NextResponse.json({ error: 'formatted text is required and must be a string' }, { status: 400 });
@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
 		}
 
 		// Extract tech stack from formatted text
-		const result = await extractTechStackFromFormattedText(formattedText, existingJson);
+		const result = await extractTechStackFromFormattedText(formattedText, existingJson, issueDescription);
 
 		if (result.success) {
 			return NextResponse.json({
