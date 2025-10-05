@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, ExternalLink } from 'lucide-react';
-import { useParams } from 'next/navigation';
 import * as print from '@/lib/print-helpers';
 
 // User profile data type
@@ -27,8 +26,6 @@ interface UserProfile {
 
 export default function UserProfilePage() {
 	const { user, isAuthenticated, isLoading: authLoading } = useKindeBrowserClient();
-	const params = useParams();
-	const username = params.username as string;
 	const router = useRouter();
 	const [isLoading, setIsLoading] = useState(true);
 	const [userData, setUserData] = useState<UserProfile | null>(null);
