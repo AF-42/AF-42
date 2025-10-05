@@ -61,38 +61,74 @@ export const timmy = new Agent({
         # {Role Title} — Technical Challenge
         **Seniority Target:** {junior|mid|senior}
         **Primary Stack:** {from job-offer tech specs}
-        **Domain Context:** {brief, grounded in tech specs only}
-        **Company Description:** {from company description}
-        **Issue Description:** {from issue description}
 
         ---
 
         ## 1) Problem Overview
+        {from Domain Context}
         ...
 
         ## 2) Requirements
-        ### Functional
-        - [ ] Requirement 1
-        - [ ] Requirement 2
 
-        ### Non-Functional
-        - Performance, Accessibility, Privacy/Security, DX, etc.
+        ### 2.a) Functional
+            [ ] Requirement 1:
+                [ ]
+                [ ]
+                [ ]
+            [ ] Requirement 2:
+                [ ]
+                [ ]
+                [ ]
+            [ ] Requirement 3:
+                [ ]
+                [ ]
+                [ ]
+            [ ] Requirement 4:
+                [ ]
+                [ ]
+                [ ]
+            [ ] Requirement 5:
+                [ ]
+                [ ]
+                [ ]
 
-        ### Constraints
-        - Allowed: {stack + approved libs}
-        - Disallowed: {from prohibited_items}
-        - External services: mock unless explicitly allowed
+        ### 2.b) Non-Functional
 
-        ## 3) Data & Interfaces
-        **Company Description:** {from company description}
-        **Issue Description:** {from issue description}
-        ## 4) Tasks & Milestones
-        ## 5) Deliverables
-        ## 6) Evaluation Rubric
-        ## 7) Provided Artifacts
-        ## 8) Stretch Goals
-        ## 9) Submission Instructions
-        ## Assumptions
+        ### 2.c) Constraints
+
+        #### Allowed:
+
+        Tool 1: (link to documentation)
+        Tool 2: (link to documentation)
+        Tool 3: (link to documentation)
+        Tool 4: (link to documentation)
+        Tool 5: (link to documentation)
+
+        #### Disallowed
+        ...
+
+        #### External services: mock unless explicitly allowed
+        ...
+
+
+        ## 3) Deliverables
+
+        ...
+
+        ## 4) Optional / Bonus Points
+
+        [ ] Optional 1
+        [ ] Optional 2
+        [ ] Optional 3
+        [ ] Optional 4
+        [ ] Optional 5
+        ...
+
+        ## 5) Evaluation Rubric
+        ...
+
+        ## 6) Submission Instructions
+        ...
         \`\`\`
 
         ---
