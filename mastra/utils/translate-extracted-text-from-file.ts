@@ -43,7 +43,10 @@ interface TranslationError extends Error {
 const CONFIG = {
 	MAX_TEXT_LENGTH: 50000, // Maximum characters to prevent API limits
 	MIN_TEXT_LENGTH: 1, // Minimum characters for meaningful translation
-	TIMEOUT_MS: 30000, // 30 seconds timeout
+	TIMEOUT_MS: 30000, // Base timeout (30 seconds)
+	LONG_TEXT_TIMEOUT_MS: 120000, // Extended timeout for longer texts (2 minutes)
+	CHUNK_SIZE: 3000, // Size of text chunks for very long texts
+	CHUNK_OVERLAP: 200, // Overlap between chunks to maintain context
 	RETRY_ATTEMPTS: 3, // Number of retry attempts for failed requests
 	RETRY_DELAY_MS: 1000, // Delay between retries in milliseconds
 } as const;
@@ -83,6 +86,62 @@ function validateInput(text: string): { isValid: boolean; error?: string } {
 	}
 
 	return { isValid: true };
+}
+
+/**
+ * Splits text into chunks for processing long texts
+ * @param text - The text to split
+ * @param chunkSize - Maximum size of each chunk
+ * @param overlap - Number of characters to overlap between chunks
+ * @returns Array of text chunks
+ */
+function splitTextIntoChunks(
+	text: string,
+	chunkSize: number = CONFIG.CHUNK_SIZE,
+	overlap: number = CONFIG.CHUNK_OVERLAP,
+): string[] {
+	if (text.length <= chunkSize) {
+		return [text];
+	}
+
+	const chunks: string[] = [];
+	let start = 0;
+
+	while (start < text.length) {
+		let end = start + chunkSize;
+
+		// If this isn't the last chunk, try to break at a sentence boundary
+		if (end < text.length) {
+			const lastSentenceEnd = text.lastIndexOf('.', end);
+			const lastNewline = text.lastIndexOf('\n', end);
+			const breakPoint = Math.max(lastSentenceEnd, lastNewline);
+
+			if (breakPoint > start + chunkSize * 0.5) {
+				// Only break if we don't lose too much content
+				end = breakPoint + 1;
+			}
+		}
+
+		chunks.push(text.slice(start, end));
+		start = end - overlap; // Start next chunk with overlap
+
+		if (start >= text.length) break;
+	}
+
+	return chunks;
+}
+
+/**
+ * Determines the appropriate timeout based on text length
+ * @param textLength - Length of the text to translate
+ * @returns Timeout duration in milliseconds
+ */
+function getTimeoutForText(textLength: number): number {
+	// For texts longer than 2000 characters, use extended timeout
+	if (textLength > 2000) {
+		return CONFIG.LONG_TEXT_TIMEOUT_MS;
+	}
+	return CONFIG.TIMEOUT_MS;
 }
 
 /**
@@ -146,6 +205,32 @@ async function retryWithBackoff<T>(
 }
 
 /**
+ * Translates a single chunk of text
+ * @param chunk - The text chunk to translate
+ * @param timeoutMs - Timeout for this chunk
+ * @returns Promise resolving to translated chunk
+ */
+async function translateChunk(chunk: string, timeoutMs: number): Promise<string> {
+	const response = await Promise.race([
+		retryWithBackoff(async () => {
+			return await translatorAgent.generate(chunk);
+		}),
+		createTimeoutPromise(timeoutMs),
+	]);
+
+	if (!response || !response.text || typeof response.text !== 'string') {
+		throw new Error('Invalid response format from translator agent');
+	}
+
+	const translatedText = response.text.trim();
+	if (translatedText === '') {
+		throw new Error('Translation resulted in empty text');
+	}
+
+	return translatedText;
+}
+
+/**
  * Translates extracted text from a file using the translator agent
  * @param extractedText - The text to translate
  * @returns Promise resolving to translation result
@@ -170,30 +255,68 @@ export async function translateExtractedTextFromFile(extractedText: string): Pro
 
 		// Clean and prepare text
 		const cleanedText = extractedText.trim();
+		const textLength = cleanedText.length;
 
-		console.log(`Starting translation for text of length: ${cleanedText.length}`);
+		console.log(`Starting translation for text of length: ${textLength}`);
 
-		// Perform translation with timeout and retry logic
-		const response = await Promise.race([
-			retryWithBackoff(async () => {
-				return await translatorAgent.generate(cleanedText);
-			}),
-			createTimeoutPromise(CONFIG.TIMEOUT_MS),
-		]);
+		// Determine if we need to chunk the text
+		const needsChunking = textLength > CONFIG.CHUNK_SIZE;
+		const timeoutMs = getTimeoutForText(textLength);
 
-		// Validate response
-		if (!response) {
-			throw new Error('Received empty response from translator agent');
-		}
+		let translatedText: string;
 
-		if (!response.text || typeof response.text !== 'string') {
-			throw new Error('Invalid response format from translator agent');
-		}
+		if (needsChunking) {
+			console.log(`Text is long (${textLength} chars), using chunking approach`);
 
-		const translatedText = response.text.trim();
+			// Split text into chunks
+			const chunks = splitTextIntoChunks(cleanedText);
+			console.log(`Split text into ${chunks.length} chunks`);
 
-		if (translatedText === '') {
-			throw new Error('Translation resulted in empty text');
+			// Translate each chunk
+			const translatedChunks: string[] = [];
+			for (let i = 0; i < chunks.length; i++) {
+				const chunk = chunks[i];
+				console.log(`Translating chunk ${i + 1}/${chunks.length} (${chunk.length} chars)`);
+
+				try {
+					const translatedChunk = await translateChunk(chunk, timeoutMs);
+					translatedChunks.push(translatedChunk);
+				} catch (error) {
+					console.error(`Failed to translate chunk ${i + 1}:`, error);
+					throw new Error(
+						`Failed to translate chunk ${i + 1}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+					);
+				}
+			}
+
+			// Combine translated chunks
+			translatedText = translatedChunks.join('\n\n');
+			console.log(`Successfully translated ${chunks.length} chunks`);
+		} else {
+			console.log(`Text is short (${textLength} chars), using single translation`);
+
+			// Single translation for shorter texts
+			const response = await Promise.race([
+				retryWithBackoff(async () => {
+					return await translatorAgent.generate(cleanedText);
+				}),
+				createTimeoutPromise(timeoutMs),
+			]);
+
+			// Validate response
+			if (!response) {
+				throw new Error('Received empty response from translator agent');
+			}
+
+			if (!response.text || typeof response.text !== 'string') {
+				throw new Error('Invalid response format from translator agent');
+			}
+
+			translatedText = response.text.trim();
+
+			if (translatedText === '') {
+				throw new Error('Translation resulted in empty text');
+			}
 		}
 
 		const processingTime = Date.now() - startTime;
@@ -227,7 +350,8 @@ export async function translateExtractedTextFromFile(extractedText: string): Pro
 			const errorMsg = error.message.toLowerCase();
 
 			if (errorMsg.includes('timeout')) {
-				userFriendlyError = 'Translation request timed out. Please try again with a shorter text.';
+				userFriendlyError =
+					'Translation request timed out. The text may be too long or complex. Please try again.';
 			} else if (errorMsg.includes('network') || errorMsg.includes('connection')) {
 				userFriendlyError = 'Network error occurred. Please check your connection and try again.';
 			} else if (errorMsg.includes('rate limit') || errorMsg.includes('quota')) {
@@ -237,6 +361,8 @@ export async function translateExtractedTextFromFile(extractedText: string): Pro
 				userFriendlyError = 'Translation service authentication failed. Please contact support.';
 			} else if (errorMsg.includes('invalid')) {
 				userFriendlyError = 'Invalid input provided for translation.';
+			} else if (errorMsg.includes('chunk')) {
+				userFriendlyError = 'Translation failed while processing a section of the text. Please try again.';
 			}
 		}
 

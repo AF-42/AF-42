@@ -1,12 +1,6 @@
 /**
  * TaskGeneratorFormFromFileUpload Component
  *
- * An automated challenge generation component that processes job offer files through a complete pipeline:
- * 1. File upload and text extraction from various document formats (PDF, DOCX, TXT, etc.)
- * 2. Automatic translation of extracted text to English for better processing
- * 3. AI-powered tech stack extraction and analysis of job requirements
- * 4. Generation of customized technical challenges based on the extracted requirements
- *
  * The component provides a streamlined user experience with a single "Generate Challenge" button
  * that runs all processing steps in the background, showing real-time progress and detailed
  * status updates for each step. Users can upload a job offer file and receive a complete
@@ -30,16 +24,19 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
 import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/generate/action';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FileTextExtractor } from '@/components/file-text-extractor.component';
 import { TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
-import { CheckCircle, AlertCircle, Loader2, FileText, Zap } from 'lucide-react';
+import { CheckCircle, AlertCircle, Loader2, Zap } from 'lucide-react';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
-
+import { getCompanyDescriptionAction } from '@/app/actions/get-company-description.action';
+import { getUserData } from '@/app/actions/get-user-data.action';
+import { UserProfileType } from '@/types/user-profile.type';
 import * as print from '@/lib/print-helpers';
+import { CompanyType } from '@/types/company.type';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
@@ -101,6 +98,16 @@ export function TaskGeneratorFormFromFileUpload() {
 	const [techStackError, setTechStackError] = useState<string | null>(null);
 	const [extractedTechStack, setExtractedTechStack] = useState<StackSelectionJson | null>(null);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
+	const [user, setUser] = useState<UserProfileType | null>(null);
+
+	useEffect(() => {
+		const fetchUser = async () => {
+			const user = await getUserData();
+			setUser(user.user);
+		};
+
+		fetchUser();
+	}, []);
 
 	// Automated processing state
 	const [processingState, setProcessingState] = useState<AutomatedProcessingState>({
@@ -267,14 +274,21 @@ export function TaskGeneratorFormFromFileUpload() {
 
 			// Step 4: Generate challenge
 			updateStep('generate', { status: 'in_progress' });
+
+			const companyDescription = await getCompanyDescriptionAction();
+
 			const issueDescription = await translateIssueDescriptionAction(form.getValues('issueDescription'));
-			// ! Debug
-			print.log('issueDescription', issueDescription);
+
+			// Check if company description exists and extract the description
+			if (!companyDescription || companyDescription.length === 0) {
+				throw new Error('No company found for the current user');
+			}
 
 			const challengeResult = await createTechChallenge(
 				extractResult.extractedText,
 				mergedJsonString,
 				issueDescription,
+				companyDescription[0],
 			);
 			setResult(challengeResult);
 			updateStep('generate', { status: 'completed' });
@@ -284,13 +298,13 @@ export function TaskGeneratorFormFromFileUpload() {
 				isProcessing: false,
 				result: challengeResult,
 			});
-		} catch (error) {
+		} catch (error: any) {
 			const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
 			updateProcessingState({
 				isProcessing: false,
 				error: errorMessage,
 			});
-			console.error('Automated processing failed:', error);
+			print.error('Automated processing failed:', error.message);
 		}
 	};
 

@@ -10,7 +10,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
-import { companyMembersTable } from '@/db/schema/members';
+import { companyMembersTable } from '@/db/schema/company-members';
 import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
 import { eq } from 'drizzle-orm';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';

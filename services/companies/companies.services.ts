@@ -33,6 +33,13 @@ export const companiesService = {
 		}
 		return database.select().from(companiesTable).where(eq(companiesTable.id, id));
 	},
+	getCompanyByOwnerId: async (ownerId: string) => {
+		const database = db;
+		if (!database) {
+			throw new Error('Database not found');
+		}
+		return database.select().from(companiesTable).where(eq(companiesTable.owner_id, ownerId));
+	},
 	getCompanyByUserId: async (userId: string) => {
 		const database = db;
 		if (!database) {
