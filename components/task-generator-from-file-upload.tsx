@@ -37,6 +37,9 @@ import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, AlertCircle, Loader2, FileText, Zap } from 'lucide-react';
+import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
+
+import * as print from '@/lib/print-helpers';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
@@ -193,6 +196,7 @@ export function TaskGeneratorFormFromFileUpload() {
 			const formData = new FormData();
 			formData.append('file', selectedFile);
 
+			// ! TODO: update the fetch to use model or server action
 			const extractResponse = await fetch('/api/extract-text', {
 				method: 'POST',
 				body: formData,
@@ -214,6 +218,8 @@ export function TaskGeneratorFormFromFileUpload() {
 
 			// Step 2: Translate text
 			updateStep('translate', { status: 'in_progress' });
+
+			// ! TODO: update the fetch to use model or server action
 			const translateResponse = await fetch('/api/translate-text', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -233,6 +239,7 @@ export function TaskGeneratorFormFromFileUpload() {
 			updateStep('tech_stack', { status: 'in_progress' });
 			const formattedText = formatTextToMarkdown(translatedText);
 
+			// ! TODO: update the fetch to use model or server action
 			const techStackResponse = await fetch('/api/extract-tech-stack', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
@@ -260,7 +267,10 @@ export function TaskGeneratorFormFromFileUpload() {
 
 			// Step 4: Generate challenge
 			updateStep('generate', { status: 'in_progress' });
-			const issueDescription = form.getValues('issueDescription');
+			const issueDescription = await translateIssueDescriptionAction(form.getValues('issueDescription'));
+			// ! Debug
+			print.log('issueDescription', issueDescription);
+
 			const challengeResult = await createTechChallenge(
 				extractResult.extractedText,
 				mergedJsonString,
