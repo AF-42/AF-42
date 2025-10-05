@@ -153,7 +153,7 @@ async function retryWithBackoff<T>(
 
 			// Exponential backoff
 			const backoffDelay = delayMs * Math.pow(2, attempt - 1);
-			console.warn(`Tech stack extraction attempt ${attempt} failed, retrying in ${backoffDelay}ms:`, error);
+			print.error(`Tech stack extraction attempt ${attempt} failed, retrying in ${backoffDelay}ms:`, error);
 			await new Promise((resolve) => setTimeout(resolve, backoffDelay));
 		}
 	}
