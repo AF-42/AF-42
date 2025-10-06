@@ -63,7 +63,7 @@ export const timmy = new Agent({
 
         \`\`\`markdown
         # {Role Title} — Technical Challenge
-        **Seniority Target:** {junior|mid|senior}
+        **Seniority Target:** {from JSON config seniority target}
         **Primary Stack:** {from job-offer tech specs}
 
         ---
@@ -75,27 +75,27 @@ export const timmy = new Agent({
         {derived from Domain and Issue Descriptions}
 
         ## 3. Requirements:
-        + 3.a) Functional Requirements
+        Functional Requirements
         {From JSON config seniority target:
         - Junior → 1–2 Functional Requirements
         - Mid → 3–4 Functional Requirements
         - Senior → 5–6 Functional Requirements}
 
-        + 3.b) Non-Functional Requirements:
+        Non-Functional Requirements:
         {List non-functional expectations}
 
-        + 3.c) Constraints:
+        Constraints:
         {From JSON config constraints}
 
-        + 3.d) Allowed Tools:
+        Allowed Tools:
         - Tool 1: (link)
         - Tool 2: (link)
         - Tool 3: (link)
 
-        + 3.e) Disallowed Tools:
+        Disallowed Tools:
         {From JSON config disallowed list}
 
-        + 3.f) External Services:
+        External Services:
         {From JSON config external services}
 
         ## 4. Optional Requirements:
