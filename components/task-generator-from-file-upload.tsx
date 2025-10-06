@@ -307,13 +307,18 @@ export function TaskGeneratorFormFromFileUpload() {
 					issueDescription: form.getValues('issueDescription'),
 				});
 
+				print.log('Save result:', saveResult);
+				print.log('Challenge ID from save result:', saveResult.challengeId);
+
 				if (saveResult.success) {
 					setSavedChallengeId(saveResult.challengeId);
 					print.log('Challenge automatically saved with ID:', saveResult.challengeId);
 
 					// Automatically redirect to edit page
+					const redirectUrl = `/challenge/edit/${saveResult.challengeId}`;
+					print.log('Redirecting to:', redirectUrl);
 					setTimeout(() => {
-						router.push(`/challenge/edit/${saveResult.challengeId}`);
+						router.push(redirectUrl);
 					}, 2000); // Give user 2 seconds to see the success message
 				}
 			} catch (saveError: any) {
