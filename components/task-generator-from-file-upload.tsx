@@ -14,6 +14,8 @@
  * - Clean, card-based UI with detailed results display
  */
 
+// TODO: add publish and save for later functionalities
+
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -28,7 +30,7 @@ import { useEffect, useState } from 'react';
 import { FileTextExtractor } from '@/components/file-text-extractor.component';
 import { TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle, AlertCircle, Loader2, Zap } from 'lucide-react';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
@@ -457,6 +459,14 @@ export function TaskGeneratorFormFromFileUpload() {
 									)}
 								</div>
 							</CardContent>
+							<CardFooter className="border-none flex gap-2 justify-end">
+								<Button variant="outline" onClick={() => setResult(null)}>
+									Publish Challenge
+								</Button>
+								<Button variant="outline" onClick={() => setResult(null)}>
+									Save for later
+								</Button>
+							</CardFooter>
 						</Card>
 					)}
 				</form>

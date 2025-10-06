@@ -92,7 +92,7 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: strin
 									)}
 								</ScrollArea>
 							</CardContent>
-							<CardFooter>
+							<CardFooter className="border-none flex gap-2 justify-end">
 								<Button
 									variant="outline"
 									onClick={() => setIsEditing({ ...isEditing, [header]: !isEditing[header] })}
