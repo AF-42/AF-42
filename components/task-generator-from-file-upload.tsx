@@ -21,7 +21,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Textarea } from '@/components/ui/textarea';
@@ -307,16 +306,11 @@ export function TaskGeneratorFormFromFileUpload() {
 					issueDescription: form.getValues('issueDescription'),
 				});
 
-				print.log('Save result:', saveResult);
-				print.log('Challenge ID from save result:', saveResult.challengeId);
-
 				if (saveResult.success) {
 					setSavedChallengeId(saveResult.challengeId);
-					print.log('Challenge automatically saved with ID:', saveResult.challengeId);
 
 					// Automatically redirect to edit page
 					const redirectUrl = `/challenge/edit/${saveResult.challengeId}`;
-					print.log('Redirecting to:', redirectUrl);
 					setTimeout(() => {
 						router.push(redirectUrl);
 					}, 2000); // Give user 2 seconds to see the success message
@@ -528,13 +522,6 @@ export function TaskGeneratorFormFromFileUpload() {
 					)}
 				</form>
 			</Form>
-			{processingState.result && (
-				<div className="p-4 bg-background rounded-md overflow-y-auto">
-					<pre className="text-sm whitespace-pre-wrap break-words">
-						<ChallengeDraftEditor challengeDraft={processingState.result} />
-					</pre>
-				</div>
-			)}
 		</>
 	);
 }

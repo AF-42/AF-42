@@ -5,6 +5,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useRef, useState } from 'react';
+import { ChallengeType } from '@/types/challenge.type';
 
 const SECTION_HEADERS = [
 	'## 1. Problem Overview:',
@@ -15,12 +16,12 @@ const SECTION_HEADERS = [
 	'## 6. Evaluation Rubric:',
 ];
 
-function extractSections(draft: string, headers: string[]) {
+function extractSections(draft: ChallengeType, headers: string[]) {
 	const result: Record<string, string> = {};
 
 	// Find positions of each header in the draft
 	const positions = headers
-		.map((header) => ({ header, index: draft.indexOf(header) }))
+		.map((header) => ({ header, index: draft.challenge_description.indexOf(header) }))
 		.filter(({ index }) => index !== -1)
 		.sort((a, b) => a.index - b.index);
 
@@ -28,9 +29,9 @@ function extractSections(draft: string, headers: string[]) {
 
 	for (let i = 0; i < positions.length; i++) {
 		const { header, index } = positions[i];
-		const nextIndex = i + 1 < positions.length ? positions[i + 1].index : draft.length;
+		const nextIndex = i + 1 < positions.length ? positions[i + 1].index : draft.challenge_description.length;
 		const start = index + header.length;
-		let content = draft.slice(start, nextIndex).trim();
+		let content = draft.challenge_description.slice(start, nextIndex).trim();
 
 		// For the last section in the draft, remove a trailing code fence if present
 		if (i === positions.length - 1) {
@@ -47,7 +48,7 @@ function headerToTitle(header: string) {
 	return header.replace(/^##\s*/, '').replace(/:\s*$/, '');
 }
 
-export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: string }) {
+export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: ChallengeType }) {
 	const sections = extractSections(challengeDraft, SECTION_HEADERS);
 	const [editedSections, setEditedSections] = useState<Record<string, string>>(sections);
 	const [isEditing, setIsEditing] = useState<Record<string, boolean>>(
@@ -72,6 +73,15 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: strin
 	};
 	return (
 		<>
+			<div className="p-3 bg-background rounded-md">
+				<h4 className="font-medium text-sm mb-2">Challenge Details:</h4>
+				<div className="text-xs text-muted-foreground space-y-1">
+					<div>Role: {challengeDraft.challenge_name || 'Not specified'}</div>
+					<div>Seniority: {challengeDraft.challenge_difficulty || 'Not specified'}</div>
+					<div>Technologies: {challengeDraft.challenge_requirements?.length || 0} identified</div>
+				</div>
+			</div>
+
 			{SECTION_HEADERS.map((header) => (
 				<div key={header} className="w-full mb-4">
 					<Card className="w-full border-none shadow-sm mb-4">
@@ -106,3 +116,12 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: strin
 		</>
 	);
 }
+
+/*
+<Button variant="outline" onClick={() => setResult(null)}>
+	Publish Challenge
+</Button>
+<Button variant="outline" onClick={() => setResult(null)}>
+	Save for later
+</Button>
+ */

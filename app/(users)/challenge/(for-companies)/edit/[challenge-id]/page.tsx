@@ -5,9 +5,6 @@ import * as print from '@/lib/print-helpers';
 export default async function EditChallengePage({ params }: { params: Promise<{ 'challenge-id': string }> }) {
 	const resolvedParams = await params;
 	const challengeId = resolvedParams['challenge-id'];
-	print.log('[EditChallengePage] Full params object:', resolvedParams);
-	print.log('[EditChallengePage] challengeId: ', challengeId);
-	print.log('[EditChallengePage] challengeId type:', typeof challengeId);
 
 	if (!challengeId) {
 		return (
@@ -19,7 +16,8 @@ export default async function EditChallengePage({ params }: { params: Promise<{ 
 	}
 
 	const challengeDraft = await challengeService.getChallengeByChallengeId(challengeId);
-	print.log('[EditChallengePage] Challenge query result:', challengeDraft);
+	print.log('[EditChallengePage] challengeDraft type:', typeof challengeDraft);
+	print.log('[EditChallengePage] Challenge draft result:', challengeDraft);
 
 	if (!challengeDraft || challengeDraft.length === 0) {
 		return (
@@ -32,5 +30,5 @@ export default async function EditChallengePage({ params }: { params: Promise<{ 
 		);
 	}
 
-	return <ChallengeDraftEditor challengeDraft={challengeDraft[0].challenge_description} />;
+	return <ChallengeDraftEditor challengeDraft={challengeDraft[0]} />;
 }
