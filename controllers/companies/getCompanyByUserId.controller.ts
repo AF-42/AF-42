@@ -1,4 +1,4 @@
-import { companiesService } from '@/services/companies/companies.services';
+import { companiesService } from '@/backend/services/companies.service';
 import * as print from '@/lib/print-helpers';
 
 export const getCompanyByUserIdController = async (userId: string) => {

@@ -1,4 +1,4 @@
-import { challengeService } from '@/services/challenge/challenge.service';
+import { challengeService } from '@/backend/services/challenge.service';
 
 export default async function ChallengePage({ params }: { params: { id: string } }) {
 	const { id } = params;

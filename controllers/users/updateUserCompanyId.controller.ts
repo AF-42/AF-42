@@ -1,4 +1,4 @@
-import { usersService } from "@/services/users/users.service";
+import { usersService } from '@/backend/services/users.service';
 
 export const updateUserCompanyId = async (userId: string, companyId: string) => {
 	try {

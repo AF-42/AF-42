@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
-import { usersService } from '@/services/users/users.service';
+import { usersService } from '@/backend/services/users.service';
 
 /**
  * GET /api/users/profile - Retrieve the authenticated user's profile

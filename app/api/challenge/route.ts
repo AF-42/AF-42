@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { challengeService } from '@/services/challenge/challenge.service';
+import { challengeService } from '@/backend/services/challenge.service';
 
 const apiUrl = process.env.KINDE_SITE_URL;
 

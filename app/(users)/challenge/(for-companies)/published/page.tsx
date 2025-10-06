@@ -1,4 +1,4 @@
-import { challengeService } from '@/services/challenge/challenge.service';
+import { challengeService } from '@/backend/services/challenge.service';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 
 export default async function PublishedPage() {

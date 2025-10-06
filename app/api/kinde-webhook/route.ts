@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { JwtPayload } from 'jsonwebtoken';
 import { Env } from '@/env';
-import { usersService } from '@/services/users/users.service';
+import usersService from '@/backend/services/users.service';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
 
@@ -14,13 +14,9 @@ const client = jwksClient({
 
 export async function POST(req: Request) {
 	try {
-		// Get the token from the request
 		const token = await req.text();
 
-		// Decode the token
 		const jwtDecoded = jwt.decode(token, { complete: true });
-
-		// Verify the token
 		if (!jwtDecoded) {
 			return NextResponse.json({ message: 'Invalid token: error decoding token' }, { status: 400 });
 		}
@@ -30,28 +26,10 @@ export async function POST(req: Request) {
 		const key = await client.getSigningKey(kid);
 		const signingKey = key.getPublicKey();
 		const event = jwt.verify(token, signingKey) as JwtPayload;
-
 		if (event?.type === 'user.created') {
 			try {
 				const user = event.data.user;
-				if (!user) {
-					return NextResponse.json({ message: 'Invalid user data' }, { status: 400 });
-				}
-				const newUser = await usersService.createUser({
-					kinde_id: user.id,
-					email: user.email,
-					first_name: user.first_name,
-					last_name: user.last_name,
-					username: user.username,
-					organizations: user.organizations,
-					is_password_reset_requested: user.is_password_reset_requested,
-					is_suspended: user.is_suspended,
-					role: '',
-					user_since: new Date(),
-					last_login: new Date(),
-					created_at: new Date(),
-					updated_at: new Date(),
-				});
+				const newUser = await usersService.createUser(user);
 				if (!newUser) {
 					return NextResponse.json({ message: 'Failed to create user' }, { status: 400 });
 				}

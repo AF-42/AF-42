@@ -1,4 +1,4 @@
-import { companiesService } from '@/services/companies/companies.services';
+import { companiesService } from '@/backend/services/companies.service';
 
 export const getCompanyByOwnerIdController = async (ownerId: string) => {
 	if (!ownerId) {
