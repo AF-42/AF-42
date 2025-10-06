@@ -1,6 +1,5 @@
 'use client';
 
-import * as print from '@/lib/print-helpers';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
