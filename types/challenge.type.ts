@@ -1,7 +1,9 @@
 export type ChallengeType = {
 	id: string;
 	company_id: string;
+	is_published: boolean;
 	challenge_id: string;
+	challenge_industry: string;
 	challenge_name: string;
 	challenge_description: string;
 	challenge_difficulty: string;

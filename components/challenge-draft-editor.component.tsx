@@ -31,6 +31,7 @@ function extractSections(draft: string, headers: string[]) {
 		const nextIndex = i + 1 < positions.length ? positions[i + 1].index : draft.length;
 		const start = index + header.length;
 		let content = draft.slice(start, nextIndex).trim();
+
 		// For the last section in the draft, remove a trailing code fence if present
 		if (i === positions.length - 1) {
 			content = stripTrailingCodeFence(content);
@@ -72,37 +73,35 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: strin
 	return (
 		<>
 			{SECTION_HEADERS.map((header) => (
-				<>
-					<div className="w-full mb-4">
-						<Card className="w-full border-none shadow-sm mb-4">
-							<CardHeader>
-								<CardTitle>{headerToTitle(header)}</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<ScrollArea>
-									{isEditing[header] ? (
-										<Textarea
-											ref={setTextareaRef(header)}
-											value={editedSections[header]}
-											onChange={handleChange(header)}
-											className="resize-none overflow-hidden"
-										/>
-									) : (
-										<div>{editedSections[header] ?? ''}</div>
-									)}
-								</ScrollArea>
-							</CardContent>
-							<CardFooter className="border-none flex gap-2 justify-end">
-								<Button
-									variant="outline"
-									onClick={() => setIsEditing({ ...isEditing, [header]: !isEditing[header] })}
-								>
-									{isEditing[header] ? 'Save' : 'Edit'}
-								</Button>
-							</CardFooter>
-						</Card>
-					</div>
-				</>
+				<div key={header} className="w-full mb-4">
+					<Card className="w-full border-none shadow-sm mb-4">
+						<CardHeader>
+							<CardTitle>{headerToTitle(header)}</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<ScrollArea>
+								{isEditing[header] ? (
+									<Textarea
+										ref={setTextareaRef(header)}
+										value={editedSections[header]}
+										onChange={handleChange(header)}
+										className="resize-none overflow-hidden"
+									/>
+								) : (
+									<div>{editedSections[header] ?? ''}</div>
+								)}
+							</ScrollArea>
+						</CardContent>
+						<CardFooter className="border-none flex gap-2 justify-end">
+							<Button
+								variant="outline"
+								onClick={() => setIsEditing({ ...isEditing, [header]: !isEditing[header] })}
+							>
+								{isEditing[header] ? 'Save' : 'Edit'}
+							</Button>
+						</CardFooter>
+					</Card>
+				</div>
 			))}
 		</>
 	);

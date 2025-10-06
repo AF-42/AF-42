@@ -36,9 +36,11 @@ import { CheckCircle, AlertCircle, Loader2, Zap } from 'lucide-react';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
 import { getCompanyDescriptionAction } from '@/app/actions/get-company-description.action';
 import { getUserData } from '@/app/actions/get-user-data.action';
+import { saveChallengeDraftAction } from '@/app/actions/save-challenge-draft.action';
 import { UserProfileType } from '@/types/user-profile.type';
 import * as print from '@/lib/print-helpers';
 import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
+import { useRouter } from 'next/navigation';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 interface StackSelectionJson {
@@ -90,6 +92,7 @@ interface AutomatedProcessingState {
 }
 
 export function TaskGeneratorFormFromFileUpload() {
+	const router = useRouter();
 	const [result, setResult] = useState<string | null>(null);
 	const [jsonConfig, setJsonConfig] = useState<string>('');
 	const [extractedText, setExtractedText] = useState<string>('');
@@ -101,6 +104,7 @@ export function TaskGeneratorFormFromFileUpload() {
 	const [extractedTechStack, setExtractedTechStack] = useState<StackSelectionJson | null>(null);
 	const [selectedFile, setSelectedFile] = useState<File | null>(null);
 	const [user, setUser] = useState<UserProfileType | null>(null);
+	const [savedChallengeId, setSavedChallengeId] = useState<string | null>(null);
 
 	useEffect(() => {
 		const fetchUser = async () => {
@@ -295,6 +299,28 @@ export function TaskGeneratorFormFromFileUpload() {
 			setResult(challengeResult);
 			updateStep('generate', { status: 'completed' });
 
+			// Automatically save the challenge draft to database
+			try {
+				const saveResult = await saveChallengeDraftAction({
+					challengeDraft: challengeResult,
+					extractedTechStack: techStackResult.techStack,
+					issueDescription: form.getValues('issueDescription'),
+				});
+
+				if (saveResult.success) {
+					setSavedChallengeId(saveResult.challengeId);
+					print.log('Challenge automatically saved with ID:', saveResult.challengeId);
+
+					// Automatically redirect to edit page
+					setTimeout(() => {
+						router.push(`/challenge/edit/${saveResult.challengeId}`);
+					}, 2000); // Give user 2 seconds to see the success message
+				}
+			} catch (saveError: any) {
+				print.error('Failed to auto-save challenge:', saveError.message);
+				// Don't fail the entire process if auto-save fails
+			}
+
 			// Mark processing as complete
 			updateProcessingState({
 				isProcessing: false,
@@ -443,6 +469,21 @@ export function TaskGeneratorFormFromFileUpload() {
 							</CardHeader>
 							<CardContent className="border-none p-0">
 								<div className="space-y-4">
+									{/* Auto-save status */}
+									{savedChallengeId && (
+										<div className="p-3 bg-green-50 border border-green-200 rounded-md">
+											<div className="flex items-center gap-2 text-green-700">
+												<CheckCircle className="h-4 w-4" />
+												<span className="text-sm font-medium">
+													Challenge automatically saved!
+												</span>
+											</div>
+											<div className="text-xs text-green-600 mt-1">
+												Redirecting to edit page in a moment...
+											</div>
+										</div>
+									)}
+
 									{/* Extracted Tech Stack Summary */}
 									{extractedTechStack && (
 										<div className="p-3 bg-background rounded-md">
@@ -460,12 +501,23 @@ export function TaskGeneratorFormFromFileUpload() {
 								</div>
 							</CardContent>
 							<CardFooter className="border-none flex gap-2 justify-end">
-								<Button variant="outline" onClick={() => setResult(null)}>
-									Publish Challenge
-								</Button>
-								<Button variant="outline" onClick={() => setResult(null)}>
-									Save for later
-								</Button>
+								{savedChallengeId ? (
+									<Button
+										variant="outline"
+										onClick={() => router.push(`/challenge/edit/${savedChallengeId}`)}
+									>
+										Edit Challenge Now
+									</Button>
+								) : (
+									<>
+										<Button variant="outline" onClick={() => setResult(null)}>
+											Publish Challenge
+										</Button>
+										<Button variant="outline" onClick={() => setResult(null)}>
+											Save for later
+										</Button>
+									</>
+								)}
 							</CardFooter>
 						</Card>
 					)}

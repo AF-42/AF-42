@@ -1,0 +1,1 @@
+ALTER TABLE `challenges` ADD `challenge_industry` text(255) NOT NULL;
