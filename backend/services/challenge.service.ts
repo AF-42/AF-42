@@ -1,69 +1,21 @@
-import { db } from '@/db';
 import { challengesTable } from '@/db/schema/challenges';
-import { usersTable } from '@/db/schema/users';
-import { eq } from 'drizzle-orm';
+import * as model from '../models';
 
 export const challengeService = {
 	createChallenge: async (challenge: typeof challengesTable.$inferInsert) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		const result = await database.insert(challengesTable).values(challenge).returning();
-		return result[0];
+		const result = await model.challenges.create(challenge);
+		return result;
 	},
-
 	getAllChallenges: async () => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable);
+		return model.challenges.getAll();
 	},
 	getChallengeById: async (id: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.id, id));
+		return model.challenges.getById(id);
 	},
-	getChallengeByChallengeId: async (id: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.challenge_id, id));
+	getChallengeByEngineerId: async (engineer_id: string) => {
+		return model.challenges.getByEngineerId(engineer_id);
 	},
-	getChallengeByUserId: async (userId: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-
-		// First try to get challenge through challenge_members table
-		return database
-			.select({
-				challenge: challengesTable,
-			})
-			.from(challengesTable)
-			.innerJoin(challengesTable, eq(challengesTable.challenge_id, challengesTable.id))
-			.where(eq(challengesTable.company_id, userId))
-			.limit(1);
-	},
-	getChallengeMembers: async (companyId: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-
-		// Get all members of the company with their user details
-		return database
-			.select({
-				member: challengesTable,
-				user: usersTable,
-			})
-			.from(challengesTable)
-			.innerJoin(usersTable, eq(challengesTable.id, usersTable.id))
-			.where(eq(challengesTable.company_id, companyId));
+	getChallengeByCompanyId: async (company_id: string) => {
+		return model.challenges.getByCompanyId(company_id);
 	},
 };

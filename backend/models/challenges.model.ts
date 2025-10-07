@@ -12,7 +12,10 @@ export const challengesModel = {
 	getById(id: string) {
 		return database.select().from(challengesTable).where(eq(challengesTable.id, id));
 	},
-	getByChallengeId(challengeId: string) {
-		return database.select().from(challengesTable).where(eq(challengesTable.challenge_id, challengeId));
+	getByEngineerId(engineer_id: string) {
+		return database.select().from(challengesTable).where(eq(challengesTable.engineer_id, engineer_id));
+	},
+	getByCompanyId(company_id: string) {
+		return database.select().from(challengesTable).where(eq(challengesTable.company_id, company_id));
 	},
 };

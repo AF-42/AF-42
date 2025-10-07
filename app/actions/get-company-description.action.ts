@@ -27,7 +27,7 @@ export const getCompanyDescriptionAction = async () => {
 			throw new Error('No company found for the current user');
 		}
 
-		const companyDescription = companyResult[0].company.description;
+		const companyDescription = companyResult[0].description;
 		if (!companyDescription) {
 			throw new Error('No company description found for the current user');
 		}

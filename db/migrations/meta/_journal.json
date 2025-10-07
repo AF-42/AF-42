@@ -64,6 +64,13 @@
       "when": 1759765103011,
       "tag": "0008_medical_archangel",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1759851837035,
+      "tag": "0009_lumpy_leopardon",
+      "breakpoints": true
     }
   ]
 }

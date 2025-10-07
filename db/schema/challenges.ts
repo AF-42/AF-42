@@ -6,8 +6,9 @@ export const challengesTable = sqliteTable('challenges', {
 		.primaryKey()
 		.$defaultFn(() => crypto.randomUUID()),
 	company_id: text('company_id', { length: 255 }).notNull(),
+	engineer_id: text('engineer_id', { length: 255 }).notNull(),
 	is_published: integer('is_published', { mode: 'boolean' }).notNull(),
-	challenge_id: text('challenge_id', { length: 255 }).notNull(),
+	github_url: text('github_url', { length: 255 }).notNull(),
 	challenge_industry: text('challenge_industry', { length: 255 }).notNull(),
 	challenge_name: text('challenge_name', { length: 255 }).notNull(),
 	challenge_description: text('challenge_description', { length: 255 }).notNull(),

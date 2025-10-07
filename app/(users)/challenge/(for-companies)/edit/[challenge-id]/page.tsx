@@ -1,9 +1,10 @@
-import { challengeService } from '@/services/challenge/challenge.service';
+import { challengeService } from '@/backend/services/challenge.service';
 import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
 import * as print from '@/lib/print-helpers';
 
-export default async function EditChallengePage({ params }: { params: Promise<{ 'challenge-id': string }> }) {
+export default async function EditChallengePage({ params }: { params: Promise<{ 'company-id': string; 'challenge-id': string }> }) {
 	const resolvedParams = await params;
+	const companyId = resolvedParams['company-id'];
 	const challengeId = resolvedParams['challenge-id'];
 
 	if (!challengeId) {
@@ -15,7 +16,7 @@ export default async function EditChallengePage({ params }: { params: Promise<{ 
 		);
 	}
 
-	const challengeDraft = await challengeService.getChallengeByChallengeId(challengeId);
+	const challengeDraft = await challengeService.getChallengeByCompanyId(challengeId);
 	print.log('[EditChallengePage] challengeDraft type:', typeof challengeDraft);
 	print.log('[EditChallengePage] Challenge draft result:', challengeDraft);
 
