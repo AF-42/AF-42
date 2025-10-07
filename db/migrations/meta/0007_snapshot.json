@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "dcd206c0-ee84-4acc-850e-e91234384a42",
+  "id": "b28576fa-0a10-4bfc-a160-baf1116c4b3c",
   "prevId": "ec73ee93-b784-41f6-a793-18c66cb46ee7",
   "tables": {
     "address": {
@@ -174,9 +174,9 @@
           "notNull": true,
           "autoincrement": false
         },
-        "user_id": {
-          "name": "user_id",
-          "type": "text(255)",
+        "is_published": {
+          "name": "is_published",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false

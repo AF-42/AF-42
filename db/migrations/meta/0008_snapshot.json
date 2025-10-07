@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "f2127b09-0721-4c69-a3e6-4eb46b3c4b3b",
-  "prevId": "dcd206c0-ee84-4acc-850e-e91234384a42",
+  "id": "09274929-4281-491c-b951-58713a901cf9",
+  "prevId": "b28576fa-0a10-4bfc-a160-baf1116c4b3c",
   "tables": {
     "address": {
       "name": "address",
@@ -174,15 +174,22 @@
           "notNull": true,
           "autoincrement": false
         },
-        "engineer_id": {
-          "name": "engineer_id",
-          "type": "text(255)",
+        "is_published": {
+          "name": "is_published",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
         "challenge_id": {
           "name": "challenge_id",
+          "type": "text(255)",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "challenge_industry": {
+          "name": "challenge_industry",
           "type": "text(255)",
           "primaryKey": false,
           "notNull": true,

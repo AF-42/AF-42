@@ -9,8 +9,10 @@ export const challengeService = {
 		if (!database) {
 			throw new Error('Database not found');
 		}
-		return database.insert(challengesTable).values(challenge);
+		const result = await database.insert(challengesTable).values(challenge).returning();
+		return result[0];
 	},
+
 	getAllChallenges: async () => {
 		const database = db;
 		if (!database) {
@@ -47,48 +49,6 @@ export const challengeService = {
 			.innerJoin(challengesTable, eq(challengesTable.challenge_id, challengesTable.id))
 			.where(eq(challengesTable.company_id, userId))
 			.limit(1);
-	},
-	getChallengeByAddress: async (address: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.company_id, address));
-	},
-	getChallengeByWebsite: async (website: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.company_id, website));
-	},
-	getChallengeByIndustry: async (industry: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.company_id, industry));
-	},
-	getChallengeByDescription: async (description: string) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.company_id, description));
-	},
-	getChallengeByCreatedAt: async (createdAt: Date) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.created_at, createdAt));
-	},
-	getChallengeByUpdatedAt: async (updatedAt: Date) => {
-		const database = db;
-		if (!database) {
-			throw new Error('Database not found');
-		}
-		return database.select().from(challengesTable).where(eq(challengesTable.updated_at, updatedAt));
 	},
 	getChallengeMembers: async (companyId: string) => {
 		const database = db;
