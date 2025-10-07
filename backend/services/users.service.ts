@@ -1,10 +1,13 @@
-import * as models from '../models';
+import * as model from '../models';
 import { usersTable } from '@/db/schema/users';
 
-const usersService = {
+export const usersService = {
 	createUser: async (user: typeof usersTable.$inferInsert) => {
 		if (!user) {
 			throw new Error('User not provided');
+		}
+		if (!user.id) {
+			throw new Error('User ID not provided');
 		}
 		const data = {
 			kinde_id: user.id,
@@ -21,96 +24,80 @@ const usersService = {
 			created_at: new Date(),
 			updated_at: new Date(),
 		};
-		const newUser = await models.users.create(data);
+		const newUser = await model.users.create(data);
 		if (!newUser) {
 			throw new Error('User not returned by model');
 		}
 		return newUser;
 	},
+	update: async (userId: string, userData: Partial<typeof usersTable.$inferInsert>) => {
+		const user = await model.users.update(userId, userData);
+		if (!user) {
+			throw new Error('User not found');
+		}
+		return user;
+	},
 	getAll: async () => {
-		const users = await models.users.getAll();
+		const users = await model.users.getAll();
 		if (!users) {
 			return [];
 		}
 		return users;
 	},
-	getUserByKindeId: async (kindeId: string) => {
-		const user = await models.users.getByKindeId(kindeId);
+	getByKindeId: async (kindeId: string) => {
+		const user = await model.users.getByKindeId(kindeId);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	getUserByUsername: async (username: string) => {
-		const user = await models.users.getByUsername(username);
+	getByUsername: async (username: string) => {
+		const user = await model.users.getByUsername(username);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	getUserByEmail: async (email: string) => {
-		const user = await models.users.getByEmail(email);
+	getByEmail: async (email: string) => {
+		const user = await model.users.getByEmail(email);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	getUserById: async (id: string) => {
-		const user = await models.users.getById(id);
+	getById: async (id: string) => {
+		const user = await model.users.getById(id);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	getUserByOrganizations: async (organizations: string) => {
-		const user = await models.users.getByOrganizations(organizations);
+	getByOrganizations: async (organizations: string) => {
+		const user = await model.users.getByOrganizations(organizations);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	getUserByIsPasswordResetRequested: async (isPasswordResetRequested: boolean) => {
-		const user = await models.users.getByIsPasswordResetRequested(isPasswordResetRequested);
+	getByRole: async (role: string) => {
+		const user = await model.users.getByRole(role);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	// getUserByIsSuspended: async (isSuspended: boolean) => {
-	// 	const user = await models.users.getByIsSuspended(isSuspended);
-	// 	if (!user) {
-	// 		throw new Error('User not found');
-	// 	}
-	// 	return user;
-	// },
-	getUserByRole: async (role: string) => {
-		const user = await models.users.getByRole(role);
+	updateRole: async (kindeId: string, role: string) => {
+		const user = await model.users.updateRole(kindeId, role);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
-	updateUserRole: async (kindeId: string, role: string) => {
-		const user = await models.users.updateUserRole(kindeId, role);
-		if (!user) {
-			throw new Error('User not found');
-		}
-		return user;
-	},
-	updateUserCompanyId: async (userId: string, companyId: string) => {
-		const user = await models.users.updateUserCompanyId(userId, companyId);
-		if (!user) {
-			throw new Error('User not found');
-		}
-		return user;
-	},
-	updateUser: async (userId: string, userData: Partial<typeof usersTable.$inferInsert>) => {
-		const user = await models.users.updateUser(userId, userData);
+	updateCompanyId: async (userId: string, companyId: string) => {
+		const user = await model.users.updateCompanyId(userId, companyId);
 		if (!user) {
 			throw new Error('User not found');
 		}
 		return user;
 	},
 };
-
-export default usersService;

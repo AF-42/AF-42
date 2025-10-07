@@ -2,24 +2,24 @@ import { db as database } from '@/db';
 import { usersTable } from '@/db/schema/users';
 import { eq } from 'drizzle-orm';
 
-const usersModel = {
+export const usersModel = {
 	create(user: typeof usersTable.$inferInsert) {
 		return database.insert(usersTable).values(user);
 	},
-	getAll() {
-		return database.select().from(usersTable);
-	},
-	updateUserRole(kindeId: string, role: string) {
-		return database.update(usersTable).set({ role }).where(eq(usersTable.kinde_id, kindeId));
-	},
-	updateUserCompanyId(userId: string, companyId: string) {
-		return database.update(usersTable).set({ organizations: companyId }).where(eq(usersTable.id, userId));
-	},
-	updateUser(userId: string, userData: Partial<typeof usersTable.$inferInsert>) {
+	update(userId: string, userData: Partial<typeof usersTable.$inferInsert>) {
 		return database
 			.update(usersTable)
 			.set({ ...userData, updated_at: new Date() })
 			.where(eq(usersTable.id, userId));
+	},
+	getAll() {
+		return database.select().from(usersTable);
+	},
+	updateRole(kindeId: string, role: string) {
+		return database.update(usersTable).set({ role }).where(eq(usersTable.kinde_id, kindeId));
+	},
+	updateCompanyId(userId: string, companyId: string) {
+		return database.update(usersTable).set({ organizations: companyId }).where(eq(usersTable.id, userId));
 	},
 	getByKindeId(kindeId: string) {
 		return database.select().from(usersTable).where(eq(usersTable.kinde_id, kindeId));
@@ -46,5 +46,3 @@ const usersModel = {
 		return database.select().from(usersTable).where(eq(usersTable.role, role));
 	},
 };
-
-export default usersModel;

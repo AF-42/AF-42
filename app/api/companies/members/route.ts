@@ -6,8 +6,8 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getCompanyMembersController } from '@/controllers/companies/getCompanyMembers.controller';
-import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
+import { getCompanyMembersController } from '@/backend/controllers/companies/getCompanyMembers.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
 import { companiesService } from '@/backend/services/companies.service';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 

@@ -11,10 +11,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/db';
 import { companiesTable } from '@/db/schema/companies';
 import { companyMembersTable } from '@/db/schema/company-members';
-import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
 import { eq } from 'drizzle-orm';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { updateUserCompanyId } from '@/controllers/users/updateUserCompanyId.controller';
+import { updateUserCompanyId } from '@/backend/controllers/users/updateUserCompanyId.controller';
 
 export async function PUT(request: NextRequest) {
 	try {

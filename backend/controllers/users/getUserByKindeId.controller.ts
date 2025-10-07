@@ -1,12 +1,11 @@
-import { usersService } from '@/backend/services/users.service';
+import * as service from '@/backend/services';
 
 export const getUserByKindeIdController = async (kindeId: string) => {
 	try {
 		if (!kindeId) {
 			throw new Error('Kinde id is required');
 		}
-		const user = await usersService.getUserByKindeId(kindeId);
-
+		const user = await service.users.getByKindeId(kindeId);
 		if (!user) {
 			throw new Error('User not found');
 		}

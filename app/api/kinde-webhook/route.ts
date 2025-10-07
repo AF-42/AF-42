@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import type { JwtPayload } from 'jsonwebtoken';
 import { Env } from '@/env';
-import usersService from '@/backend/services/users.service';
+import * as service from '@/backend/services';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
 
@@ -28,14 +28,15 @@ export async function POST(req: Request) {
 		const event = jwt.verify(token, signingKey) as JwtPayload;
 		if (event?.type === 'user.created') {
 			try {
-				const user = event.data.user;
-				const newUser = await usersService.createUser(user);
+				const userData = event.data.user;
+				const newUser = await service.users.createUser(userData);
 				if (!newUser) {
-					return NextResponse.json({ message: 'Failed to create user' }, { status: 400 });
+					throw new Error('Failed to create user');
 				}
 				return NextResponse.json({ message: 'User created' }, { status: 200 });
 			} catch (err) {
 				console.error(err);
+				return NextResponse.json({ message: 'Failed to create user' }, { status: 400 });
 			}
 		}
 	} catch (err) {

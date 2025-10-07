@@ -1,1 +1,1 @@
-export * as users from './models/users.service';
+export { usersModel as users } from './models/users.model';

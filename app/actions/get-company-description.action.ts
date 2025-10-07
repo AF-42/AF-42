@@ -1,8 +1,8 @@
 'use server';
 
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
-import { getCompanyByUserIdController } from '@/controllers/companies/getCompanyByUserId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
+import { getCompanyByUserIdController } from '@/backend/controllers/companies/getCompanyByUserId.controller';
 import * as print from '@/lib/print-helpers';
 
 export const getCompanyDescriptionAction = async () => {

@@ -5,7 +5,7 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
-import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
 	const { getUser, isAuthenticated } = getKindeServerSession();

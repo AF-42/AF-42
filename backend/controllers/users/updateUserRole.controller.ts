@@ -1,4 +1,4 @@
-import { usersService } from '@/backend/services/users.service';
+import * as service from '@/backend/services';
 
 export const updateUserRole = async (kindeId: string, role: string) => {
 	try {
@@ -8,7 +8,7 @@ export const updateUserRole = async (kindeId: string, role: string) => {
 		if (!role) {
 			throw new Error('Role is required');
 		}
-		const user = await usersService.updateUserRole(kindeId, role);
+		const user = await service.users.updateRole(kindeId, role);
 		if (!user) {
 			throw new Error('User not found');
 		}

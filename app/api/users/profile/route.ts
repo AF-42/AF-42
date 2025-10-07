@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { getUserByKindeIdController } from '@/controllers/users/getUserByKindeId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
 import { usersService } from '@/backend/services/users.service';
 
 /**

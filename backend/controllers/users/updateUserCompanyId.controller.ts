@@ -1,4 +1,4 @@
-import { usersService } from '@/backend/services/users.service';
+import * as service from '@/backend/services';
 
 export const updateUserCompanyId = async (userId: string, companyId: string) => {
 	try {
@@ -8,7 +8,7 @@ export const updateUserCompanyId = async (userId: string, companyId: string) => 
 		if (!companyId) {
 			throw new Error('Company ID is required');
 		}
-		const user = await usersService.updateUserCompanyId(userId, companyId);
+		const user = await service.users.updateCompanyId(userId, companyId);
 		if (!user) {
 			throw new Error('User not found');
 		}

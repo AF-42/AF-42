@@ -1,10 +1,10 @@
-import { usersService } from '@/backend/services/users.service';
+import * as service from '@/backend/services';
 
 export const getAllUserController = async () => {
 	try {
-		const users = await usersService.getAllUsers();
+		const users = await service.users.getAll();
 		if (!users) {
-			throw new Error('Users found in the database');
+			throw new Error('No users found');
 		}
 		return users;
 	} catch (error) {
