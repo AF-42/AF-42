@@ -1,11 +1,17 @@
-import { challengeService } from '@/backend/services/challenge.service';
+import { getChallengeDraftAction } from '@/app/actions/get-challenge-draft.actrion';
 import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
 import * as print from '@/lib/print-helpers';
 
-export default async function EditChallengePage({ params }: { params: Promise<{ 'company-id': string; 'challenge-id': string }> }) {
+export default async function EditChallengePage({
+	params,
+}: {
+	params: Promise<{ 'company-id': string; 'challenge-id': string }>;
+}) {
 	const resolvedParams = await params;
-	const companyId = resolvedParams['company-id'];
 	const challengeId = resolvedParams['challenge-id'];
+
+	print.log('[resolvedParams]:', resolvedParams);
+	print.log('[challengeId]:', challengeId);
 
 	if (!challengeId) {
 		return (
@@ -16,7 +22,7 @@ export default async function EditChallengePage({ params }: { params: Promise<{ 
 		);
 	}
 
-	const challengeDraft = await challengeService.getChallengeByCompanyId(challengeId);
+	const challengeDraft = await getChallengeDraftAction(challengeId);
 	print.log('[EditChallengePage] challengeDraft type:', typeof challengeDraft);
 	print.log('[EditChallengePage] Challenge draft result:', challengeDraft);
 

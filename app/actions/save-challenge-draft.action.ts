@@ -39,12 +39,12 @@ export const saveChallengeDraftAction = async (params: SaveChallengeDraftParams)
 
 		const company = companyResult[0];
 
-		// Generate a unique challenge ID
+		// Generate a single unique ID to use for both DB and response
 		const challengeId = crypto.randomUUID();
 
-		// Create challenge object
+		// Create challenge object using the same ID
 		const challengeData = {
-			id: crypto.randomUUID(),
+			id: challengeId,
 			company_id: company.id,
 			engineer_id: user[0].id,
 			github_url: params.github_url || '',
@@ -71,8 +71,8 @@ export const saveChallengeDraftAction = async (params: SaveChallengeDraftParams)
 
 		return {
 			success: true,
-			challengeId: challengeId,
-			challengeData: challengeData,
+			challengeId,
+			challengeData,
 		};
 	} catch (error: any) {
 		print.error('[saveChallengeDraftAction] error: ', error);
