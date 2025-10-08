@@ -6,8 +6,6 @@ import * as print from '@/lib/print-helpers';
 export const getChallengeDraftAction = async (challengeId: string) => {
 	try {
 		const challenge = await challengeService.getChallengeById(challengeId);
-		print.log('[getChallengeDraftAction] challenge:', challenge);
-
 		if (!challenge || challenge.length === 0) {
 			throw new Error('challenge not found');
 		}

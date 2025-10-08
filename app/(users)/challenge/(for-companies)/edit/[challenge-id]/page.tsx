@@ -10,9 +10,6 @@ export default async function EditChallengePage({
 	const resolvedParams = await params;
 	const challengeId = resolvedParams['challenge-id'];
 
-	print.log('[resolvedParams]:', resolvedParams);
-	print.log('[challengeId]:', challengeId);
-
 	if (!challengeId) {
 		return (
 			<div className="p-8 text-center">
