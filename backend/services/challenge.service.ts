@@ -3,8 +3,7 @@ import * as model from '../models';
 
 export const challengeService = {
 	createChallenge: async (challenge: typeof challengesTable.$inferInsert) => {
-		const result = await model.challenges.create(challenge);
-		return result;
+		return model.challenges.create(challenge);
 	},
 	getAllChallenges: async () => {
 		return model.challenges.getAll();

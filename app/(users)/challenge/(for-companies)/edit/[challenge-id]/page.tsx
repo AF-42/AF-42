@@ -20,7 +20,6 @@ export default async function EditChallengePage({
 	}
 
 	const challengeDraft = await getChallengeDraftAction(challengeId);
-	print.log('[EditChallengePage] challengeDraft type:', typeof challengeDraft);
 	print.log('[EditChallengePage] Challenge draft result:', challengeDraft);
 
 	if (!challengeDraft || challengeDraft.length === 0) {

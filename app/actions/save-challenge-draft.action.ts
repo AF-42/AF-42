@@ -15,11 +15,13 @@ export interface SaveChallengeDraftParams {
 
 export const saveChallengeDraftAction = async (params: SaveChallengeDraftParams) => {
 	try {
+		// Check if user is authenticated
 		const { getUser, isAuthenticated } = getKindeServerSession();
 		if (!(await isAuthenticated())) {
 			throw new Error('User not authenticated');
 		}
 
+		// Get user data
 		const sessionUser = await getUser();
 		if (!sessionUser?.id) {
 			throw new Error('User not found');
@@ -66,8 +68,11 @@ export const saveChallengeDraftAction = async (params: SaveChallengeDraftParams)
 
 		// Save to database
 		const result = await challengeService.createChallenge(challengeData);
-
-		print.log('Challenge draft saved successfully:', challengeId);
+		if (!result) {
+			throw new Error('Failed to save challenge draft');
+		} else {
+			print.log('Challenge draft saved successfully:', challengeId);
+		}
 
 		return {
 			success: true,

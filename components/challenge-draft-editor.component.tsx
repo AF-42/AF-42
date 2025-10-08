@@ -73,12 +73,25 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: Chall
 	};
 	return (
 		<>
-			<div className="p-3 bg-background rounded-md">
-				<h4 className="font-medium text-sm mb-2">Challenge Details:</h4>
-				<div className="text-xs text-muted-foreground space-y-1">
-					<div>Role: {challengeDraft.challenge_name || 'Not specified'}</div>
-					<div>Seniority: {challengeDraft.challenge_difficulty || 'Not specified'}</div>
-					<div>Technologies: {challengeDraft.challenge_requirements?.length || 0} identified</div>
+			<div>
+				<div className="p-3 bg-background rounded-md">
+					<h4 className="font-medium text-sm mb-2">Challenge Details:</h4>
+					<div className="text-xs text-muted-foreground space-y-1">
+						<div>Role: {challengeDraft.challenge_name || 'Not specified'}</div>
+						<div>Seniority: {challengeDraft.challenge_difficulty || 'Not specified'}</div>
+						<div>Technologies: {challengeDraft.challenge_requirements?.length || 0} identified</div>
+					</div>
+				</div>
+				<div className="flex gap-2 justify-end mt-4">
+					<Button variant="outline" onClick={() => {}}>
+						Invite a tech member of your team to review the challenge
+					</Button>
+					<Button variant="outline" onClick={() => {}}>
+						Publish Challenge
+					</Button>
+					<Button variant="outline" onClick={() => {}}>
+						Save for later
+					</Button>
 				</div>
 			</div>
 
@@ -102,7 +115,7 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: Chall
 								)}
 							</ScrollArea>
 						</CardContent>
-						<CardFooter className="border-none flex gap-2 justify-end">
+					<CardFooter className="border-none flex gap-2 justify-end">
 							<Button
 								variant="outline"
 								onClick={() => setIsEditing({ ...isEditing, [header]: !isEditing[header] })}
@@ -116,12 +129,3 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: Chall
 		</>
 	);
 }
-
-/*
-<Button variant="outline" onClick={() => setResult(null)}>
-	Publish Challenge
-</Button>
-<Button variant="outline" onClick={() => setResult(null)}>
-	Save for later
-</Button>
- */
