@@ -8,3 +8,4 @@ export * from './challenge-generator-selector.component';
 export * from './challenge-draft-editor.component';
 export * from './data-selection.component';
 export * from './file-text-extractor.component';
+export * from './all-challenge-card.component';

@@ -162,19 +162,9 @@ export function AppSidebar({
 						url: '/challenge/generate',
 					},
 					{
-						title: 'Awaiting Review',
-						icon: ClipboardEdit,
-						url: '/challenge/awaiting-review',
-					},
-					{
-						title: 'Published',
-						icon: MonitorCheck,
-						url: '/challenge/published',
-					},
-					{
-						title: 'Drafts',
+						title: 'All',
 						icon: FolderCode,
-						url: `/challenge/draft/${currentUser.organizations}`,
+						url: '/challenge/all/',
 					},
 				],
 			},

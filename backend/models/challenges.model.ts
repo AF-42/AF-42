@@ -18,4 +18,7 @@ export const challengesModel = {
 	getByCompanyId(company_id: string) {
 		return database.select().from(challengesTable).where(eq(challengesTable.company_id, company_id));
 	},
+	delete(id: string) {
+		return database.delete(challengesTable).where(eq(challengesTable.id, id));
+	},
 };

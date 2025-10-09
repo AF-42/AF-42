@@ -14,8 +14,6 @@
  * - Clean, card-based UI with detailed results display
  */
 
-// TODO: add publish and save for later functionalities
-
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -499,25 +497,6 @@ export function TaskGeneratorFormFromFileUpload() {
 									)}
 								</div>
 							</CardContent>
-							<CardFooter className="border-none flex gap-2 justify-end">
-								{savedChallengeId ? (
-									<Button
-										variant="outline"
-										onClick={() => router.push(`/challenge/edit/${savedChallengeId}`)}
-									>
-										Edit Challenge Now
-									</Button>
-								) : (
-									<>
-										<Button variant="outline" onClick={() => setResult(null)}>
-											Publish Challenge
-										</Button>
-										<Button variant="outline" onClick={() => setResult(null)}>
-											Save for later
-										</Button>
-									</>
-								)}
-							</CardFooter>
 						</Card>
 					)}
 				</form>

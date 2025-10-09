@@ -17,4 +17,7 @@ export const challengeService = {
 	getChallengeByCompanyId: async (company_id: string) => {
 		return model.challenges.getByCompanyId(company_id);
 	},
+	deleteChallenge: async (id: string) => {
+		return model.challenges.delete(id);
+	},
 };
