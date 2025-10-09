@@ -465,6 +465,7 @@ export async function extractTechStackFromFormattedText(
 			processingTimeMs: processingTime,
 			textLength: formattedText?.length || 0,
 			timestamp: new Date().toISOString(),
+			stack: error instanceof Error ? error.stack : undefined,
 		});
 
 		// Determine error type and provide appropriate error message
