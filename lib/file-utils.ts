@@ -3,8 +3,8 @@
  */
 
 export type FileTypeInfo = {
-    type      : string;
-    category  : 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other';
+    type : string;
+    category : 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other';
     supported: boolean;
 };
 
@@ -102,7 +102,7 @@ export function getFileIcon(file: File): string {
  * Validate file size
  */
 export function validateFileSize(file: File, maxSizeInMB: number): { valid: boolean;
-    error? : string;} {
+    error?: string;} {
     const maxSizeInBytes = maxSizeInMB * 1024 * 1024;
     if (file.size > maxSizeInBytes) {
         return {
@@ -117,7 +117,7 @@ export function validateFileSize(file: File, maxSizeInMB: number): { valid: bool
  * Validate file type
  */
 export function validateFileType(file: File, allowedTypes: string[]): { valid: boolean;
-    error? : string;} {
+    error?: string;} {
     if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
         return {
             valid : false,

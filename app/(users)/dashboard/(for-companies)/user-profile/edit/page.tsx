@@ -105,7 +105,7 @@ export default function EditUserProfilePage() {
                 setError(null);
 
                 const result = (await getUserData()) as { success: boolean;
-                    user : UserProfileType;};
+                    user: UserProfileType;};
                 if (result.success && result.user) {
                     const userProfile = result.user;
                     const formattedData: UserProfileType = {

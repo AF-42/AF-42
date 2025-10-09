@@ -24,18 +24,18 @@ import { translatorAgent } from '../agents/translator-agent';
 
 // Define interfaces for better type safety
 type TranslationResult = {
-    success         : boolean;
+    success : boolean;
     translatedText?: string;
-    error?          : string;
+    error? : string;
     metadata?: {
-        originalLength   : number;
+        originalLength : number;
         translatedLength: number;
         processingTimeMs: number;
     };
 };
 
 type TranslationError = {
-    code?: string;
+    code?       : string;
     statusCode? : number;
 } & Error;
 
@@ -57,7 +57,7 @@ const CONFIG = {
  * @returns Validation result with error message if invalid
  */
 function validateInput(text: string): { isValid: boolean;
-    error? : string;} {
+    error?: string;} {
     if (typeof text !== 'string') {
         return {
             isValid : false,

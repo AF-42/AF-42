@@ -25,7 +25,7 @@ export function NavChallenges({
 }: {
     challenges: Array<{
         name : string;
-        url: string;
+        url  : string;
         icon : LucideIcon;
     }>;
 }) {

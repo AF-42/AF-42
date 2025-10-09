@@ -19,17 +19,17 @@ export function NavMain({
     items
 }: {
     items: Array<{
-        title: string;
-        url: string;
-        icon: LucideIcon;
+        title     : string;
+        url       : string;
+        icon      : LucideIcon;
         isActive? : boolean;
         items?: Array<{
-            title : string;
-            url : string;
-            icon? : LucideIcon;
+            title: string;
+            url: string;
+            icon?: LucideIcon;
             items?: Array<{
                 title : string;
-                url   : string;
+                url : string;
                 icon? : LucideIcon;
             }>;
         }>;

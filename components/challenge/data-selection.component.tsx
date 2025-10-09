@@ -139,8 +139,8 @@ const datasets = [
 
 // TypeScript interfaces for data structure
 type DatasetItem = {
-    name              : string; // Technology/tool name
-    official_docs?    : string; // Optional documentation URL
+    name : string; // Technology/tool name
+    official_docs? : string; // Optional documentation URL
     official_website?: string; // Optional official website URL
 };
 

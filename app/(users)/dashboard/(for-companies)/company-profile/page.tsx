@@ -15,14 +15,14 @@ import * as print from '@/lib/print-helpers';
 
 // Company profile data type
 type CompanyProfile = {
-    name        : string;
-    email       : string;
-    country     : string;
-    city        : string;
-    industry    : string;
+    name : string;
+    email : string;
+    country : string;
+    city : string;
+    industry : string;
     description: string;
-    website     : string;
-    logo        : string;
+    website : string;
+    logo : string;
 };
 
 export default function CompanyProfilePage() {

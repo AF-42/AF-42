@@ -20,16 +20,16 @@ export const challengesTable = sqliteTable('challenges', {
     challenge_requirements : text('challenge_requirements', { mode : 'json' })
         .notNull()
         .$type<Array<{id : string;
-        name              : string;
-        description       : string; }>>()
+        name : string;
+        description : string; }>>()
         .default(sql`(json_array())`),
     challenge_candidates_list : text('challenge_candidates_list', { mode : 'json' })
         .notNull()
         .$type<Array<{id : string;
-        name              : string;
-        email             : string;
-        score             : number;
-        evaluation_id     : string; }>>()
+        name : string;
+        email : string;
+        score : number;
+        evaluation_id : string; }>>()
         .default(sql`(json_array())`),
     created_at : integer('created_at', { mode : 'timestamp' })
         .notNull()

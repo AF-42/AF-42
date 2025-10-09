@@ -17,19 +17,19 @@ import { type UserProfileType } from '@/types/user-profile.type';
 
 // User profile data type
 type UserProfile = {
-    id                          : string;
-    first_name                  : string;
-    last_name                   : string;
-    username                    : string;
-    email                       : string;
-    role                        : string;
-    organizations               : string;
+    id : string;
+    first_name : string;
+    last_name : string;
+    username : string;
+    email : string;
+    role : string;
+    organizations : string;
     is_password_reset_requested: boolean;
-    is_suspended                : boolean;
-    user_since                  : number;
-    last_login                  : number;
-    created_at                  : number;
-    updated_at                  : number;
+    is_suspended : boolean;
+    user_since : number;
+    last_login : number;
+    created_at : number;
+    updated_at : number;
 };
 
 export default function UserProfilePage() {
@@ -74,7 +74,7 @@ export default function UserProfilePage() {
                 setError(null);
 
                 const result = (await getUserData()) as { success: boolean;
-                    user : UserProfileType;};
+                    user: UserProfileType;};
                 if (result.success && result.user) {
                     const userProfile = result.user;
                     const formattedData: UserProfile = {

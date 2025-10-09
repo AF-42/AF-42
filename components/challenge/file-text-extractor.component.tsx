@@ -17,8 +17,8 @@ import { formatFileSize } from '@/lib/file-utils';
 
 type FileTextExtractorProps = {
     onTextExtracted?: (result: TextExtractionResult) => void;
-    onFileSelect?    : (file: File | undefined) => void;
-    className?       : string;
+    onFileSelect? : (file: File | undefined) => void;
+    className? : string;
 };
 
 export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: FileTextExtractorProps) => {

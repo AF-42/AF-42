@@ -7,10 +7,10 @@ import { challengeService } from '@/backend/services/challenge.service';
 import * as print from '@/lib/print-helpers';
 
 export type SaveChallengeDraftParams = {
-    challengeDraft      : string;
+    challengeDraft : string;
     extractedTechStack?: any;
-    issueDescription    : string;
-    github_url          : string;
+    issueDescription : string;
+    github_url : string;
 };
 
 export const saveChallengeDraftAction = async (parameters: SaveChallengeDraftParams) => {

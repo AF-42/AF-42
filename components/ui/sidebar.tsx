@@ -32,12 +32,12 @@ const SIDEBAR_WIDTH_ICON = '3rem';
 const SIDEBAR_KEYBOARD_SHORTCUT = 'b';
 
 type SidebarContextProps = {
-    state         : 'expanded' | 'collapsed';
-    open          : boolean;
-    setOpen       : (open: boolean) => void;
-    openMobile    : boolean;
+    state : 'expanded' | 'collapsed';
+    open : boolean;
+    setOpen : (open: boolean) => void;
+    openMobile : boolean;
     setOpenMobile: (open: boolean) => void;
-    isMobile      : boolean;
+    isMobile : boolean;
     toggleSidebar: () => void;
 };
 
@@ -61,8 +61,8 @@ function SidebarProvider({
     children,
     ...props
 }: React.ComponentProps<'div'> & {
-    defaultOpen?  : boolean;
-    open?         : boolean;
+    defaultOpen? : boolean;
+    open? : boolean;
     onOpenChange?: (open: boolean) => void;
 }) {
     const isMobile = useIsMobile();
@@ -169,8 +169,8 @@ function Sidebar({
     children,
     ...props
 }: React.ComponentProps<'div'> & {
-    side?        : 'left' | 'right';
-    variant?     : 'sidebar' | 'floating' | 'inset';
+    side? : 'left' | 'right';
+    variant? : 'sidebar' | 'floating' | 'inset';
     collapsible?: 'offcanvas' | 'icon' | 'none';
 }) {
     const {
@@ -516,9 +516,9 @@ function SidebarMenuButton({
     className,
     ...props
 }: React.ComponentProps<'button'> & {
-    asChild?  : boolean;
+    asChild? : boolean;
     isActive?: boolean;
-    tooltip?  : string | React.ComponentProps<typeof TooltipContent>;
+    tooltip? : string | React.ComponentProps<typeof TooltipContent>;
 } & VariantProps<typeof sidebarMenuButtonVariants>) {
     const Comp = asChild ? Slot : 'button';
     const { isMobile, state } = useSidebar();
@@ -566,7 +566,7 @@ function SidebarMenuAction({
     showOnHover = false,
     ...props
 }: React.ComponentProps<'button'> & {
-    asChild?     : boolean;
+    asChild? : boolean;
     showOnHover?: boolean;
 }) {
     const Comp = asChild ? Slot : 'button';
@@ -688,8 +688,8 @@ function SidebarMenuSubButton({
     className,
     ...props
 }: React.ComponentProps<'a'> & {
-    asChild?  : boolean;
-    size?     : 'sm' | 'md';
+    asChild? : boolean;
+    size? : 'sm' | 'md';
     isActive?: boolean;
 }) {
     const Comp = asChild ? Slot : 'a';

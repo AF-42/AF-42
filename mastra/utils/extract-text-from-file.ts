@@ -4,16 +4,16 @@ import { extractTextFromPDF } from './extract-text-from-pdf';
 
 // TypeScript interfaces for the extraction result
 export type TextExtractionResult = {
-    success       : boolean;
-    fileName      : string;
-    fileType      : string;
-    fileSize      : number;
+    success : boolean;
+    fileName : string;
+    fileType : string;
+    fileSize : number;
     extractedText: string;
     metadata?: {
-        pagesCount?       : number;
-        sheetsCount?      : number;
-        wordCount?        : number;
-        charCount?        : number;
+        pagesCount? : number;
+        sheetsCount? : number;
+        wordCount? : number;
+        charCount? : number;
         extractionMethod?: string;
     };
     error?: string;
@@ -21,8 +21,8 @@ export type TextExtractionResult = {
 
 export type FileProcessingOptions = {
     includeMetadata?: boolean;
-    maxFileSize?     : number; // In bytes
-    allowedTypes?    : string[];
+    maxFileSize? : number; // In bytes
+    allowedTypes? : string[];
 };
 
 /**
@@ -262,8 +262,8 @@ export async function extractTextFromFile(
  * Utility function to get file type information
  */
 export function getFileTypeInfo(file: File): {
-    type      : string;
-    category  : 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other';
+    type : string;
+    category : 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other';
     supported: boolean;
 } {
     const { type } = file;

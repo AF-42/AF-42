@@ -11,11 +11,11 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 
 type FileUploaderProps = {
-    onFileSelect       : (file: File | undefined) => void;
+    onFileSelect : (file: File | undefined) => void;
     acceptedFileTypes?: Record<string, string[]>;
-    maxFileSize?       : number; // In MB
-    className?         : string;
-    disabled?          : boolean;
+    maxFileSize? : number; // In MB
+    className? : string;
+    disabled? : boolean;
 };
 
 const DEFAULT_ACCEPTED_TYPES = {

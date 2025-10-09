@@ -14,8 +14,8 @@ export function NavSecondary({
 }: {
     items: Array<{
         title : string;
-        url: string;
-        icon: LucideIcon;
+        url   : string;
+        icon  : LucideIcon;
     }>;
 } & React.ComponentPropsWithoutRef<typeof SidebarGroup>) {
     return (

@@ -14,21 +14,21 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 
 type CompanyMember = {
     member: {
-        id         : string;
+        id : string;
         company_id: string;
-        user_id    : string;
-        is_admin   : boolean;
+        user_id : string;
+        is_admin : boolean;
         created_at: Date;
         updated_at: Date;
     };
     user: {
-        id         : string;
-        kinde_id   : string;
+        id : string;
+        kinde_id : string;
         first_name: string;
-        last_name  : string;
-        username   : string;
-        email      : string;
-        role       : string;
+        last_name : string;
+        username : string;
+        email : string;
+        role : string;
         created_at: Date;
         last_login: Date;
     };
@@ -38,10 +38,10 @@ type ApiResponse = {
     success: boolean;
     members: CompanyMember[];
     company: {
-        id          : string;
-        name        : string;
-        email       : string;
-        industry    : string;
+        id : string;
+        name : string;
+        email : string;
+        industry : string;
         description: string;
     };
 };

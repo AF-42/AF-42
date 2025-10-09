@@ -29,50 +29,50 @@ import * as print from '@/lib/print-helpers';
 
 // Define interfaces for better type safety
 type TechStackExtractionResult = {
-    success    : boolean;
+    success : boolean;
     techStack?: {
         role_title?: string;
-        seniority?  : 'junior' | 'mid' | 'senior';
+        seniority? : 'junior' | 'mid' | 'senior';
         tech_stack?: {
-            languages  : string[];
+            languages : string[];
             frameworks: string[];
-            databases  : string[];
-            devops     : string[];
-            cloud      : string[];
-            testing    : string[];
-            tools      : string[];
-            other      : string[];
+            databases : string[];
+            devops : string[];
+            cloud : string[];
+            testing : string[];
+            tools : string[];
+            other : string[];
         };
         assumptions?: string[];
     };
-    error?    : string;
+    error? : string;
     metadata?: {
-        originalLength   : number;
+        originalLength : number;
         processingTimeMs: number;
-        extractedCount   : number;
+        extractedCount : number;
     };
 };
 
 type StackSelectionJson = {
-    role_title?               : string;
-    seniority?                : 'junior' | 'mid' | 'senior';
-    difficulty?               : 'junior' | 'mid' | 'senior';
-    primary_stack?            : string[];
-    secondary_stack?          : string[];
-    domain?                   : string;
-    focus_areas?              : string[];
-    non_goals?                : string[];
+    role_title? : string;
+    seniority? : 'junior' | 'mid' | 'senior';
+    difficulty? : 'junior' | 'mid' | 'senior';
+    primary_stack? : string[];
+    secondary_stack? : string[];
+    domain? : string;
+    focus_areas? : string[];
+    non_goals? : string[];
     company_context_priority?: string;
-    evaluation_mode?          : string;
-    deliverable_format?       : string;
-    output_language?          : string;
-    privacy_constraints?      : string[];
-    inclusion_requirements?   : string[];
-    prohibited_items?         : string[];
-    extra_credit_themes?      : string[];
-    technical_stack?          : string[];
-    issue_description?        : string;
-    [key: string]             : any;
+    evaluation_mode? : string;
+    deliverable_format? : string;
+    output_language? : string;
+    privacy_constraints? : string[];
+    inclusion_requirements? : string[];
+    prohibited_items? : string[];
+    extra_credit_themes? : string[];
+    technical_stack? : string[];
+    issue_description? : string;
+    [key: string] : any;
 };
 
 // Configuration constants
@@ -88,7 +88,7 @@ const CONFIG = {
  * Validates input text for tech stack extraction
  */
 function validateInput(text: string): { isValid: boolean;
-    error? : string;} {
+    error?: string;} {
     if (typeof text !== 'string') {
         return {
             isValid : false,

@@ -46,25 +46,25 @@ import * as print from '@/lib/print-helpers';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
 type StackSelectionJson = {
-    role_title?               : string;
-    seniority?                : 'junior' | 'mid' | 'senior';
-    primary_stack?            : string[];
-    secondary_stack?          : string[];
-    domain?                   : string;
-    difficulty?               : 'junior' | 'mid' | 'senior';
-    focus_areas?              : string[];
-    non_goals?                : string[];
+    role_title? : string;
+    seniority? : 'junior' | 'mid' | 'senior';
+    primary_stack? : string[];
+    secondary_stack? : string[];
+    domain? : string;
+    difficulty? : 'junior' | 'mid' | 'senior';
+    focus_areas? : string[];
+    non_goals? : string[];
     company_context_priority?: string;
-    evaluation_mode?          : string;
-    deliverable_format?       : string;
-    output_language?          : string;
-    privacy_constraints?      : string[];
-    inclusion_requirements?   : string[];
-    prohibited_items?         : string[];
-    extra_credit_themes?      : string[];
-    technical_stack?          : string[];
-    issue_description?        : string;
-    [key: string]             : any;
+    evaluation_mode? : string;
+    deliverable_format? : string;
+    output_language? : string;
+    privacy_constraints? : string[];
+    inclusion_requirements? : string[];
+    prohibited_items? : string[];
+    extra_credit_themes? : string[];
+    technical_stack? : string[];
+    issue_description? : string;
+    [key: string] : any;
 };
 
 const formSchema = z.object({
@@ -76,21 +76,21 @@ const formSchema = z.object({
 
 // Define the automated processing steps
 type ProcessingStep = {
-    id          : string;
-    name        : string;
+    id : string;
+    name : string;
     description: string;
-    status      : 'pending' | 'in_progress' | 'completed' | 'error';
-    error?      : string;
+    status : 'pending' | 'in_progress' | 'completed' | 'error';
+    error? : string;
 };
 
 type AutomatedProcessingState = {
     isProcessing: boolean;
-    currentStep  : number;
-    totalSteps   : number;
-    steps        : ProcessingStep[];
-    progress     : number;
-    error        : string | undefined;
-    result       : string | undefined;
+    currentStep : number;
+    totalSteps : number;
+    steps : ProcessingStep[];
+    progress : number;
+    error : string | undefined;
+    result : string | undefined;
 };
 
 export function TaskGeneratorFormFromFileUpload() {

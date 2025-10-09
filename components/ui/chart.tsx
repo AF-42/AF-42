@@ -12,7 +12,7 @@ const THEMES = {
 
 export type ChartConfig = Record<string, {
     label? : React.ReactNode;
-    icon?: React.ComponentType;
+    icon?  : React.ComponentType;
 } & (
     | {color? : string;
         theme? : never; }
@@ -43,7 +43,7 @@ function ChartContainer({
     config,
     ...props
 }: React.ComponentProps<'div'> & {
-    config   : ChartConfig;
+    config : ChartConfig;
     children: React.ComponentProps<
     typeof RechartsPrimitive.ResponsiveContainer
     >['children'];
@@ -72,7 +72,7 @@ function ChartContainer({
 }
 
 const ChartStyle = ({ id, config }: { id: string;
-    config : ChartConfig;}) => {
+    config: ChartConfig;}) => {
     const colorConfig = Object.entries(config).filter(
         ([, config]) => {
             return config.theme || config.color;
@@ -127,11 +127,11 @@ function ChartTooltipContent({
     labelKey
 }: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
     React.ComponentProps<'div'> & {
-        hideLabel?     : boolean;
+        hideLabel? : boolean;
         hideIndicator?: boolean;
-        indicator?     : 'line' | 'dot' | 'dashed';
-        nameKey?       : string;
-        labelKey?      : string;
+        indicator? : 'line' | 'dot' | 'dashed';
+        nameKey? : string;
+        labelKey? : string;
     }) {
     const { config } = useChart();
 
@@ -274,7 +274,7 @@ function ChartLegendContent({
 }: React.ComponentProps<'div'> &
     Pick<RechartsPrimitive.LegendProps, 'payload' | 'verticalAlign'> & {
         hideIcon?: boolean;
-        nameKey?  : string;
+        nameKey? : string;
     }) {
     const { config } = useChart();
 

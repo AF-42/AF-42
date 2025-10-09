@@ -3,7 +3,7 @@ import PDFParser from 'pdf2json';
 
 // Simple function to extract text from PDF using pure JavaScript
 export async function extractTextFromPDF(pdfBuffer: Buffer): Promise<{ extractedText: string;
-    pagesCount : number;}> {
+    pagesCount: number;}> {
     if (!pdfBuffer || pdfBuffer.length === 0) {
         throw new Error('Invalid PDF file: empty buffer');
     }

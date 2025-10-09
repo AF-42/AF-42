@@ -6,7 +6,7 @@ export default async function EditChallengePage({
     params
 }: {
     params: Promise<{ 'company-id': string;
-        'challenge-id' : string;}>;
+        'challenge-id': string;}>;
 }) {
     const resolvedParameters = await params;
     const challengeId = resolvedParameters['challenge-id'];
