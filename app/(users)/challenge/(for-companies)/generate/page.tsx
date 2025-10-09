@@ -1,4 +1,4 @@
-import { ChallengeGeneratorSelectorComponent } from '@/components/challenge-generator-selector.component';
+import { ChallengeGeneratorSelectorComponent } from '@/components/challenge';
 
 export default function GenerateChallengePage() {
 	return (

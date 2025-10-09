@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { TaskGeneratorFormFromFileUpload } from '@/components/task-generator-from-file-upload';
-import { TaskGeneratorFormFromDataSelection } from '@/components/task-generator-from-data-selection';
+import { TaskGeneratorFormFromFileUpload } from '@/components/challenge';
+import { TaskGeneratorFormFromDataSelection } from '@/components/challenge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, Database } from 'lucide-react';

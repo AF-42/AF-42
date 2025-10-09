@@ -26,7 +26,7 @@ import { Form, FormControl, FormItem, FormLabel, FormMessage } from '@/component
 import { Textarea } from '@/components/ui/textarea';
 import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/generate/action';
 import { useEffect, useState } from 'react';
-import { FileTextExtractor } from '@/components/file-text-extractor.component';
+import { FileTextExtractor } from '@/components/challenge';
 import { TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -38,7 +38,6 @@ import { getUserData } from '@/app/actions/get-user-data.action';
 import { saveChallengeDraftAction } from '@/app/actions/save-challenge-draft.action';
 import { UserProfileType } from '@/types/user-profile.type';
 import * as print from '@/lib/print-helpers';
-import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
 import { useRouter } from 'next/navigation';
 
 // Define the StackSelectionJson type locally to avoid importing Mastra utilities in client component
@@ -304,6 +303,7 @@ export function TaskGeneratorFormFromFileUpload() {
 					challengeDraft: challengeResult,
 					extractedTechStack: techStackResult.techStack,
 					issueDescription: form.getValues('issueDescription'),
+					github_url: '',
 				});
 
 				if (saveResult.success) {
