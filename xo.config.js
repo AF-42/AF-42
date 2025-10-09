@@ -9,5 +9,10 @@ export default [
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
+		rules: {
+			'import/extensions': 'none',
+			'import/no-unresolved': 'off',
+			'node/no-missing-import': 'off',
+		},
 	},
 ];
