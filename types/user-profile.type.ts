@@ -1,6 +1,5 @@
 export type UserProfileType = {
 	id: string;
-	kinde_id: string;
 	first_name: string;
 	last_name: string;
 	username: string;
