@@ -1,5 +1,5 @@
-import { getChallengeDraftAction } from '@/app/actions/get-challenge-draft.actrion';
-import { ChallengeDraftEditor } from '@/components/challenge-draft-editor.component';
+import { getChallengeDraftAction } from '@/app/actions/get-challenge-draft.action';
+import { ChallengeDraftEditor } from '@/components/challenge';
 import * as print from '@/lib/print-helpers';
 
 export default async function EditChallengePage({

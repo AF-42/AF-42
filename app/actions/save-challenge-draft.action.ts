@@ -24,7 +24,7 @@ export const saveChallengeDraftAction = async (params: SaveChallengeDraftParams)
 		// Get user data
 		const sessionUser = await getUser();
 		if (!sessionUser?.id) {
-			throw new Error('User not found');
+			// throw new Error('User not found');
 		}
 
 		// Get user data

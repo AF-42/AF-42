@@ -5,22 +5,27 @@ import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Edit2, Building2, Mail, MapPin, Briefcase, ExternalLink } from 'lucide-react';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Edit2, Building2, Mail, Briefcase } from 'lucide-react';
 import { getUserData } from '@/app/actions/get-user-data.action';
 import * as print from '@/lib/print-helpers';
+import { UserProfileType } from '@/types/user-profile.type';
 
 // User profile data type
 interface UserProfile {
+	id: string;
 	first_name: string;
 	last_name: string;
 	username: string;
 	email: string;
 	role: string;
-	bio: string;
-	location: string;
-	website: string;
-	avatar: string;
+	organizations: string;
+	is_password_reset_requested: boolean;
+	is_suspended: boolean;
+	user_since: number;
+	last_login: number;
+	created_at: number;
+	updated_at: number;
 }
 
 export default function UserProfilePage() {
@@ -64,19 +69,23 @@ export default function UserProfilePage() {
 				setIsLoading(true);
 				setError(null);
 
-				const result = (await getUserData()) as { success: boolean; user: UserProfile };
+				const result = (await getUserData()) as { success: boolean; user: UserProfileType };
 				if (result.success && result.user) {
 					const userProfile = result.user;
 					const formattedData: UserProfile = {
+						id: userProfile.id || '',
 						first_name: userProfile.first_name || '',
 						last_name: userProfile.last_name || '',
 						username: userProfile.username || '',
 						email: userProfile.email || '',
 						role: userProfile.role || '',
-						bio: userProfile.bio || '',
-						location: userProfile.location || '',
-						website: userProfile.website || '',
-						avatar: userProfile.avatar || '',
+						organizations: userProfile.organizations || '',
+						is_password_reset_requested: userProfile.is_password_reset_requested || false,
+						is_suspended: userProfile.is_suspended || false,
+						user_since: userProfile.user_since || 0,
+						last_login: userProfile.last_login || 0,
+						created_at: userProfile.created_at || 0,
+						updated_at: userProfile.updated_at || 0,
 					};
 					setUserData(formattedData);
 				} else {
@@ -176,7 +185,6 @@ export default function UserProfilePage() {
 							<div className="space-y-2">
 								<p className="text-sm font-medium text-muted-foreground">Profile Picture</p>
 								<Avatar className="h-20 w-20">
-									<AvatarImage src={userData.avatar} />
 									<AvatarFallback className="text-lg">
 										{userData.first_name?.charAt(0) || 'U'}
 										{userData.last_name?.charAt(0) || ''}
@@ -211,44 +219,7 @@ export default function UserProfilePage() {
 									<p className="text-sm">{userData.role}</p>
 								</div>
 							</div>
-							{userData.location && (
-								<div className="flex items-center gap-2">
-									<MapPin className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Location</p>
-										<p className="text-sm">{userData.location}</p>
-									</div>
-								</div>
-							)}
 						</div>
-
-						{/* Website and Phone Row */}
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-							{userData.website && (
-								<div className="flex items-center gap-2">
-									<ExternalLink className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Website</p>
-										<a
-											href={userData.website}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 hover:underline"
-										>
-											{userData.website}
-										</a>
-									</div>
-								</div>
-							)}
-						</div>
-
-						{/* Bio */}
-						{userData.bio && (
-							<div>
-								<p className="text-sm font-medium text-muted-foreground mb-2">Bio</p>
-								<p className="text-sm leading-relaxed">{userData.bio}</p>
-							</div>
-						)}
 					</CardContent>
 				</Card>
 			</div>

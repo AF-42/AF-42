@@ -1,6 +1,6 @@
 import { AuthProvider } from '../AuthProvider';
-import { AppSidebar } from '@/components/app-sidebar';
-import { DynamicBreadcrumb } from '@/components/dynamic-breadcrumb';
+import { AppSidebar } from '@/components/navigation';
+import { DynamicBreadcrumb } from '@/components/navigation';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
