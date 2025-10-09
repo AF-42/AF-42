@@ -1,3 +1,3 @@
 export default function CompletedPage() {
-	return <div>CompletedPage</div>;
+    return <div>CompletedPage</div>;
 }

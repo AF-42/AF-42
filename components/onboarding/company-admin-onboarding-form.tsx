@@ -1,3 +1,3 @@
 export function CompanyAdminOnboardingForm() {
-	return <div>CompanyAdminOnboardingForm</div>;
+    return <div>CompanyAdminOnboardingForm</div>;
 }

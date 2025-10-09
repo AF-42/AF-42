@@ -1,12 +1,12 @@
 import { openai } from '@ai-sdk/openai';
 import { Agent } from '@mastra/core/agent';
-import { extractTechStackFromJobOfferTool } from '../tools/extract-stack-from-job-offer-tool';
 import { LibSQLStore } from '@mastra/libsql';
 import { Memory } from '@mastra/memory';
+import { extractTechStackFromJobOfferTool } from '../tools/extract-stack-from-job-offer-tool';
 
 export const techStackExtractorAgent = new Agent({
-	name: 'Tech Stack Extractor Agent',
-	instructions: `
+    name         : 'Tech Stack Extractor Agent',
+    instructions : `
         You are the **Tech Stack Extractor Agent**.
         Your primary function is to analyze the *technical specifications section* of a job offer and combine it with a user-provided JSON config to output a **normalized tech stack profile**.
 
@@ -62,11 +62,11 @@ export const techStackExtractorAgent = new Agent({
         }
         \`\`\`
 	`,
-	model: openai('gpt-4o-mini'),
-	tools: { extractTechStackFromJobOfferTool },
-	memory: new Memory({
-		storage: new LibSQLStore({
-			url: 'file:../mastra.db', // SQLite database path (relative to .mastra/output directory)
-		}),
-	}),
+    model  : openai('gpt-4o-mini'),
+    tools  : { extractTechStackFromJobOfferTool },
+    memory : new Memory({
+        storage : new LibSQLStore({
+            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
+        })
+    })
 });

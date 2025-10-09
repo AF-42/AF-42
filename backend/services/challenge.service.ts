@@ -1,23 +1,23 @@
-import { challengesTable } from '@/db/schema/challenges';
 import * as model from '../models';
+import { type challengesTable } from '@/db/schema/challenges';
 
 export const challengeService = {
-	createChallenge: async (challenge: typeof challengesTable.$inferInsert) => {
-		return model.challenges.create(challenge);
-	},
-	getAllChallenges: async () => {
-		return model.challenges.getAll();
-	},
-	getChallengeById: async (id: string) => {
-		return model.challenges.getById(id);
-	},
-	getChallengeByEngineerId: async (engineer_id: string) => {
-		return model.challenges.getByEngineerId(engineer_id);
-	},
-	getChallengeByCompanyId: async (company_id: string) => {
-		return model.challenges.getByCompanyId(company_id);
-	},
-	deleteChallenge: async (id: string) => {
-		return model.challenges.delete(id);
-	},
+    async createChallenge(challenge: typeof challengesTable.$inferInsert) {
+        return model.challenges.create(challenge);
+    },
+    async getAllChallenges() {
+        return model.challenges.getAll();
+    },
+    async getChallengeById(id: string) {
+        return model.challenges.getById(id);
+    },
+    async getChallengeByEngineerId(engineer_id: string) {
+        return model.challenges.getByEngineerId(engineer_id);
+    },
+    async getChallengeByCompanyId(company_id: string) {
+        return model.challenges.getByCompanyId(company_id);
+    },
+    async deleteChallenge(id: string) {
+        return model.challenges.delete(id);
+    }
 };

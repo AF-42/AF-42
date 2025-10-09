@@ -7,11 +7,11 @@ import { LibSQLStore } from '@mastra/libsql';
 
 // Backend agent configuration with AI model, tools, and memory
 export const issueTranslatorAgent = new Agent({
-	// Agent identifier for reference in workflows and other components
-	name: 'Issue Translator Agent',
+    // Agent identifier for reference in workflows and other components
+    name : 'Issue Translator Agent',
 
-	// Detailed instructions defining the agent's behavior and capabilities
-	instructions: `
+    // Detailed instructions defining the agent's behavior and capabilities
+    instructions : `
         You are the **Issue Translator Agent**.
         Your primary function is to translate any issue description—no matter its language—into clear, professional English, keeping all structure and explicit notes where needed.
 
@@ -69,13 +69,13 @@ export const issueTranslatorAgent = new Agent({
             Translate any issue description—no matter its language—into clear, professional English, keeping all structure and explicit notes where needed. Output as a single plaintext English document, matching the original formatting.
     `,
 
-	// AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
-	model: openai('gpt-4o-mini'),
+    // AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
+    model : openai('gpt-4o-mini'),
 
-	// Memory system for maintaining conversation context and learning
-	memory: new Memory({
-		storage: new LibSQLStore({
-			url: 'file:../mastra.db', // SQLite database path (relative to .mastra/output directory)
-		}),
-	}),
+    // Memory system for maintaining conversation context and learning
+    memory : new Memory({
+        storage : new LibSQLStore({
+            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
+        })
+    })
 });

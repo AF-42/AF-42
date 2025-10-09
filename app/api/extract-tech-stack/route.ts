@@ -12,53 +12,54 @@
  * @returns Structured tech stack data with success/error status and metadata
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 import { extractTechStackFromFormattedText } from '@/mastra/utils/extract-tech-stack-from-formatted-text';
 
 export async function POST(request: NextRequest) {
-	try {
-		const { formattedText, existingJsonConfig, issueDescription } = await request.json();
+    try {
+        const { formattedText, existingJsonConfig, issueDescription } = await request.json();
 
-		if (!formattedText || typeof formattedText !== 'string') {
-			return NextResponse.json({ error: 'formatted text is required and must be a string' }, { status: 400 });
-		}
+        if (!formattedText || typeof formattedText !== 'string') {
+            return NextResponse.json({ error : 'formatted text is required and must be a string' }, { status : 400 });
+        }
 
-		// Parse existing JSON config if provided
-		let existingJson;
-		try {
-			existingJson = existingJsonConfig ? JSON.parse(existingJsonConfig) : undefined;
-		} catch (parseError) {
-			console.warn('Failed to parse existing JSON config:', parseError);
-			existingJson = undefined;
-		}
+        // Parse existing JSON config if provided
+        let existingJson;
+        try {
+            existingJson = existingJsonConfig ? JSON.parse(existingJsonConfig) : undefined;
+        }
+        catch (parseError) {
+            console.warn('Failed to parse existing JSON config:', parseError);
+            existingJson = undefined;
+        }
 
-		// Extract tech stack from formatted text
-		const result = await extractTechStackFromFormattedText(formattedText, existingJson, issueDescription);
+        // Extract tech stack from formatted text
+        const result = await extractTechStackFromFormattedText(formattedText, existingJson, issueDescription);
 
-		if (result.success) {
-			return NextResponse.json({
-				success: true,
-				techStack: result.techStack,
-				metadata: result.metadata,
-			});
-		} else {
-			return NextResponse.json(
-				{
-					success: false,
-					error: result.error,
-					metadata: result.metadata,
-				},
-				{ status: 400 },
-			);
-		}
-	} catch (error) {
-		console.error('Tech stack extraction API error:', error);
-		return NextResponse.json(
-			{
-				success: false,
-				error: error instanceof Error ? error.message : 'Unknown error occurred',
-			},
-			{ status: 500 },
-		);
-	}
+        if (result.success) {
+            return NextResponse.json({
+                success   : true,
+                techStack : result.techStack,
+                metadata  : result.metadata
+            });
+        }
+        return NextResponse.json(
+            {
+                success  : false,
+                error    : result.error,
+                metadata : result.metadata
+            },
+            { status : 400 }
+        );
+    }
+    catch (error) {
+        console.error('Tech stack extraction API error:', error);
+        return NextResponse.json(
+            {
+                success : false,
+                error   : error instanceof Error ? error.message : 'Unknown error occurred'
+            },
+            { status : 500 }
+        );
+    }
 }

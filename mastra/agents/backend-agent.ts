@@ -11,11 +11,11 @@ import { LibSQLStore } from '@mastra/libsql';
 
 // Backend agent configuration with AI model, tools, and memory
 export const backendAgent = new Agent({
-	// Agent identifier for reference in workflows and other components
-	name: 'Backend Architect',
+    // Agent identifier for reference in workflows and other components
+    name : 'Backend Architect',
 
-	// Detailed instructions defining the agent's behavior and capabilities
-	instructions: `
+    // Detailed instructions defining the agent's behavior and capabilities
+    instructions : `
         You are the **Backend Architect Agent**.
         Your primary function is to transform the *technical specifications section* of a job offer and a user-provided JSON config into a realistic, production-relevant frontend coding challenge.
 
@@ -103,16 +103,16 @@ export const backendAgent = new Agent({
         - Handle malformed/missing input gracefully
     `,
 
-	// AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
-	model: openai('gpt-4o-mini'),
+    // AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
+    model : openai('gpt-4o-mini'),
 
-	// Tools available to the agent for executing specific tasks
-	// tools: { backendTool },
+    // Tools available to the agent for executing specific tasks
+    // tools: { backendTool },
 
-	// Memory system for maintaining conversation context and learning
-	memory: new Memory({
-		storage: new LibSQLStore({
-			url: 'file:../mastra.db', // SQLite database path (relative to .mastra/output directory)
-		}),
-	}),
+    // Memory system for maintaining conversation context and learning
+    memory : new Memory({
+        storage : new LibSQLStore({
+            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
+        })
+    })
 });

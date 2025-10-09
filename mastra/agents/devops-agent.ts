@@ -7,11 +7,11 @@ import { LibSQLStore } from '@mastra/libsql';
 
 // Backend agent configuration with AI model, tools, and memory
 export const devopsAgent = new Agent({
-	// Agent identifier for reference in workflows and other components
-	name: 'Devops Architect',
+    // Agent identifier for reference in workflows and other components
+    name : 'Devops Architect',
 
-	// Detailed instructions defining the agent's behavior and capabilities
-	instructions: `
+    // Detailed instructions defining the agent's behavior and capabilities
+    instructions : `
         ---
         name: devops-architect
         description: Your primary function is to transform the *technical specifications section* of a job offer and a user-provided JSON config into a realistic, production-relevant devops coding challenge.
@@ -103,13 +103,13 @@ export const devopsAgent = new Agent({
         - Handle malformed/missing input gracefully
     `,
 
-	// AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
-	model: openai('gpt-4o-mini'),
+    // AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
+    model : openai('gpt-4o-mini'),
 
-	// Memory system for maintaining conversation context and learning
-	memory: new Memory({
-		storage: new LibSQLStore({
-			url: 'file:../mastra.db', // SQLite database path (relative to .mastra/output directory)
-		}),
-	}),
+    // Memory system for maintaining conversation context and learning
+    memory : new Memory({
+        storage : new LibSQLStore({
+            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
+        })
+    })
 });

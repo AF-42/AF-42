@@ -10,23 +10,25 @@ import { timmy } from './agents/timmy';
 // import { pdfToQuestionsWorkflow } from './workflows/generate-questions-from-pdf-workflow';
 
 // Utils - Note: extractTextFromFile functions are server-side only, use API route instead
-export type { TextExtractionResult, FileProcessingOptions } from './utils/extract-text-from-file';
+export type {
+    TextExtractionResult, FileProcessingOptions
+} from './utils/extract-text-from-file';
 
 export const mastra = new Mastra({
-	// workflows: { pdfToQuestionsWorkflow },
-	telemetry: {
-		enabled: true,
-	},
-	agents: {
-		timmy,
-	},
-	storage: new LibSQLStore({
-		// stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
-		url: ':memory:',
-	}),
-	logger: new PinoLogger({
-		name: 'Mastra',
-		level: 'info',
-	}),
-	deployer: new VercelDeployer(),
+    // Workflows: { pdfToQuestionsWorkflow },
+    telemetry : {
+        enabled : true
+    },
+    agents : {
+        timmy
+    },
+    storage : new LibSQLStore({
+        // Stores telemetry, evals, ... into memory storage, if it needs to persist, change to file:../mastra.db
+        url : ':memory:'
+    }),
+    logger : new PinoLogger({
+        name  : 'Mastra',
+        level : 'info'
+    }),
+    deployer : new VercelDeployer()
 });

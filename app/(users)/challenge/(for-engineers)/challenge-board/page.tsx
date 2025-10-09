@@ -1,3 +1,3 @@
 export default function ChallengeBoardPage() {
-	return <div>ChallengeBoardPage</div>;
+    return <div>ChallengeBoardPage</div>;
 }

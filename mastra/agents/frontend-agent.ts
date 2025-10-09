@@ -11,11 +11,11 @@ import { jsonValidatorTool } from '../tools/json-validator-tool';
 
 // Frontend agent configuration with AI model, tools, and memory
 export const frontendAgent = new Agent({
-	// Agent identifier for reference in workflows and other components
-	name: 'Frontend Architect',
+    // Agent identifier for reference in workflows and other components
+    name : 'Frontend Architect',
 
-	// Detailed instructions defining the agent's behavior and capabilities
-	instructions: `
+    // Detailed instructions defining the agent's behavior and capabilities
+    instructions : `
         You are the **Frontend Architect Agent**.
         Your primary function is to transform the *technical specifications section* of a job offer and a user-provided JSON config into a realistic, production-relevant frontend coding challenge.
 
@@ -103,16 +103,16 @@ export const frontendAgent = new Agent({
         - Handle malformed/missing input gracefully
     `,
 
-	// AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
-	model: openai('gpt-4o-mini'),
+    // AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
+    model : openai('gpt-4o-mini'),
 
-	// Tools available to the agent for executing specific tasks
-	tools: { jsonValidatorTool },
+    // Tools available to the agent for executing specific tasks
+    tools : { jsonValidatorTool },
 
-	// Memory system for maintaining conversation context and learning
-	memory: new Memory({
-		storage: new LibSQLStore({
-			url: 'file:../mastra.db', // SQLite database path (relative to .mastra/output directory)
-		}),
-	}),
+    // Memory system for maintaining conversation context and learning
+    memory : new Memory({
+        storage : new LibSQLStore({
+            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
+        })
+    })
 });
