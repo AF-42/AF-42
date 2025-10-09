@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
 		}
 		return NextResponse.json({
 			success: true,
-			company: companyResult[0].company,
+			company: companyResult[0],
 			hasCompany: true,
 		});
 	} catch (error) {

@@ -1,1 +1,0 @@
-ALTER TABLE `challenges` ADD `is_published` integer NOT NULL;

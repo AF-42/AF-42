@@ -1,1 +1,0 @@
-ALTER TABLE `challenges` ADD `user_id` text(255) NOT NULL;

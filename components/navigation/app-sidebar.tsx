@@ -34,12 +34,11 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { usersTable } from '@/db/schema/users';
-import * as print from '@/lib/print-helpers';
+// import * as print from '@/lib/print-helpers';
 
 export function AppSidebar({
 	currentUser,
 }: React.ComponentProps<typeof Sidebar> & { currentUser: typeof usersTable.$inferSelect }) {
-	print.log('[AppSidebar] currentUser: ', currentUser);
 	const username = currentUser.username;
 	const devNavData = {
 		navMain: [

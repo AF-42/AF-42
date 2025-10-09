@@ -12,4 +12,7 @@ export type UserProfileType = {
 	last_login: number;
 	created_at: number;
 	updated_at: number;
+	bio: string;
+	location: string;
+	website: string;
 };

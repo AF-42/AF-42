@@ -19,6 +19,7 @@ export const usersService = {
 			is_password_reset_requested: user.is_password_reset_requested,
 			is_suspended: user.is_suspended,
 			role: '',
+			is_company_member: false,
 			user_since: new Date(),
 			last_login: new Date(),
 			created_at: new Date(),

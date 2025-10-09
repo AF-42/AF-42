@@ -63,8 +63,14 @@ export default function EditUserProfilePage() {
 	const [error, setError] = useState<string | null>(null);
 
 	const form = useForm<UserProfileType>({
-		resolver: zodResolver(userProfileSchema) as Resolver<UserProfileType>,
+		resolver: zodResolver(userProfileSchema) as unknown as Resolver<UserProfileType>,
 		defaultValues: {
+			id: '',
+			organizations: '',
+			is_password_reset_requested: false,
+			is_suspended: false,
+			user_since: 0,
+			last_login: 0,
 			first_name: '',
 			last_name: '',
 			username: '',
@@ -73,7 +79,8 @@ export default function EditUserProfilePage() {
 			bio: '',
 			location: '',
 			website: '',
-			avatar: '',
+			created_at: 0,
+			updated_at: 0,
 		},
 	});
 
@@ -93,6 +100,14 @@ export default function EditUserProfilePage() {
 				if (result.success && result.user) {
 					const userProfile = result.user;
 					const formattedData: UserProfileType = {
+						id: userProfile.id || '',
+						organizations: userProfile.organizations || '',
+						is_password_reset_requested: userProfile.is_password_reset_requested || false,
+						is_suspended: userProfile.is_suspended || false,
+						user_since: userProfile.user_since || 0,
+						last_login: userProfile.last_login || 0,
+						created_at: userProfile.created_at || 0,
+						updated_at: userProfile.updated_at || 0,
 						first_name: userProfile.first_name || '',
 						last_name: userProfile.last_name || '',
 						username: userProfile.username || '',
@@ -101,7 +116,6 @@ export default function EditUserProfilePage() {
 						bio: userProfile.bio || '',
 						location: userProfile.location || '',
 						website: userProfile.website || '',
-						avatar: userProfile.avatar || '',
 					};
 					setUserData(formattedData);
 					form.reset(formattedData);
@@ -142,18 +156,6 @@ export default function EditUserProfilePage() {
 			setError('Failed to save user profile');
 		} finally {
 			setIsSubmitting(false);
-		}
-	};
-
-	const handleAvatarUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const file = event.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onload = (e) => {
-				setAvatarPreview(e.target?.result as string);
-				form.setValue('avatar', e.target?.result as string);
-			};
-			reader.readAsDataURL(file);
 		}
 	};
 
@@ -244,7 +246,6 @@ export default function EditUserProfilePage() {
 										<Label>Profile Picture</Label>
 										<div className="relative">
 											<Avatar className="h-20 w-20">
-												<AvatarImage src={avatarPreview || form.watch('avatar')} />
 												<AvatarFallback className="text-lg">
 													{form.watch('first_name')?.charAt(0) || 'U'}
 													{form.watch('last_name')?.charAt(0) || ''}
@@ -254,7 +255,6 @@ export default function EditUserProfilePage() {
 												<input
 													type="file"
 													accept="image/*"
-													onChange={handleAvatarUpload}
 													className="hidden"
 													id="avatar-upload"
 												/>

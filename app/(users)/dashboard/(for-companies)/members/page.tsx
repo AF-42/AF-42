@@ -153,10 +153,9 @@ export default function MembersPage() {
 										<TableCell>
 											<div className="flex items-center space-x-3">
 												<Avatar>
-													<AvatarImage src="" />
 													<AvatarFallback>
-														{member.user.first_name[0]}
-														{member.user.last_name[0]}
+														{member.user.first_name}
+														{member.user.last_name}
 													</AvatarFallback>
 												</Avatar>
 												<div>

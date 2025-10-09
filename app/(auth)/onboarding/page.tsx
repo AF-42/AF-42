@@ -1,10 +1,12 @@
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { redirect } from 'next/navigation';
 import { RoleSelector } from '@/components/onboarding/role-selector';
+import * as print from '@/lib/print-helpers';
 
 export default async function Onboarding() {
 	const { getUser, isAuthenticated } = getKindeServerSession();
 	const user = await getUser();
+	print.log('user', user);
 	const userKindeId = user?.id;
 
 	// todo: redirect to proper page if user is not authenticated

@@ -4,6 +4,7 @@ import { Env } from '@/env';
 import * as service from '@/backend/services';
 import jwksClient from 'jwks-rsa';
 import jwt from 'jsonwebtoken';
+import * as print from '@/lib/print-helpers';
 
 // The Kinde issuer URL should already be in your `.env` file
 // from when you initially set up Kinde. This will fetch your
@@ -22,13 +23,19 @@ export async function POST(req: Request) {
 		}
 
 		const header = jwtDecoded.header;
+		print.log('header', header);
 		const kid = header.kid;
+		print.log('kid', kid);
 		const key = await client.getSigningKey(kid);
+		print.log('key', key);
 		const signingKey = key.getPublicKey();
+		print.log('signingKey', signingKey);
 		const event = jwt.verify(token, signingKey) as JwtPayload;
+		print.log('event', event);
 		if (event?.type === 'user.created') {
 			try {
 				const userData = event.data.user;
+				print.log('userData', userData);
 				const newUser = await service.users.createUser(userData);
 				if (!newUser) {
 					throw new Error('Failed to create user');

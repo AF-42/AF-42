@@ -6,7 +6,8 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Edit2, Building2, Mail, MapPin, Globe, Briefcase, ExternalLink } from 'lucide-react';
+import { Edit2, Building2, Mail, MapPin, Briefcase, ExternalLink } from 'lucide-react';
+import * as print from '@/lib/print-helpers';
 
 // Company profile data type
 interface CompanyProfile {
@@ -40,6 +41,7 @@ export default function CompanyProfilePage() {
 				setError(null);
 
 				const response = await fetch('/api/companies/profile/user');
+				print.log('response', response);
 
 				if (!response.ok) {
 					if (response.status === 404) {
@@ -51,8 +53,10 @@ export default function CompanyProfilePage() {
 				}
 
 				const result = await response.json();
+				print.log('result', result);
 				if (result.success && result.hasCompany) {
 					const company = result.company;
+					print.log('company', company);
 					const formattedData: CompanyProfile = {
 						name: company.name || '',
 						email: company.email || '',

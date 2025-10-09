@@ -44,12 +44,12 @@ export async function GET(request: NextRequest) {
 		}
 
 		// Get all members of the company
-		const members = await getCompanyMembersController(companyResult[0].company.id);
+		const members = await getCompanyMembersController(companyResult[0].id);
 
 		return NextResponse.json({
 			success: true,
 			members: members,
-			company: companyResult[0].company,
+			company: companyResult[0],
 		});
 	} catch (error) {
 		console.error('Error fetching company members:', error);
