@@ -94,7 +94,6 @@ export default function UserProfileComponent({ userData }: { userData: UserProfi
 							<div className="space-y-2">
 								<p className="text-sm font-medium text-muted-foreground">Profile Picture</p>
 								<Avatar className="h-20 w-20">
-									<AvatarImage src={userData.avatar} />
 									<AvatarFallback className="text-lg">
 										{userData.first_name?.charAt(0) || 'U'}
 										{userData.last_name?.charAt(0) || ''}
@@ -129,44 +128,7 @@ export default function UserProfileComponent({ userData }: { userData: UserProfi
 									<p className="text-sm">{userData.role}</p>
 								</div>
 							</div>
-							{userData.location && (
-								<div className="flex items-center gap-2">
-									<MapPin className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Location</p>
-										<p className="text-sm">{userData.location}</p>
-									</div>
-								</div>
-							)}
 						</div>
-
-						{/* Website and Phone Row */}
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-							{userData.website && (
-								<div className="flex items-center gap-2">
-									<ExternalLink className="h-4 w-4 text-muted-foreground" />
-									<div>
-										<p className="text-sm font-medium text-muted-foreground">Website</p>
-										<a
-											href={userData.website}
-											target="_blank"
-											rel="noopener noreferrer"
-											className="text-sm text-blue-600 hover:underline"
-										>
-											{userData.website}
-										</a>
-									</div>
-								</div>
-							)}
-						</div>
-
-						{/* Bio */}
-						{userData.bio && (
-							<div>
-								<p className="text-sm font-medium text-muted-foreground mb-2">Bio</p>
-								<p className="text-sm leading-relaxed">{userData.bio}</p>
-							</div>
-						)}
 					</CardContent>
 				</Card>
 			</div>

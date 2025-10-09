@@ -16,25 +16,25 @@ import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Search, Filter, CheckCircle2 } from 'lucide-react';
 
 // Import all technology datasets from JSON files
-import * as aiDataset from '../app/data-json/ai-dataset.json';
-import * as blockchainDataset from '../app/data-json/blockchain-dataset.json';
-import * as cryptographyDataset from '../app/data-json/cryptography-dataset.json';
-import * as cybersecurityDataset from '../app/data-json/cyber-dataset.json';
-import * as dataScienceDataset from '../app/data-json/data-science-dataset.json';
-import * as dbDataset from '../app/data-json/db-dataset.json';
-import * as deepLearningDataset from '../app/data-json/deep-learning-dataset.json';
-import * as devOpsDataset from '../app/data-json/devops-dataset.json';
-import * as gamingDataset from '../app/data-json/game-developement-dataset.json';
-import * as generativeAiDataset from '../app/data-json/generative-ai-dataset.json';
-import * as graphicsDataset from '../app/data-json/graphics-dataset.json';
-import * as hardwareDataset from '../app/data-json/hardware-and-low-level-dataset.json';
-import * as kernelDataset from '../app/data-json/kernel-dataset.json';
-import * as languagesDataset from '../app/data-json/languages-dataset.json';
-import * as machineLearningDataset from '../app/data-json/machine-learning-dataset.json';
-import * as mobileDataset from '../app/data-json/mobile-development-dataset.json';
-import * as programingLanguagesDataset from '../app/data-json/programing-languages.json';
-import * as webDevelopmentDataset from '../app/data-json/web-development-dataset.json';
-import * as web3Dataset from '../app/data-json/web3-dataset.json';
+import * as aiDataset from '../../app/data-json/ai-dataset.json';
+import * as blockchainDataset from '../../app/data-json/blockchain-dataset.json';
+import * as cryptographyDataset from '../../app/data-json/cryptography-dataset.json';
+import * as cybersecurityDataset from '../../app/data-json/cyber-dataset.json';
+import * as dataScienceDataset from '../../app/data-json/data-science-dataset.json';
+import * as dbDataset from '../../app/data-json/db-dataset.json';
+import * as deepLearningDataset from '../../app/data-json/deep-learning-dataset.json';
+import * as devOpsDataset from '../../app/data-json/devops-dataset.json';
+import * as gamingDataset from '../../app/data-json/game-developement-dataset.json';
+import * as generativeAiDataset from '../../app/data-json/generative-ai-dataset.json';
+import * as graphicsDataset from '../../app/data-json/graphics-dataset.json';
+import * as hardwareDataset from '../../app/data-json/hardware-and-low-level-dataset.json';
+import * as kernelDataset from '../../app/data-json/kernel-dataset.json';
+import * as languagesDataset from '../../app/data-json/languages-dataset.json';
+import * as machineLearningDataset from '../../app/data-json/machine-learning-dataset.json';
+import * as mobileDataset from '../../app/data-json/mobile-development-dataset.json';
+import * as programingLanguagesDataset from '../../app/data-json/programing-languages.json';
+import * as webDevelopmentDataset from '../../app/data-json/web-development-dataset.json';
+import * as web3Dataset from '../../app/data-json/web3-dataset.json';
 
 // Dataset configuration - maps dataset keys to their data and display names
 const datasets = [

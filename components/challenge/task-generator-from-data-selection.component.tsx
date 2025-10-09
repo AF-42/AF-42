@@ -8,8 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/generate/action';
 import { useState } from 'react';
-import { DataSelectionComponent } from '@/components/data-selection.component';
-import { FileTextExtractor } from '@/components/file-text-extractor.component';
+import { DataSelectionComponent } from '@/components/challenge';
 import { TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
 

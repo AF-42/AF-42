@@ -90,7 +90,7 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: Chall
 						Publish Challenge
 					</Button>
 					<Button variant="outline" onClick={() => {}}>
-						Save for later
+						Save Draft
 					</Button>
 				</div>
 			</div>
@@ -115,7 +115,7 @@ export function ChallengeDraftEditor({ challengeDraft }: { challengeDraft: Chall
 								)}
 							</ScrollArea>
 						</CardContent>
-					<CardFooter className="border-none flex gap-2 justify-end">
+						<CardFooter className="border-none flex gap-2 justify-end">
 							<Button
 								variant="outline"
 								onClick={() => setIsEditing({ ...isEditing, [header]: !isEditing[header] })}

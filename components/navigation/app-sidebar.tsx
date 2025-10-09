@@ -10,7 +10,6 @@ import {
 	Bug,
 	InfoIcon,
 	User,
-	ScreenShare,
 	Building2,
 	ContactRound,
 	BadgeCheck,
@@ -18,10 +17,13 @@ import {
 	LaptopMinimalCheck,
 	Settings,
 	SquareTerminal,
+	ClipboardEdit,
+	MonitorCheck,
+	FolderCode,
 } from 'lucide-react';
-import { NavMain } from '@/components/nav-main';
-import { NavSecondary } from '@/components/nav-secondary';
-import { NavUser } from '@/components/nav-user';
+import { NavMain } from '@/components/navigation';
+import { NavSecondary } from '@/components/navigation';
+import { NavUser } from '@/components/navigation';
 import {
 	Sidebar,
 	SidebarContent,
@@ -32,16 +34,18 @@ import {
 	SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { usersTable } from '@/db/schema/users';
+import * as print from '@/lib/print-helpers';
 
 export function AppSidebar({
 	currentUser,
 }: React.ComponentProps<typeof Sidebar> & { currentUser: typeof usersTable.$inferSelect }) {
+	print.log('[AppSidebar] currentUser: ', currentUser);
 	const username = currentUser.username;
 	const devNavData = {
 		navMain: [
 			{
 				title: 'Challenges',
-				url: '/challenge',
+				url: '#',
 				icon: Sparkles,
 				items: [
 					{
@@ -149,7 +153,7 @@ export function AppSidebar({
 		navMain: [
 			{
 				title: 'Challenge',
-				url: '/challenge',
+				url: '#',
 				icon: Sparkles,
 				items: [
 					{
@@ -158,9 +162,19 @@ export function AppSidebar({
 						url: '/challenge/generate',
 					},
 					{
+						title: 'Awaiting Review',
+						icon: ClipboardEdit,
+						url: '/challenge/awaiting-review',
+					},
+					{
 						title: 'Published',
-						icon: ScreenShare,
+						icon: MonitorCheck,
 						url: '/challenge/published',
+					},
+					{
+						title: 'Drafts',
+						icon: FolderCode,
+						url: `/challenge/draft/${currentUser.organizations}`,
 					},
 				],
 			},

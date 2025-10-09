@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/components/ui/sidebar';
 import { usersTable } from '@/db/schema/users';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 import { LogoutLink } from '@kinde-oss/kinde-auth-nextjs/components';
 
 export function NavUser({ user }: { user: typeof usersTable.$inferSelect }) {
