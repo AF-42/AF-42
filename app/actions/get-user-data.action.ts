@@ -1,10 +1,9 @@
 import { api } from '@/lib/api-client';
-import { type UserProfileType } from '@/types/user-profile.type';
 
 export const getUserData = async () => {
     try {
-        const response = (await api.get('users/profile').json());
-        if (!response.success) {
+        const response = await api.get('users/profile').json();
+        if (!(response as { success: boolean }).success) {
             throw new Error('Failed to get user data');
         }
         return response;
