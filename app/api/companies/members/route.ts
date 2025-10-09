@@ -7,8 +7,8 @@
 
 import { type NextRequest, NextResponse } from 'next/server';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { getCompanyMembersController } from '@/backend/controllers/companies/getCompanyMembers.controller';
-import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
+import { getCompanyMembersController } from '@/backend/controllers/companies/get-company-members.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/get-user-by-kinde-id.controller';
 import { companiesService } from '@/backend/services/companies.service';
 
 export async function GET(request: NextRequest) {

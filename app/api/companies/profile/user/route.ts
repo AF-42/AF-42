@@ -9,7 +9,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
 import { companiesService } from '@/backend/services/companies.service';
-import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/get-user-by-kinde-id.controller';
 
 export async function GET(request: NextRequest) {
     try {

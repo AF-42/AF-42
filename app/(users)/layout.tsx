@@ -4,7 +4,7 @@ import { AuthProvider } from '../AuthProvider';
 import { AppSidebar, DynamicBreadcrumb } from '@/components/navigation';
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-import { getUserByKindeIdController } from '@/backend/controllers/users/getUserByKindeId.controller';
+import { getUserByKindeIdController } from '@/backend/controllers/users/get-user-by-kinde-id.controller';
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
     const { getUser, isAuthenticated } = getKindeServerSession();
