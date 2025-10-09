@@ -1,5 +1,13 @@
 import tidy from 'eslint-config-tidy';
 
 export default [
-    ...tidy
+	...tidy,
+	{
+		languageOptions: {
+			parserOptions: {
+				project: './tsconfig.json',
+				tsconfigRootDir: import.meta.dirname,
+			},
+		},
+	},
 ];
