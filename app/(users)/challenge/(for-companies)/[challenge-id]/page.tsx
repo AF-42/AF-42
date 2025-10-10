@@ -1,6 +1,13 @@
 import { challengeService } from '@/backend/services/challenge.service';
 
-export default async function ChallengePage({ params }: {params : {'challenge-id' : string}}) {
-    const challenge = await challengeService.getChallengeById(params['challenge-id']);
+export default async function ChallengePage({
+    params,
+}: {
+    params: Promise<{ 'challenge-id': string }>;
+}) {
+    const resolvedParams = await params;
+    const challenge = await challengeService.getChallengeById(
+        resolvedParams['challenge-id'],
+    );
     return <div>ChallengePage {challenge[0].challenge_name}</div>;
 }

@@ -17,16 +17,24 @@ import { formatFileSize } from '@/lib/file-utils';
 
 type FileTextExtractorProps = {
     onTextExtracted?: (result: TextExtractionResult) => void;
-    onFileSelect? : (file: File | undefined) => void;
-    className? : string;
+    onFileSelect?: (file: File | undefined) => void;
+    className?: string;
 };
 
-export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: FileTextExtractorProps) => {
+export const FileTextExtractor = ({
+    onTextExtracted,
+    onFileSelect,
+    className,
+}: FileTextExtractorProps) => {
     // State for the currently selected file
-    const [selectedFile, setSelectedFile] = useState<File | undefined>(null);
+    const [selectedFile, setSelectedFile] = useState<File | undefined>(
+        undefined,
+    );
 
     // State for storing text extraction results
-    const [extractionResult, setExtractionResult] = useState<TextExtractionResult | undefined>(null);
+    const [extractionResult, setExtractionResult] = useState<
+        TextExtractionResult | undefined
+    >(undefined);
 
     // State to track extraction loading state
     const [isExtracting, setIsExtracting] = useState(false);
@@ -34,7 +42,7 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
     // Handle file selection and reset previous results
     const handleFileSelect = (file: File | undefined) => {
         setSelectedFile(file);
-        setExtractionResult(null);
+        setExtractionResult(undefined);
         onFileSelect?.(file);
     };
 
@@ -52,8 +60,8 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 
             // Call the text extraction API endpoint
             const response = await fetch('/api/extract-text', {
-                method : 'POST',
-                body   : formData
+                method: 'POST',
+                body: formData,
             });
 
             // Handle API errors
@@ -69,21 +77,22 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 
             // Notify parent component of successful extraction
             onTextExtracted?.(result);
-        }
-        catch (error) {
+        } catch (error) {
             console.error('Text extraction failed:', error);
 
             // Create error result object for display
             setExtractionResult({
-                success       : false,
-                fileName      : selectedFile.name,
-                fileType      : selectedFile.type,
-                fileSize      : selectedFile.size,
-                extractedText : '',
-                error         : error instanceof Error ? error.message : 'Unknown error occurred'
+                success: false,
+                fileName: selectedFile.name,
+                fileType: selectedFile.type,
+                fileSize: selectedFile.size,
+                extractedText: '',
+                error:
+                    error instanceof Error
+                        ? error.message
+                        : 'Unknown error occurred',
             });
-        }
-        finally {
+        } finally {
             // Always reset loading state
             setIsExtracting(false);
         }
@@ -91,8 +100,8 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 
     return (
         <div className={className}>
-            <Card className="border-none">
-                <CardContent className="space-y-4 border-none">
+            <Card className='border-none'>
+                <CardContent className='space-y-4 border-none'>
                     {/* File upload component with size limit */}
                     <FileUploaderComponent
                         onFileSelect={handleFileSelect}
@@ -102,13 +111,20 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
 
                     {/* Show file details and extract button when file is selected */}
                     {selectedFile && (
-                        <div className="space-y-3">
+                        <div className='space-y-3'>
                             {/* File info display and extract button */}
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-2">
-                                    <span className="text-sm font-medium">{selectedFile.name}</span>
-                                    <Badge variant="secondary">{formatFileSize(selectedFile.size)}</Badge>
-                                    <Badge variant="outline">{selectedFile.type}</Badge>
+                            <div className='flex items-center justify-between'>
+                                <div className='flex items-center gap-2'>
+                                    <span className='text-sm font-medium'>
+                                        {selectedFile.name}
+                                    </span>
+
+                                    <Badge variant='secondary'>
+                                        {formatFileSize(selectedFile.size)}
+                                    </Badge>
+                                    <Badge variant='outline'>
+                                        {selectedFile.type}
+                                    </Badge>
                                 </div>
                             </div>
 
@@ -121,101 +137,140 @@ export const FileTextExtractor = ({ onTextExtracted, onFileSelect, className }: 
                                             : 'border-red-200 bg-red-50/50' // Red styling for errors
                                     }
                                 >
-                                    <CardContent className="p-4 border-none">
-                                        <div className="flex items-start gap-3">
+                                    <CardContent className='p-4 border-none'>
+                                        <div className='flex items-start gap-3'>
                                             {/* Success/error icon */}
-                                            {extractionResult.success
-                                                ? (
-                                                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
-                                                )
-                                                : (
-                                                    <AlertCircle className="h-5 w-5 text-red-500 mt-0.5" />
-                                                )}
-                                            <div className="flex-1 space-y-2">
+                                            {extractionResult.success ? (
+                                                <CheckCircle className='h-5 w-5 text-green-500 mt-0.5' />
+                                            ) : (
+                                                <AlertCircle className='h-5 w-5 text-red-500 mt-0.5' />
+                                            )}
+                                            <div className='flex-1 space-y-2'>
                                                 {/* Status message and extraction method badge */}
-                                                <div className="flex items-center gap-2">
-                                                    <span className="font-medium">
+                                                <div className='flex items-center gap-2'>
+                                                    <span className='font-medium'>
                                                         {extractionResult.success
                                                             ? 'Text Extracted Successfully'
                                                             : 'Extraction Failed'}
                                                     </span>
                                                     {/* Show extraction method if available */}
-                                                    {extractionResult.metadata?.extractionMethod && (
-                                                        <Badge variant="outline" className="text-xs">
-                                                            {extractionResult.metadata.extractionMethod}
+                                                    {extractionResult.metadata
+                                                        ?.extractionMethod && (
+                                                        <Badge
+                                                            variant='outline'
+                                                            className='text-xs'
+                                                        >
+                                                            {
+                                                                extractionResult
+                                                                    .metadata
+                                                                    .extractionMethod
+                                                            }
                                                         </Badge>
                                                     )}
                                                 </div>
 
                                                 {extractionResult.success ? (
-                                                    <div className="space-y-2">
+                                                    <div className='space-y-2'>
                                                         {/* Grid layout for extraction metadata stats */}
-                                                        <div className="grid grid-cols-2 gap-4 text-sm">
+                                                        <div className='grid grid-cols-2 gap-4 text-sm'>
                                                             {/* Word count display */}
-                                                            {extractionResult.metadata?.wordCount && (
+                                                            {extractionResult
+                                                                .metadata
+                                                                ?.wordCount && (
                                                                 <div>
-                                                                    <span className="text-muted-foreground">
+                                                                    <span className='text-muted-foreground'>
                                                                         Words:
                                                                     </span>
-                                                                    <span className="ml-2 font-medium">
-                                                                        {extractionResult.metadata.wordCount}
+                                                                    <span className='ml-2 font-medium'>
+                                                                        {
+                                                                            extractionResult
+                                                                                .metadata
+                                                                                .wordCount
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                             )}
                                                             {/* Character count display */}
-                                                            {extractionResult.metadata?.charCount && (
+                                                            {extractionResult
+                                                                .metadata
+                                                                ?.charCount && (
                                                                 <div>
-                                                                    <span className="text-muted-foreground">
+                                                                    <span className='text-muted-foreground'>
                                                                         Characters:
                                                                     </span>
-                                                                    <span className="ml-2 font-medium">
-                                                                        {extractionResult.metadata.charCount}
+                                                                    <span className='ml-2 font-medium'>
+                                                                        {
+                                                                            extractionResult
+                                                                                .metadata
+                                                                                .charCount
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                             )}
                                                             {/* Page count display for documents */}
-                                                            {extractionResult.metadata?.pagesCount && (
+                                                            {extractionResult
+                                                                .metadata
+                                                                ?.pagesCount && (
                                                                 <div>
-                                                                    <span className="text-muted-foreground">
+                                                                    <span className='text-muted-foreground'>
                                                                         Pages:
                                                                     </span>
-                                                                    <span className="ml-2 font-medium">
-                                                                        {extractionResult.metadata.pagesCount}
+                                                                    <span className='ml-2 font-medium'>
+                                                                        {
+                                                                            extractionResult
+                                                                                .metadata
+                                                                                .pagesCount
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                             )}
                                                             {/* Sheet count display for spreadsheets */}
-                                                            {extractionResult.metadata?.sheetsCount && (
+                                                            {extractionResult
+                                                                .metadata
+                                                                ?.sheetsCount && (
                                                                 <div>
-                                                                    <span className="text-muted-foreground">
+                                                                    <span className='text-muted-foreground'>
                                                                         Sheets:
                                                                     </span>
-                                                                    <span className="ml-2 font-medium">
-                                                                        {extractionResult.metadata.sheetsCount}
+                                                                    <span className='ml-2 font-medium'>
+                                                                        {
+                                                                            extractionResult
+                                                                                .metadata
+                                                                                .sheetsCount
+                                                                        }
                                                                     </span>
                                                                 </div>
                                                             )}
                                                         </div>
 
                                                         {/* Collapsible text viewer section */}
-                                                        <div className="mt-3">
-                                                            <details className="group">
+                                                        <div className='mt-3'>
+                                                            <details className='group'>
                                                                 {/* Clickable summary with character count */}
-                                                                <summary className="cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground">
-                                                                    View Extracted Text (
-                                                                    {extractionResult.extractedText.length} characters)
+                                                                <summary className='cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground'>
+                                                                    View
+                                                                    Extracted
+                                                                    Text (
+                                                                    {
+                                                                        extractionResult
+                                                                            .extractedText
+                                                                            .length
+                                                                    }{' '}
+                                                                    characters)
                                                                 </summary>
                                                                 {/* Scrollable text content area */}
-                                                                <div className="mt-2 p-3 bg-muted rounded-md max-h-60 overflow-y-auto">
-                                                                    <pre className="text-xs whitespace-pre-wrap break-words">
-                                                                        {extractionResult.extractedText}
+                                                                <div className='mt-2 p-3 bg-muted rounded-md max-h-60 overflow-y-auto'>
+                                                                    <pre className='text-xs whitespace-pre-wrap break-words'>
+                                                                        {
+                                                                            extractionResult.extractedText
+                                                                        }
                                                                     </pre>
                                                                 </div>
                                                             </details>
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className="text-sm text-red-600">
+                                                    <div className='text-sm text-red-600'>
                                                         {/* Error message display */}
                                                         {extractionResult.error}
                                                     </div>

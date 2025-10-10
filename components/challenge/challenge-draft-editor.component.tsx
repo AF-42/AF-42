@@ -2,7 +2,11 @@
 
 import { useRef, useState } from 'react';
 import {
-    Card, CardContent, CardFooter, CardHeader, CardTitle
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+    CardTitle,
 } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
@@ -15,7 +19,7 @@ const SECTION_HEADERS = [
     '## 3. Requirements:',
     '## 4. Optional Requirements:',
     '## 5. Deliverables:',
-    '## 6. Evaluation Rubric:'
+    '## 6. Evaluation Rubric:',
 ];
 
 function extractSections(draft: ChallengeType, headers: string[]) {
@@ -26,7 +30,7 @@ function extractSections(draft: ChallengeType, headers: string[]) {
         .map((header) => {
             return {
                 header,
-                index : draft.challenge_description.indexOf(header)
+                index: draft.challenge_description.indexOf(header),
             };
         })
         .filter(({ index }) => {
@@ -42,9 +46,14 @@ function extractSections(draft: ChallengeType, headers: string[]) {
 
     for (let i = 0; i < positions.length; i++) {
         const { header, index } = positions[i];
-        const nextIndex = i + 1 < positions.length ? positions[i + 1].index : draft.challenge_description.length;
+        const nextIndex =
+            i + 1 < positions.length
+                ? positions[i + 1].index
+                : draft.challenge_description.length;
         const start = index + header.length;
-        let content = draft.challenge_description.slice(start, nextIndex).trim();
+        let content = draft.challenge_description
+            .slice(start, nextIndex)
+            .trim();
 
         // For the last section in the draft, remove a trailing code fence if present
         if (i === positions.length - 1) {
@@ -61,16 +70,25 @@ function headerToTitle(header: string) {
     return header.replace(/^##\s*/, '').replace(/:\s*$/, '');
 }
 
-export function ChallengeDraftEditor({ challengeDraft }: {challengeDraft : ChallengeType}) {
+export function ChallengeDraftEditor({
+    challengeDraft,
+}: {
+    challengeDraft: ChallengeType;
+}) {
     const sections = extractSections(challengeDraft, SECTION_HEADERS);
-    const [editedSections, setEditedSections] = useState<Record<string, string>>(sections);
+    const [editedSections, setEditedSections] =
+        useState<Record<string, string>>(sections);
     const [isEditing, setIsEditing] = useState<Record<string, boolean>>(
-        Object.fromEntries(SECTION_HEADERS.map((header) => {
-            return [header, false];
-        }))
+        Object.fromEntries(
+            SECTION_HEADERS.map((header) => {
+                return [header, false];
+            }),
+        ),
     );
 
-    const textareaRefs = useRef<Record<string, HTMLTextAreaElement | undefined>>({});
+    const textareaRefs = useRef<
+        Record<string, HTMLTextAreaElement | undefined>
+    >({});
 
     const setTextareaRef = (header: string) => {
         return (element: HTMLTextAreaElement | undefined) => {
@@ -86,7 +104,7 @@ export function ChallengeDraftEditor({ challengeDraft }: {challengeDraft : Chall
         return (e: React.ChangeEvent<HTMLTextAreaElement>) => {
             setEditedSections({
                 ...editedSections,
-                [header] : e.target.value
+                [header]: e.target.value,
             });
             // Auto-resize as the user types
             e.target.style.height = 'auto';
@@ -96,25 +114,36 @@ export function ChallengeDraftEditor({ challengeDraft }: {challengeDraft : Chall
     return (
         <>
             <div>
-                <div className="p-3 bg-background rounded-md">
-                    <h4 className="font-medium text-sm mb-2">Challenge Details:</h4>
-                    <div className="text-xs text-muted-foreground space-y-1">
-                        <div>Role: {challengeDraft.challenge_name || 'Not specified'}</div>
-                        <div>Seniority: {challengeDraft.challenge_difficulty || 'Not specified'}</div>
-                        <div>Technologies: {challengeDraft.challenge_requirements?.length || 0} identified</div>
+                <div className='p-3 bg-background rounded-md'>
+                    <h4 className='font-medium text-sm mb-2'>
+                        Challenge Details:
+                    </h4>
+                    <div className='text-xs text-muted-foreground space-y-1'>
+                        <div>
+                            Role:{' '}
+                            {challengeDraft.challenge_name || 'Not specified'}
+                        </div>
+                        <div>
+                            Seniority:{' '}
+                            {challengeDraft.challenge_difficulty ||
+                                'Not specified'}
+                        </div>
+                        <div>
+                            Technologies:{' '}
+                            {challengeDraft.challenge_requirements?.length || 0}{' '}
+                            identified
+                        </div>
                     </div>
                 </div>
-                <div className="flex gap-2 justify-end mt-4">
-                    <Button variant="outline" onClick={() => {
-}}>
-                        Invite a tech member of your team to review the challenge
+                <div className='flex gap-2 justify-end mt-4'>
+                    <Button variant='outline' onClick={() => {}}>
+                        Invite a tech member of your team to review the
+                        challenge
                     </Button>
-                    <Button variant="outline" onClick={() => {
-}}>
+                    <Button variant='outline' onClick={() => {}}>
                         Publish Challenge
                     </Button>
-                    <Button variant="outline" onClick={() => {
-}}>
+                    <Button variant='outline' onClick={() => {}}>
                         Save Draft
                     </Button>
                 </div>
@@ -122,34 +151,38 @@ export function ChallengeDraftEditor({ challengeDraft }: {challengeDraft : Chall
 
             {SECTION_HEADERS.map((header) => {
                 return (
-                    <div key={header} className="w-full mb-4">
-                        <Card className="w-full border-none shadow-sm mb-4">
+                    <div key={header} className='w-full mb-4'>
+                        <Card className='w-full border-none shadow-sm mb-4'>
                             <CardHeader>
                                 <CardTitle>{headerToTitle(header)}</CardTitle>
                             </CardHeader>
                             <CardContent>
                                 <ScrollArea>
-                                    {isEditing[header]
-                                        ? (
-                                            <Textarea
-                                                ref={setTextareaRef(header)}
-                                                value={editedSections[header]}
-                                                onChange={handleChange(header)}
-                                                className="resize-none overflow-hidden"
-                                            />
-                                        )
-                                        : (
-                                            <div>{editedSections[header] ?? ''}</div>
-                                        )}
+                                    {isEditing[header] ? (
+                                        <Textarea
+                                            ref={
+                                                setTextareaRef(
+                                                    header,
+                                                ) as React.Ref<HTMLTextAreaElement>
+                                            }
+                                            value={editedSections[header]}
+                                            onChange={handleChange(header)}
+                                            className='resize-none overflow-hidden'
+                                        />
+                                    ) : (
+                                        <div>
+                                            {editedSections[header] ?? ''}
+                                        </div>
+                                    )}
                                 </ScrollArea>
                             </CardContent>
-                            <CardFooter className="border-none flex gap-2 justify-end">
+                            <CardFooter className='border-none flex gap-2 justify-end'>
                                 <Button
-                                    variant="outline"
+                                    variant='outline'
                                     onClick={() => {
                                         setIsEditing({
                                             ...isEditing,
-                                            [header] : !isEditing[header]
+                                            [header]: !isEditing[header],
                                         });
                                     }}
                                 >

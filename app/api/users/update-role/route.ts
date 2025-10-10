@@ -1,6 +1,6 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server';
-import { updateUserRole } from '@/backend/controllers/users/updateUserRole.controller';
+import { updateUserRole } from '@/backend/controllers/users/update-user-role.controller';
 
 export async function POST(request: NextRequest) {
     try {
