@@ -33,7 +33,8 @@ export default function HomePage() {
                         </h1>
                         <p className='text-lg sm:text-xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed italic'>
                             The smartest companies will hire more software
-                            engineers, not fewer, as AI develops.&quot;
+                            engineers, <br />
+                            not fewer, as AI develops.&quot;
                             <br />- Thomas Dohmke, CEO of GitHub
                         </p>
                         <p className='text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed'>
