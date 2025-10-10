@@ -10,7 +10,7 @@ export default [
 			},
 		},
 		rules: {
-			'import/extensions': 'none',
+			'import/extensions': 'off',
 			'import/no-unresolved': 'off',
 			'node/no-missing-import': 'off',
 		},
