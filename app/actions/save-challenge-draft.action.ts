@@ -54,7 +54,7 @@ export const saveChallengeDraftAction = async (
             github_url: parameters.github_url || '',
             is_published: false,
             challenge_industry: company.industry || 'Technology',
-            challenge_name: `Challenge - ${new Date().toLocaleDateString()}`,
+            challenge_name: `${parameters.extractedTechStack?.role_title || 'Not specified'}`,
             challenge_description: parameters.challengeDraft,
             challenge_difficulty:
                 parameters.extractedTechStack?.difficulty || 'mid',

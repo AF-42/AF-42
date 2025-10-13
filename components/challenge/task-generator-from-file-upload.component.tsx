@@ -193,11 +193,18 @@ export function TaskGeneratorFormFromFileUpload() {
                 ...previous,
                 ...updates,
             };
-            // Calculate progress based on completed steps
+            // Calculate progress based on completed and in-progress steps
             const completedSteps = newState.steps.filter((step) => {
                 return step.status === 'completed';
             }).length;
-            newState.progress = (completedSteps / newState.totalSteps) * 100;
+            const inProgressSteps = newState.steps.filter((step) => {
+                return step.status === 'in_progress';
+            }).length;
+
+            // Progress = (completed steps * 100% + in-progress steps * 50%) / total steps
+            newState.progress =
+                (completedSteps * 100 + inProgressSteps * 50) /
+                newState.totalSteps;
             return newState;
         });
     };
@@ -205,16 +212,32 @@ export function TaskGeneratorFormFromFileUpload() {
     // Helper function to update a specific step
     const updateStep = (stepId: string, updates: Partial<ProcessingStep>) => {
         setProcessingState((previous) => {
+            const newSteps = previous.steps.map((step) => {
+                return step.id === stepId
+                    ? {
+                          ...step,
+                          ...updates,
+                      }
+                    : step;
+            });
+
+            // Calculate progress based on completed and in-progress steps
+            const completedSteps = newSteps.filter((step) => {
+                return step.status === 'completed';
+            }).length;
+            const inProgressSteps = newSteps.filter((step) => {
+                return step.status === 'in_progress';
+            }).length;
+
+            // Progress = (completed steps * 100% + in-progress steps * 50%) / total steps
+            const progress =
+                (completedSteps * 100 + inProgressSteps * 50) /
+                previous.totalSteps;
+
             return {
                 ...previous,
-                steps: previous.steps.map((step) => {
-                    return step.id === stepId
-                        ? {
-                              ...step,
-                              ...updates,
-                          }
-                        : step;
-                }),
+                steps: newSteps,
+                progress: progress,
             };
         });
     };

@@ -1,0 +1,1067 @@
+{
+    "techUrls": {
+        "programming_languages": {
+            "JavaScript": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+                "devdocs_url": "https://devdocs.io/javascript/"
+            },
+            "TypeScript": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+                "official_website": "https://www.typescriptlang.org/",
+                "devdocs_url": "https://devdocs.io/typescript/"
+            },
+            "Python": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+                "official_website": "https://www.python.org/",
+                "devdocs_url": "https://devdocs.io/python/"
+            },
+            "Java": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+                "official_website": "https://www.oracle.com/java/",
+                "devdocs_url": "https://devdocs.io/java/"
+            },
+            "C": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg",
+                "official_website": "https://www.iso.org/standard/74528.html",
+                "devdocs_url": "https://devdocs.io/c/"
+            },
+            "C++": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+                "official_website": "https://isocpp.org/",
+                "devdocs_url": "https://devdocs.io/cpp/"
+            },
+            "C#": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg",
+                "official_website": "https://docs.microsoft.com/en-us/dotnet/csharp/",
+                "devdocs_url": "https://devdocs.io/csharp/"
+            },
+            "Go": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg",
+                "official_website": "https://golang.org/",
+                "devdocs_url": "https://devdocs.io/go/"
+            },
+            "Rust": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg",
+                "official_website": "https://www.rust-lang.org/",
+                "devdocs_url": "https://devdocs.io/rust/"
+            },
+            "Ruby": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg",
+                "official_website": "https://www.ruby-lang.org/",
+                "devdocs_url": "https://devdocs.io/ruby/"
+            },
+            "PHP": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg",
+                "official_website": "https://www.php.net/",
+                "devdocs_url": "https://devdocs.io/php/"
+            },
+            "Swift": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+                "official_website": "https://swift.org/",
+                "devdocs_url": "https://devdocs.io/swift/"
+            },
+            "Kotlin": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+                "official_website": "https://kotlinlang.org/",
+                "devdocs_url": "https://devdocs.io/kotlin/"
+            },
+            "Dart": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dart/dart-original.svg",
+                "official_website": "https://dart.dev/",
+                "devdocs_url": "https://devdocs.io/dart/"
+            },
+            "R": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/r/r-original.svg",
+                "official_website": "https://www.r-project.org/",
+                "devdocs_url": "https://devdocs.io/r/"
+            },
+            "Julia": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/julia/julia-original.svg",
+                "official_website": "https://julialang.org/",
+                "devdocs_url": "https://devdocs.io/julia/"
+            },
+            "Scala": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scala/scala-original.svg",
+                "official_website": "https://www.scala-lang.org/",
+                "devdocs_url": "https://devdocs.io/scala/"
+            },
+            "Haskell": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/haskell/haskell-original.svg",
+                "official_website": "https://www.haskell.org/",
+                "devdocs_url": "https://devdocs.io/haskell/"
+            },
+            "Clojure": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/clojure/clojure-original.svg",
+                "official_website": "https://clojure.org/",
+                "devdocs_url": "https://devdocs.io/clojure/"
+            },
+            "Elixir": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elixir/elixir-original.svg",
+                "official_website": "https://elixir-lang.org/",
+                "devdocs_url": "https://devdocs.io/elixir/"
+            },
+            "Erlang": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/erlang/erlang-original.svg",
+                "official_website": "https://www.erlang.org/",
+                "devdocs_url": "https://devdocs.io/erlang/"
+            },
+            "Lua": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg",
+                "official_website": "https://www.lua.org/",
+                "devdocs_url": "https://devdocs.io/lua/"
+            },
+            "Perl": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/perl/perl-original.svg",
+                "official_website": "https://www.perl.org/",
+                "devdocs_url": "https://devdocs.io/perl/"
+            },
+            "Groovy": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/groovy/groovy-original.svg",
+                "official_website": "https://groovy-lang.org/",
+                "devdocs_url": "https://devdocs.io/groovy/"
+            },
+            "HTML": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/HTML",
+                "devdocs_url": "https://devdocs.io/html/"
+            },
+            "CSS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/CSS",
+                "devdocs_url": "https://devdocs.io/css/"
+            }
+        },
+        "frontend_frameworks": {
+            "React": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                "official_website": "https://react.dev/",
+                "devdocs_url": "https://devdocs.io/react/"
+            },
+            "Vue.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+                "official_website": "https://vuejs.org/",
+                "devdocs_url": "https://devdocs.io/vue/"
+            },
+            "Angular": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angular/angular-original.svg",
+                "official_website": "https://angular.io/",
+                "devdocs_url": "https://devdocs.io/angular/"
+            },
+            "Angular.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
+                "official_website": "https://angularjs.org/",
+                "devdocs_url": "https://devdocs.io/angularjs/"
+            },
+            "Svelte": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+                "official_website": "https://svelte.dev/",
+                "devdocs_url": "https://devdocs.io/svelte/"
+            },
+            "jQuery": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-original.svg",
+                "official_website": "https://jquery.com/",
+                "devdocs_url": "https://devdocs.io/jquery/"
+            },
+            "Backbone.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/backbonejs/backbonejs-original.svg",
+                "official_website": "https://backbonejs.org/",
+                "devdocs_url": "https://devdocs.io/backbone/"
+            },
+            "Ember.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ember/ember-original.svg",
+                "official_website": "https://emberjs.com/",
+                "devdocs_url": "https://devdocs.io/ember/"
+            },
+            "Knockout.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/knockout/knockout-original.svg",
+                "official_website": "https://knockoutjs.com/",
+                "devdocs_url": "https://devdocs.io/knockout/"
+            },
+            "Redux": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+                "official_website": "https://redux.js.org/",
+                "devdocs_url": "https://devdocs.io/redux/"
+            },
+            "D3.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/d3js/d3js-original.svg",
+                "official_website": "https://d3js.org/",
+                "devdocs_url": "https://devdocs.io/d3/"
+            },
+            "Next.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
+                "official_website": "https://nextjs.org/",
+                "devdocs_url": "https://devdocs.io/nextjs/"
+            },
+            "Nuxt.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg",
+                "official_website": "https://nuxt.com/",
+                "devdocs_url": "https://devdocs.io/nuxt/"
+            },
+            "Gatsby": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-original.svg",
+                "official_website": "https://www.gatsbyjs.com/",
+                "devdocs_url": "https://devdocs.io/gatsby/"
+            },
+            "React Native": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                "official_website": "https://reactnative.dev/",
+                "devdocs_url": "https://devdocs.io/react_native/"
+            }
+        },
+        "backend_frameworks": {
+            "Node.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+                "official_website": "https://nodejs.org/",
+                "devdocs_url": "https://devdocs.io/node/"
+            },
+            "Express.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+                "official_website": "https://expressjs.com/",
+                "devdocs_url": "https://devdocs.io/express/"
+            },
+            "Django": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
+                "official_website": "https://www.djangoproject.com/",
+                "devdocs_url": "https://devdocs.io/django/"
+            },
+            "Flask": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+                "official_website": "https://flask.palletsprojects.com/",
+                "devdocs_url": "https://devdocs.io/flask/"
+            },
+            "FastAPI": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastapi/fastapi-original.svg",
+                "official_website": "https://fastapi.tiangolo.com/",
+                "devdocs_url": "https://devdocs.io/fastapi/"
+            },
+            "Ruby on Rails": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rails/rails-original-wordmark.svg",
+                "official_website": "https://rubyonrails.org/",
+                "devdocs_url": "https://devdocs.io/rails/"
+            },
+            "Spring Boot": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg",
+                "official_website": "https://spring.io/projects/spring-boot",
+                "devdocs_url": "https://devdocs.io/spring_boot/"
+            },
+            "Laravel": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg",
+                "official_website": "https://laravel.com/",
+                "devdocs_url": "https://devdocs.io/laravel/"
+            },
+            "Symfony": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/symfony/symfony-original.svg",
+                "official_website": "https://symfony.com/",
+                "devdocs_url": "https://devdocs.io/symfony/"
+            },
+            "CakePHP": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cakephp/cakephp-original.svg",
+                "official_website": "https://cakephp.org/",
+                "devdocs_url": "https://devdocs.io/cakephp/"
+            },
+            "Phalcon": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/phalcon/phalcon-original.svg",
+                "official_website": "https://phalcon.io/",
+                "devdocs_url": "https://devdocs.io/phalcon/"
+            },
+            "Yii": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yii/yii-original.svg",
+                "official_website": "https://www.yiiframework.com/",
+                "devdocs_url": "https://devdocs.io/yii/"
+            },
+            "Zend Framework": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zend/zend-original.svg",
+                "official_website": "https://framework.zend.com/",
+                "devdocs_url": "https://devdocs.io/zend/"
+            }
+        },
+        "databases": {
+            "PostgreSQL": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
+                "official_website": "https://www.postgresql.org/",
+                "devdocs_url": "https://devdocs.io/postgresql/"
+            },
+            "MySQL": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+                "official_website": "https://www.mysql.com/",
+                "devdocs_url": "https://devdocs.io/mysql/"
+            },
+            "MongoDB": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+                "official_website": "https://www.mongodb.com/",
+                "devdocs_url": "https://devdocs.io/mongodb/"
+            },
+            "Redis": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
+                "official_website": "https://redis.io/",
+                "devdocs_url": "https://devdocs.io/redis/"
+            },
+            "SQLite": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+                "official_website": "https://www.sqlite.org/",
+                "devdocs_url": "https://devdocs.io/sqlite/"
+            },
+            "MariaDB": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mariadb/mariadb-original.svg",
+                "official_website": "https://mariadb.org/",
+                "devdocs_url": "https://devdocs.io/mariadb/"
+            },
+            "Oracle": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg",
+                "official_website": "https://www.oracle.com/database/",
+                "devdocs_url": "https://devdocs.io/oracle/"
+            },
+            "Cassandra": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cassandra/cassandra-original.svg",
+                "official_website": "https://cassandra.apache.org/",
+                "devdocs_url": "https://devdocs.io/cassandra/"
+            },
+            "Elasticsearch": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
+                "official_website": "https://www.elastic.co/elasticsearch/",
+                "devdocs_url": "https://devdocs.io/elasticsearch/"
+            },
+            "Neo4j": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg",
+                "official_website": "https://neo4j.com/",
+                "devdocs_url": "https://devdocs.io/neo4j/"
+            }
+        },
+        "devops_tools": {
+            "Docker": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+                "official_website": "https://www.docker.com/",
+                "devdocs_url": "https://devdocs.io/docker/"
+            },
+            "Kubernetes": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg",
+                "official_website": "https://kubernetes.io/",
+                "devdocs_url": "https://devdocs.io/kubernetes/"
+            },
+            "Ansible": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ansible/ansible-original.svg",
+                "official_website": "https://www.ansible.com/",
+                "devdocs_url": "https://devdocs.io/ansible/"
+            },
+            "Chef": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chef/chef-original.svg",
+                "official_website": "https://www.chef.io/",
+                "devdocs_url": "https://devdocs.io/chef/"
+            },
+            "Terraform": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
+                "official_website": "https://www.terraform.io/",
+                "devdocs_url": "https://devdocs.io/terraform/"
+            },
+            "Jenkins": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jenkins/jenkins-original.svg",
+                "official_website": "https://www.jenkins.io/",
+                "devdocs_url": "https://devdocs.io/jenkins/"
+            },
+            "Git": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
+                "official_website": "https://git-scm.com/",
+                "devdocs_url": "https://devdocs.io/git/"
+            },
+            "GitHub": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+                "official_website": "https://github.com/",
+                "devdocs_url": "https://devdocs.io/github/"
+            },
+            "GitLab": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+                "official_website": "https://gitlab.com/",
+                "devdocs_url": "https://devdocs.io/gitlab/"
+            },
+            "Bash": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg",
+                "official_website": "https://www.gnu.org/software/bash/",
+                "devdocs_url": "https://devdocs.io/bash/"
+            },
+            "Nginx": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nginx/nginx-original.svg",
+                "official_website": "https://nginx.org/",
+                "devdocs_url": "https://devdocs.io/nginx/"
+            },
+            "Apache": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache/apache-original.svg",
+                "official_website": "https://httpd.apache.org/",
+                "devdocs_url": "https://devdocs.io/apache/"
+            },
+            "CMake": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cmake/cmake-original.svg",
+                "official_website": "https://cmake.org/",
+                "devdocs_url": "https://devdocs.io/cmake/"
+            },
+            "webpack": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+                "official_website": "https://webpack.js.org/",
+                "devdocs_url": "https://devdocs.io/webpack/"
+            },
+            "GitHub Actions": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+                "official_website": "https://github.com/features/actions",
+                "devdocs_url": "https://devdocs.io/github-actions/"
+            },
+            "GitLab CI/CD": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
+                "official_website": "https://about.gitlab.com/",
+                "devdocs_url": "https://devdocs.io/gitlab-ci/"
+            },
+            "CircleCI": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/circleci/circleci-original.svg",
+                "official_website": "https://circleci.com/",
+                "devdocs_url": "https://devdocs.io/circleci/"
+            },
+            "Travis CI": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/travis/travis-original.svg",
+                "official_website": "https://travis-ci.com/",
+                "devdocs_url": "https://devdocs.io/travis-ci/"
+            },
+            "Azure DevOps": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+                "official_website": "https://azure.microsoft.com/en-us/services/devops/",
+                "devdocs_url": "https://devdocs.io/azure-devops/"
+            },
+            "AWS CodePipeline": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                "official_website": "https://aws.amazon.com/codepipeline/",
+                "devdocs_url": "https://devdocs.io/aws-codepipeline/"
+            },
+            "OpenShift": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redhat/redhat-original.svg",
+                "official_website": "https://www.openshift.com/",
+                "devdocs_url": "https://devdocs.io/openshift/"
+            },
+            "Podman": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
+                "official_website": "https://podman.io/",
+                "devdocs_url": "https://devdocs.io/podman/"
+            },
+            "Rancher": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg",
+                "official_website": "https://rancher.com/",
+                "devdocs_url": "https://devdocs.io/rancher/"
+            },
+            "Nomad (HashiCorp)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hashicorp/hashicorp-original.svg",
+                "official_website": "https://www.nomadproject.io/",
+                "devdocs_url": "https://devdocs.io/nomad/"
+            },
+            "Pulumi": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pulumi/pulumi-original.svg",
+                "official_website": "https://www.pulumi.com/",
+                "devdocs_url": "https://devdocs.io/pulumi/"
+            },
+            "AWS CloudFormation": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                "official_website": "https://aws.amazon.com/cloudformation/",
+                "devdocs_url": "https://devdocs.io/aws-cloudformation/"
+            },
+            "Google Cloud Deployment Manager": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+                "official_website": "https://cloud.google.com/deployment-manager",
+                "devdocs_url": "https://devdocs.io/gcp-deployment-manager/"
+            },
+            "Crossplane": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kubernetes/kubernetes-original.svg",
+                "official_website": "https://crossplane.io/",
+                "devdocs_url": "https://devdocs.io/crossplane/"
+            },
+            "Prometheus": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prometheus/prometheus-original.svg",
+                "official_website": "https://prometheus.io/",
+                "devdocs_url": "https://devdocs.io/prometheus/"
+            },
+            "Grafana": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grafana/grafana-original.svg",
+                "official_website": "https://grafana.com/",
+                "devdocs_url": "https://devdocs.io/grafana/"
+            },
+            "ELK Stack (Elasticsearch, Logstash, Kibana)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/elasticsearch/elasticsearch-original.svg",
+                "official_website": "https://www.elastic.co/what-is/elk-stack",
+                "devdocs_url": "https://devdocs.io/elk-stack/"
+            },
+            "Datadog": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/datadog/datadog-original.svg",
+                "official_website": "https://www.datadoghq.com/",
+                "devdocs_url": "https://devdocs.io/datadog/"
+            },
+            "New Relic": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/newrelic/newrelic-original.svg",
+                "official_website": "https://newrelic.com/",
+                "devdocs_url": "https://devdocs.io/newrelic/"
+            },
+            "Splunk": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/splunk/splunk-original.svg",
+                "official_website": "https://www.splunk.com/",
+                "devdocs_url": "https://devdocs.io/splunk/"
+            },
+            "Nagios": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nagios/nagios-original.svg",
+                "official_website": "https://www.nagios.org/",
+                "devdocs_url": "https://devdocs.io/nagios/"
+            },
+            "Zabbix": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/zabbix/zabbix-original.svg",
+                "official_website": "https://www.zabbix.com/",
+                "devdocs_url": "https://devdocs.io/zabbix/"
+            },
+            "Puppet": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/puppet/puppet-original.svg",
+                "official_website": "https://puppet.com/",
+                "devdocs_url": "https://devdocs.io/puppet/"
+            },
+            "SaltStack": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/saltstack/saltstack-original.svg",
+                "official_website": "https://saltproject.io/",
+                "devdocs_url": "https://devdocs.io/saltstack/"
+            },
+            "Bitbucket": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bitbucket/bitbucket-original.svg",
+                "official_website": "https://bitbucket.org/",
+                "devdocs_url": "https://devdocs.io/bitbucket/"
+            },
+            "JFrog Artifactory": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jfrog/jfrog-original.svg",
+                "official_website": "https://jfrog.com/artifactory/",
+                "devdocs_url": "https://devdocs.io/jfrog-artifactory/"
+            },
+            "Nexus Repository": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sonatype/sonatype-original.svg",
+                "official_website": "https://www.sonatype.com/products/repository-oss",
+                "devdocs_url": "https://devdocs.io/nexus-repository/"
+            },
+            "Harbor": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/harbor/harbor-original.svg",
+                "official_website": "https://goharbor.io/",
+                "devdocs_url": "https://devdocs.io/harbor/"
+            },
+            "Amazon Web Services (AWS)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                "official_website": "https://aws.amazon.com/",
+                "devdocs_url": "https://devdocs.io/aws/"
+            },
+            "Microsoft Azure": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+                "official_website": "https://azure.microsoft.com/",
+                "devdocs_url": "https://devdocs.io/azure/"
+            },
+            "Google Cloud Platform (GCP)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+                "official_website": "https://cloud.google.com/",
+                "devdocs_url": "https://devdocs.io/google-cloud/"
+            },
+            "IBM Cloud": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ibm/ibm-original.svg",
+                "official_website": "https://www.ibm.com/cloud",
+                "devdocs_url": "https://devdocs.io/ibm-cloud/"
+            },
+            "Oracle Cloud": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-original.svg",
+                "official_website": "https://www.oracle.com/cloud/",
+                "devdocs_url": "https://devdocs.io/oracle-cloud/"
+            },
+            "DigitalOcean": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/digitalocean/digitalocean-original.svg",
+                "official_website": "https://www.digitalocean.com/",
+                "devdocs_url": "https://devdocs.io/digitalocean/"
+            }
+        },
+        "css_frameworks": {
+            "Bootstrap": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
+                "official_website": "https://getbootstrap.com/",
+                "devdocs_url": "https://devdocs.io/bootstrap~5/"
+            },
+            "Tailwind CSS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg",
+                "official_website": "https://tailwindcss.com/",
+                "devdocs_url": "https://devdocs.io/tailwindcss/"
+            },
+            "Sass": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
+                "official_website": "https://sass-lang.com/",
+                "devdocs_url": "https://devdocs.io/sass/"
+            },
+            "Less": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/less/less-plain-wordmark.svg",
+                "official_website": "https://lesscss.org/",
+                "devdocs_url": "https://devdocs.io/less/"
+            },
+            "Stylus": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/stylus/stylus-original.svg",
+                "official_website": "https://stylus-lang.com/",
+                "devdocs_url": "https://devdocs.io/stylus/"
+            },
+            "PostCSS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postcss/postcss-original.svg",
+                "official_website": "https://postcss.org/",
+                "devdocs_url": "https://devdocs.io/postcss/"
+            }
+        },
+        "testing_frameworks": {
+            "Jest": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jest/jest-plain.svg",
+                "official_website": "https://jestjs.io/",
+                "devdocs_url": "https://devdocs.io/jest/"
+            },
+            "Mocha": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mocha/mocha-plain.svg",
+                "official_website": "https://mochajs.org/",
+                "devdocs_url": "https://devdocs.io/mocha/"
+            },
+            "Chai": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chai/chai-original.svg",
+                "official_website": "https://www.chaijs.com/",
+                "devdocs_url": "https://devdocs.io/chai/"
+            },
+            "Cypress": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cypress/cypress-original.svg",
+                "official_website": "https://www.cypress.io/",
+                "devdocs_url": "https://devdocs.io/cypress/"
+            },
+            "Playwright": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/playwright/playwright-original.svg",
+                "official_website": "https://playwright.dev/",
+                "devdocs_url": "https://devdocs.io/playwright/"
+            },
+            "Selenium": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/selenium/selenium-original.svg",
+                "official_website": "https://www.selenium.dev/",
+                "devdocs_url": "https://devdocs.io/selenium/"
+            },
+            "PHPUnit": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/phpunit/phpunit-original.svg",
+                "official_website": "https://phpunit.de/",
+                "devdocs_url": "https://devdocs.io/phpunit/"
+            },
+            "Sinon": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sinon/sinon-original.svg",
+                "official_website": "https://sinonjs.org/",
+                "devdocs_url": "https://devdocs.io/sinon/"
+            },
+            "Cucumber": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cucumber/cucumber-original.svg",
+                "official_website": "https://cucumber.io/",
+                "devdocs_url": "https://devdocs.io/cucumber/"
+            }
+        },
+        "data_science": {
+            "NumPy": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/numpy/numpy-original.svg",
+                "official_website": "https://numpy.org/",
+                "devdocs_url": "https://devdocs.io/numpy/"
+            },
+            "Pandas": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg",
+                "official_website": "https://pandas.pydata.org/",
+                "devdocs_url": "https://devdocs.io/pandas/"
+            },
+            "TensorFlow": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg",
+                "official_website": "https://www.tensorflow.org/",
+                "devdocs_url": "https://devdocs.io/tensorflow/"
+            },
+            "PyTorch": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg",
+                "official_website": "https://pytorch.org/",
+                "devdocs_url": "https://devdocs.io/pytorch/"
+            },
+            "Keras": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/keras/keras-original.svg",
+                "official_website": "https://keras.io/",
+                "devdocs_url": "https://devdocs.io/keras/"
+            },
+            "Scikit-learn": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/scikit-learn/scikit-learn-original.svg",
+                "official_website": "https://scikit-learn.org/",
+                "devdocs_url": "https://devdocs.io/scikit-learn/"
+            },
+            "Matplotlib": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/matplotlib/matplotlib-original.svg",
+                "official_website": "https://matplotlib.org/",
+                "devdocs_url": "https://devdocs.io/matplotlib/"
+            },
+            "Jupyter": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jupyter/jupyter-original.svg",
+                "official_website": "https://jupyter.org/",
+                "devdocs_url": "https://devdocs.io/jupyter/"
+            },
+            "Apache Spark": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apache-spark/apache-spark-original.svg",
+                "official_website": "https://spark.apache.org/",
+                "devdocs_url": "https://devdocs.io/apache-spark/"
+            },
+            "Hadoop": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/hadoop/hadoop-original.svg",
+                "official_website": "https://hadoop.apache.org/",
+                "devdocs_url": "https://devdocs.io/hadoop/"
+            }
+        },
+        "mobile_development": {
+            "React Native": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+                "official_website": "https://reactnative.dev/",
+                "devdocs_url": "https://devdocs.io/react_native/"
+            },
+            "Flutter": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
+                "official_website": "https://flutter.dev/",
+                "devdocs_url": "https://devdocs.io/flutter/"
+            },
+            "Ionic": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ionic/ionic-original.svg",
+                "official_website": "https://ionicframework.com/",
+                "devdocs_url": "https://devdocs.io/ionic/"
+            },
+            "Xamarin": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xamarin/xamarin-original.svg",
+                "official_website": "https://dotnet.microsoft.com/apps/xamarin",
+                "devdocs_url": "https://devdocs.io/xamarin/"
+            },
+            "Cordova": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cordova/cordova-original.svg",
+                "official_website": "https://cordova.apache.org/",
+                "devdocs_url": "https://devdocs.io/cordova/"
+            },
+            "Android": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg",
+                "official_website": "https://developer.android.com/",
+                "devdocs_url": "https://devdocs.io/android/"
+            },
+            "iOS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg",
+                "official_website": "https://developer.apple.com/ios/",
+                "devdocs_url": "https://devdocs.io/ios/"
+            },
+            "SwiftUI": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+                "official_website": "https://developer.apple.com/xcode/swiftui/",
+                "devdocs_url": "https://devdocs.io/swiftui/"
+            },
+            "UIKit": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg",
+                "official_website": "https://developer.apple.com/",
+                "devdocs_url": "https://devdocs.io/uikit/"
+            },
+            "Jetpack Compose": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/android/android-original.svg",
+                "official_website": "https://developer.android.com/jetpack/compose",
+                "devdocs_url": "https://devdocs.io/jetpack-compose/"
+            },
+            "Material Design": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
+                "official_website": "https://material.io/",
+                "devdocs_url": "https://devdocs.io/material-design/"
+            },
+            "Android Studio": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/androidstudio/androidstudio-original.svg",
+                "official_website": "https://developer.android.com/studio",
+                "devdocs_url": "https://devdocs.io/android-studio/"
+            },
+            "Xcode": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg",
+                "official_website": "https://developer.apple.com/xcode/",
+                "devdocs_url": "https://devdocs.io/xcode/"
+            },
+            "Fastlane": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fastlane/fastlane-original.svg",
+                "official_website": "https://fastlane.tools/",
+                "devdocs_url": "https://devdocs.io/fastlane/"
+            },
+            "Gradle": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gradle/gradle-original.svg",
+                "official_website": "https://gradle.org/",
+                "devdocs_url": "https://devdocs.io/gradle/"
+            },
+            "Firebase": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+                "official_website": "https://firebase.google.com/",
+                "devdocs_url": "https://devdocs.io/firebase/"
+            },
+            "AWS Amplify": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                "official_website": "https://aws.amazon.com/amplify/",
+                "devdocs_url": "https://devdocs.io/aws-amplify/"
+            },
+            "Supabase": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/supabase/supabase-original.svg",
+                "official_website": "https://supabase.com/",
+                "devdocs_url": "https://devdocs.io/supabase/"
+            },
+            "Parse Platform": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/parse/parse-original.svg",
+                "official_website": "https://parseplatform.org/",
+                "devdocs_url": "https://devdocs.io/parse-platform/"
+            },
+            "NativeScript": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nativescript/nativescript-original.svg",
+                "official_website": "https://nativescript.org/",
+                "devdocs_url": "https://devdocs.io/nativescript/"
+            },
+            "Kotlin Multiplatform Mobile (KMM)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/kotlin/kotlin-original.svg",
+                "official_website": "https://kotlinlang.org/lp/mobile/",
+                "devdocs_url": "https://devdocs.io/kotlin-multiplatform/"
+            },
+            "Windows UWP (Universal Windows Platform)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg",
+                "official_website": "https://developer.microsoft.com/en-us/windows/",
+                "devdocs_url": "https://devdocs.io/windows-uwp/"
+            }
+        },
+        "game_development": {
+            "Unity": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unity/unity-original.svg",
+                "official_website": "https://unity.com/",
+                "devdocs_url": "https://devdocs.io/unity/"
+            },
+            "Unreal Engine": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/unrealengine/unrealengine-original.svg",
+                "official_website": "https://www.unrealengine.com/",
+                "devdocs_url": "https://devdocs.io/unreal-engine/"
+            },
+            "Godot": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/godot/godot-original.svg",
+                "official_website": "https://godotengine.org/",
+                "devdocs_url": "https://devdocs.io/godot/"
+            }
+        },
+        "cloud_platforms": {
+            "AWS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
+                "official_website": "https://aws.amazon.com/",
+                "devdocs_url": "https://devdocs.io/aws/"
+            },
+            "Google Cloud": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
+                "official_website": "https://cloud.google.com/",
+                "devdocs_url": "https://devdocs.io/google-cloud/"
+            },
+            "Azure": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azure/azure-original.svg",
+                "official_website": "https://azure.microsoft.com/",
+                "devdocs_url": "https://devdocs.io/azure/"
+            },
+            "Heroku": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-original.svg",
+                "official_website": "https://www.heroku.com/",
+                "devdocs_url": "https://devdocs.io/heroku/"
+            },
+            "Vercel": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vercel/vercel-original.svg",
+                "official_website": "https://vercel.com/",
+                "devdocs_url": "https://devdocs.io/vercel/"
+            },
+            "Netlify": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/netlify/netlify-original.svg",
+                "official_website": "https://www.netlify.com/",
+                "devdocs_url": "https://devdocs.io/netlify/"
+            }
+        },
+        "package_managers": {
+            "npm": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+                "official_website": "https://www.npmjs.com/",
+                "devdocs_url": "https://devdocs.io/npm/"
+            },
+            "Yarn": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg",
+                "official_website": "https://yarnpkg.com/",
+                "devdocs_url": "https://devdocs.io/yarn/"
+            },
+            "pnpm": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pnpm/pnpm-original.svg",
+                "official_website": "https://pnpm.io/",
+                "devdocs_url": "https://devdocs.io/pnpm/"
+            },
+            "Composer": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg",
+                "official_website": "https://getcomposer.org/",
+                "devdocs_url": "https://devdocs.io/composer/"
+            },
+            "Pip": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pip/pip-original.svg",
+                "official_website": "https://pip.pypa.io/",
+                "devdocs_url": "https://devdocs.io/pip/"
+            },
+            "Gem": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rubygems/rubygems-original.svg",
+                "official_website": "https://rubygems.org/",
+                "devdocs_url": "https://devdocs.io/rubygems/"
+            }
+        },
+        "build_tools": {
+            "Webpack": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+                "official_website": "https://webpack.js.org/",
+                "devdocs_url": "https://devdocs.io/webpack/"
+            },
+            "Vite": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vitejs/vitejs-original.svg",
+                "official_website": "https://vitejs.dev/",
+                "devdocs_url": "https://devdocs.io/vite/"
+            },
+            "Parcel": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/parcel/parcel-original.svg",
+                "official_website": "https://parceljs.org/",
+                "devdocs_url": "https://devdocs.io/parcel/"
+            },
+            "Rollup": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rollupjs/rollupjs-original.svg",
+                "official_website": "https://rollupjs.org/",
+                "devdocs_url": "https://devdocs.io/rollup/"
+            },
+            "Babel": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg",
+                "official_website": "https://babeljs.io/",
+                "devdocs_url": "https://devdocs.io/babel/"
+            },
+            "Gulp": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gulp/gulp-plain.svg",
+                "official_website": "https://gulpjs.com/",
+                "devdocs_url": "https://devdocs.io/gulp/"
+            },
+            "Grunt": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grunt/grunt-original.svg",
+                "official_website": "https://gruntjs.com/",
+                "devdocs_url": "https://devdocs.io/grunt/"
+            }
+        },
+        "other_tools": {
+            "WordPress": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg",
+                "official_website": "https://wordpress.org/",
+                "devdocs_url": "https://devdocs.io/wordpress/"
+            },
+            "Drupal": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/drupal/drupal-original.svg",
+                "official_website": "https://www.drupal.org/",
+                "devdocs_url": "https://devdocs.io/drupal/"
+            },
+            "Joomla": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/joomla/joomla-original.svg",
+                "official_website": "https://www.joomla.org/",
+                "devdocs_url": "https://devdocs.io/joomla/"
+            },
+            "GraphQL": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
+                "official_website": "https://graphql.org/",
+                "devdocs_url": "https://devdocs.io/graphql/"
+            },
+            "gRPC": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/grpc/grpc-original.svg",
+                "official_website": "https://grpc.io/",
+                "devdocs_url": "https://devdocs.io/grpc/"
+            },
+            "WebSocket": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/websocket/websocket-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API",
+                "devdocs_url": "https://devdocs.io/websocket/"
+            },
+            "Markdown": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/markdown/markdown-original.svg",
+                "official_website": "https://daringfireball.net/projects/markdown/",
+                "devdocs_url": "https://devdocs.io/markdown/"
+            },
+            "JSDoc": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jsdoc/jsdoc-original.svg",
+                "official_website": "https://jsdoc.app/",
+                "devdocs_url": "https://devdocs.io/jsdoc/"
+            },
+            "Modernizr": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/modernizr/modernizr-original.svg",
+                "official_website": "https://modernizr.com/",
+                "devdocs_url": "https://devdocs.io/modernizr/"
+            },
+            "Moment.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/momentjs/momentjs-original.svg",
+                "official_website": "https://momentjs.com/",
+                "devdocs_url": "https://devdocs.io/moment/"
+            },
+            "Underscore.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/underscorejs/underscorejs-original.svg",
+                "official_website": "https://underscorejs.org/",
+                "devdocs_url": "https://devdocs.io/underscore/"
+            },
+            "Ramda": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ramda/ramda-original.svg",
+                "official_website": "https://ramdajs.com/",
+                "devdocs_url": "https://devdocs.io/ramda/"
+            },
+            "Vuex": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
+                "official_website": "https://vuex.vuejs.org/",
+                "devdocs_url": "https://devdocs.io/vuex/"
+            },
+            "Marionette.js": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/marionette/marionette-original.svg",
+                "official_website": "https://marionettejs.com/",
+                "devdocs_url": "https://devdocs.io/marionette/"
+            },
+            "Doctrine": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/doctrine/doctrine-original.svg",
+                "official_website": "https://www.doctrine-project.org/",
+                "devdocs_url": "https://devdocs.io/doctrine/"
+            },
+            "Mongoose": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongoose/mongoose-original.svg",
+                "official_website": "https://mongoosejs.com/",
+                "devdocs_url": "https://devdocs.io/mongoose/"
+            },
+            "Requests (Python)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+                "official_website": "https://requests.readthedocs.io/",
+                "devdocs_url": "https://devdocs.io/requests/"
+            },
+            "CodeceptJS": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/codeceptjs/codeceptjs-original.svg",
+                "official_website": "https://codecept.io/",
+                "devdocs_url": "https://devdocs.io/codeceptjs/"
+            },
+            "Nix": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nixos/nixos-original.svg",
+                "official_website": "https://nixos.org/",
+                "devdocs_url": "https://devdocs.io/nix/"
+            },
+            "Fish shell": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/fish/fish-original.svg",
+                "official_website": "https://fishshell.com/",
+                "devdocs_url": "https://devdocs.io/fish/"
+            },
+            "DOM": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model",
+                "devdocs_url": "https://devdocs.io/dom/"
+            },
+            "HTTP": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/http/http-original.svg",
+                "official_website": "https://developer.mozilla.org/en-US/docs/Web/HTTP",
+                "devdocs_url": "https://devdocs.io/http/"
+            },
+            "SQL (SQLite)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg",
+                "official_website": "https://www.sqlite.org/",
+                "devdocs_url": "https://devdocs.io/sqlite/"
+            },
+            "Solidity": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/solidity/solidity-original.svg",
+                "official_website": "https://soliditylang.org/",
+                "devdocs_url": "https://devdocs.io/solidity/"
+            },
+            "OpenJDK (Java EE Security APIs)": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+                "official_website": "https://openjdk.java.net/",
+                "devdocs_url": "https://devdocs.io/openjdk/"
+            },
+            "Qt": {
+                "logo_url": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/qt/qt-original.svg",
+                "official_website": "https://www.qt.io/",
+                "devdocs_url": "https://devdocs.io/qt/"
+            }
+        }
+    }
+}

@@ -31,8 +31,6 @@ export default async function EditChallengePage({
     }
 
     const challengeDraft = await getChallengeDraftAction(challengeId);
-    print.log('[EditChallengePage] Challenge draft result:', challengeDraft);
-
     if (!challengeDraft || challengeDraft.length === 0) {
         return (
             <div className='min-h-screen bg-gradient-to-br from-white via-gray-50/80 to-white relative overflow-hidden'>
