@@ -4,7 +4,7 @@ import { AllChallengeCardComponent } from '@/components/challenge';
 export default async function AllChallengesPage() {
     const challenges = await challengeService.getAllChallenges();
     return (
-        <div>
+        <div className='grid grid-cols-3 gap-4'>
             {challenges.map((challenge) => {
                 return (
                     <AllChallengeCardComponent

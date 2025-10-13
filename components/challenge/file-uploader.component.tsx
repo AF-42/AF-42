@@ -190,7 +190,7 @@ export const FileUploaderComponent = ({
                                     ? 'Upload Failed'
                                     : isDragActive
                                       ? 'Drop file here'
-                                      : 'Upload Job Offer'}
+                                      : 'Upload Job Posting'}
                             </h3>
                             <p className='text-sm text-muted-foreground'>
                                 {error ? (
