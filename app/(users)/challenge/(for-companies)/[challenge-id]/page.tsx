@@ -9,5 +9,5 @@ export default async function ChallengePage({
     const challenge = await challengeService.getChallengeById(
         resolvedParams['challenge-id'],
     );
-    return <div>ChallengePage {challenge[0].challenge_name}</div>;
+    return <div>{challenge[0]?.challenge_name}</div>;
 }

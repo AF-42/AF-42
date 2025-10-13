@@ -21,6 +21,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '@/components/ui/dialog';
+import * as print from '@/lib/print-helpers';
 
 export function AllChallengeCardComponent(challenge: ChallengeType) {
     const [isDeleting, setIsDeleting] = useState(false);

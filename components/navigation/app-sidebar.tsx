@@ -17,6 +17,9 @@ import {
     Sparkles,
     SquareTerminal,
     User,
+    ChevronRight,
+    Crown,
+    Zap,
 } from 'lucide-react';
 import { NavMain, NavSecondary, NavUser } from '@/components/navigation';
 import {
@@ -28,6 +31,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
+import { Badge } from '@/components/ui/badge';
 import { type usersTable } from '@/db/schema/users';
 // Import * as print from '@/lib/print-helpers';
 
@@ -41,27 +45,32 @@ export function AppSidebar({
         navMain: [
             {
                 title: 'Challenges',
-                url: '#',
+                url: '/challenge',
                 icon: Sparkles,
+                badge: 'New',
                 items: [
                     {
-                        title: 'All',
+                        title: 'All Challenges',
                         icon: LaptopMinimalCheck,
                         url: '/challenge/challenge-board',
+                        description: 'Browse all available challenges',
                     },
                     {
                         title: 'My Challenges',
                         url: '/challenge/my-challenges',
+                        icon: User,
                         items: [
                             {
                                 title: 'Ongoing',
                                 icon: SquareTerminal,
                                 url: '/challenge/my-challenges/ongoing',
+                                badge: '3',
                             },
                             {
                                 title: 'Completed',
                                 icon: BadgeCheck,
                                 url: '/challenge/my-challenges/completed',
+                                badge: '12',
                             },
                         ],
                     },
@@ -69,23 +78,23 @@ export function AppSidebar({
             },
             {
                 title: 'Dashboard',
-                url: '/dashboard/',
+                url: '/dashboard',
                 icon: LayoutDashboardIcon,
                 items: [
                     {
                         title: 'Profile',
                         icon: User,
-                        url: '/dashboard/profile/',
+                        url: '/dashboard/profile',
                     },
                     {
                         title: 'Settings',
                         icon: Settings,
-                        url: '/dashboard/settings/',
+                        url: '/dashboard/settings',
                     },
                 ],
             },
             {
-                title: 'Documentation',
+                title: 'Resources',
                 url: '#',
                 icon: BookOpen,
                 items: [
@@ -124,19 +133,22 @@ export function AppSidebar({
     const companyNavData = {
         navMain: [
             {
-                title: 'Challenge',
-                url: '#',
-                icon: Sparkles,
+                title: 'Challenge Management',
+                url: '/challenge',
+                icon: Crown,
+                badge: 'Pro',
                 items: [
                     {
-                        title: 'Generate',
+                        title: 'Generate Challenge',
                         icon: CodeXml,
                         url: '/challenge/generate',
+                        description: 'Create new challenges',
                     },
                     {
-                        title: 'All',
+                        title: 'All Challenges',
                         icon: FolderCode,
-                        url: '/challenge/all/',
+                        url: '/challenge/all',
+                        badge: '24',
                     },
                 ],
             },
@@ -156,14 +168,15 @@ export function AppSidebar({
                         url: '/dashboard/company-profile',
                     },
                     {
-                        title: 'Members',
+                        title: 'Team Members',
                         icon: ContactRound,
                         url: '/dashboard/members',
+                        badge: '8',
                     },
                 ],
             },
             {
-                title: 'Documentation',
+                title: 'Resources',
                 url: '#',
                 icon: BookOpen,
                 items: [
@@ -200,46 +213,72 @@ export function AppSidebar({
         ],
     };
     return (
-        <Sidebar variant='inset'>
-            <SidebarHeader>
-                <SidebarMenu>
+        <Sidebar
+            variant='inset'
+            className='border-r border-gray-200/60 bg-white shadow-sm'
+        >
+            <SidebarHeader className='border-b border-gray-200/60 bg-gradient-to-br from-white via-gray-50/80 to-white relative overflow-hidden'>
+                <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.04),transparent_50%)]'></div>
+                <SidebarMenu className='relative z-10'>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size='lg' asChild>
-                            <a href='#'>
-                                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
-                                    <Command className='size-4' />
+                        <SidebarMenuButton
+                            size='lg'
+                            asChild
+                            className='hover:bg-gray-100/60 hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
+                        >
+                            <a href='#' className='group'>
+                                <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-black flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg group-hover:shadow-cyan-400/30 group-hover:shadow-xl group-hover:scale-105 transition-all duration-200'>
+                                    <Command className='size-5 group-hover:rotate-12 transition-transform duration-200' />
                                 </div>
                                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                                    <span className='truncate font-medium'>
+                                    <span className='truncate font-semibold text-gray-900 font-source-code-pro'>
                                         {currentUser.username}
                                     </span>
-                                    <span className='truncate text-xs'>
-                                        {currentUser.role}
-                                    </span>
+                                    <div className='flex items-center gap-2'>
+                                        <Badge
+                                            variant='outline'
+                                            className='text-xs px-2 py-0.5 h-5 border-cyan-400/50 text-cyan-400 bg-cyan-400/10 hover:bg-cyan-400/20 hover:border-cyan-400/70 hover:shadow-sm transition-all duration-200 hover:scale-105'
+                                        >
+                                            {currentUser.role === 'engineer' ? (
+                                                <>
+                                                    <Zap className='size-3 mr-1' />
+                                                    Engineer
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <Crown className='size-3 mr-1' />
+                                                    Company
+                                                </>
+                                            )}
+                                        </Badge>
+                                    </div>
                                 </div>
                             </a>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-            <SidebarContent>
-                <NavMain
-                    items={
-                        currentUser.role === 'engineer'
-                            ? devNavData.navMain
-                            : companyNavData.navMain
-                    }
-                />
-                <NavSecondary
-                    items={
-                        currentUser.role === 'engineer'
-                            ? devNavData.navSecondary
-                            : companyNavData.navSecondary
-                    }
-                    className='mt-auto'
-                />
+            <SidebarContent className='px-2 py-4 bg-white/95 backdrop-blur-sm flex flex-col'>
+                <div className='flex-1'>
+                    <NavMain
+                        items={
+                            currentUser.role === 'engineer'
+                                ? devNavData.navMain
+                                : companyNavData.navMain
+                        }
+                    />
+                </div>
+                <div className='mt-auto'>
+                    <NavSecondary
+                        items={
+                            currentUser.role === 'engineer'
+                                ? devNavData.navSecondary
+                                : companyNavData.navSecondary
+                        }
+                    />
+                </div>
             </SidebarContent>
-            <SidebarFooter>
+            <SidebarFooter className='border-t border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-2 shadow-sm'>
                 <NavUser user={currentUser} />
             </SidebarFooter>
         </Sidebar>

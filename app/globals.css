@@ -1,2 +1,64 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+/* Enhanced Sidebar Navigation Hover Effects */
+.sidebar-nav-item {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+.sidebar-nav-item:hover {
+    @apply bg-gray-100/60 shadow-sm transform scale-[1.01];
+}
+
+.sidebar-nav-item:active {
+    @apply transform scale-[0.99];
+}
+
+/* Enhanced Sidebar Menu Button Hover Effects */
+.sidebar-menu-button {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+.sidebar-menu-button:hover:not([data-active='true']) {
+    @apply bg-gray-100/50 shadow-sm;
+}
+
+.sidebar-menu-button:active {
+    @apply bg-gray-200/50;
+}
+
+/* Active state styling */
+.sidebar-menu-button[data-active='true'] {
+    @apply bg-cyan-100/80 text-cyan-700 border-l-2 border-cyan-400 shadow-sm;
+}
+
+/* Enhanced Sidebar Sub Menu Hover Effects */
+.sidebar-sub-menu-button {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+.sidebar-sub-menu-button:hover:not([data-active='true']) {
+    @apply bg-gray-50/80 shadow-sm transform translate-x-1;
+}
+
+.sidebar-sub-menu-button:active {
+    @apply bg-gray-100/60;
+}
+
+/* Active state styling for sub-menu */
+.sidebar-sub-menu-button[data-active='true'] {
+    @apply bg-cyan-50/80 text-cyan-600 border-l-2 border-cyan-300 shadow-sm;
+}
+
+/* Enhanced Sidebar Secondary Navigation */
+.sidebar-secondary-item {
+    @apply transition-all duration-200 ease-in-out;
+}
+
+.sidebar-secondary-item:hover {
+    @apply bg-gray-100/40 shadow-sm transform scale-[1.02];
+}
+
+.sidebar-secondary-item:active {
+    @apply transform scale-[0.98];
+}
