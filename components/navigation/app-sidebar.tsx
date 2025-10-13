@@ -133,8 +133,8 @@ export function AppSidebar({
     const companyNavData = {
         navMain: [
             {
-                title: 'Challenge Management',
-                url: '/challenge',
+                title: 'Challenge',
+                url: '/challenge/all',
                 icon: Crown,
                 badge: 'Pro',
                 items: [

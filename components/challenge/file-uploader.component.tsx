@@ -137,20 +137,35 @@ export const FileUploaderComponent = ({
     return (
         <div className={cn('w-full', className)}>
             {uploadedFile ? (
-                <Card className='border-none'>
-                    <CardContent className='p-4 border-none'>
+                <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200'>
+                    <CardContent className='p-4'>
                         <div className='flex items-center justify-between'>
                             <div className='flex items-center space-x-3'>
-                                <div className='text-2xl'>
-                                    {getFileIcon(uploadedFile)}
+                                <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm'>
+                                    <span className='text-lg'>
+                                        {getFileIcon(uploadedFile)}
+                                    </span>
                                 </div>
                                 <div className='flex-1 min-w-0'>
                                     <p className='text-sm font-medium text-gray-900 truncate'>
                                         {uploadedFile.name}
                                     </p>
-                                    <p className='text-xs text-gray-500'>
-                                        {formatFileSize(uploadedFile.size)}
-                                    </p>
+                                    <div className='flex items-center gap-2 mt-1'>
+                                        <Badge
+                                            variant='outline'
+                                            className='text-xs px-2 py-0.5 h-5 border-gray-300/50 text-gray-600 bg-gray-50/80'
+                                        >
+                                            {formatFileSize(uploadedFile.size)}
+                                        </Badge>
+                                        <Badge
+                                            variant='outline'
+                                            className='text-xs px-2 py-0.5 h-5 border-cyan-400/50 text-cyan-600 bg-cyan-400/10'
+                                        >
+                                            {uploadedFile.type
+                                                .split('/')[1]
+                                                ?.toUpperCase() || 'FILE'}
+                                        </Badge>
+                                    </div>
                                 </div>
                                 <CheckCircle className='h-5 w-5 text-green-500' />
                             </div>
@@ -158,7 +173,7 @@ export const FileUploaderComponent = ({
                                 variant='ghost'
                                 size='sm'
                                 onClick={removeFile}
-                                className='text-gray-400 hover:text-gray-600'
+                                className='text-gray-400 hover:text-gray-600 hover:bg-gray-100/60 transition-all duration-200'
                             >
                                 <X className='h-4 w-4' />
                             </Button>
@@ -169,60 +184,68 @@ export const FileUploaderComponent = ({
                 <Card
                     {...getRootProps()}
                     className={cn(
-                        'cursor-pointer transition-colors hover:bg-muted/50 border-none',
-                        isDragActive && 'bg-muted/50 border-primary',
+                        'cursor-pointer transition-all duration-200 border border-gray-200/60 bg-white/95 backdrop-blur-sm hover:shadow-lg hover:border-cyan-400/50 hover:bg-cyan-50/20',
+                        isDragActive &&
+                            'border-cyan-400 bg-cyan-50/30 shadow-lg scale-[1.02]',
                         disabled && 'cursor-not-allowed opacity-50',
-                        error && 'border-destructive',
+                        error && 'border-red-300 bg-red-50/30',
                     )}
                 >
-                    <CardContent className='flex flex-col items-center justify-center p-8 text-center border-none'>
+                    <CardContent className='flex flex-col items-center justify-center p-8 text-center'>
                         <input {...getInputProps()} />
-                        <div className='mb-4'>
+                        <div className='mb-6'>
                             {error ? (
-                                <AlertCircle className='h-12 w-12 text-destructive' />
+                                <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-16 items-center justify-center rounded-xl shadow-lg mx-auto'>
+                                    <AlertCircle className='h-8 w-8' />
+                                </div>
                             ) : (
-                                <Upload className='h-12 w-12 text-muted-foreground' />
+                                <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-16 items-center justify-center rounded-xl shadow-lg mx-auto hover:shadow-cyan-400/30 hover:shadow-xl hover:scale-105 transition-all duration-200'>
+                                    <Upload className='h-8 w-8' />
+                                </div>
                             )}
                         </div>
-                        <div className='space-y-2'>
-                            <h3 className='text-lg font-semibold'>
+                        <div className='space-y-3'>
+                            <h3 className='text-xl font-semibold text-gray-900'>
                                 {error
                                     ? 'Upload Failed'
                                     : isDragActive
                                       ? 'Drop file here'
                                       : 'Upload Job Posting'}
                             </h3>
-                            <p className='text-sm text-muted-foreground'>
+                            <p className='text-sm text-gray-600 max-w-md mx-auto leading-relaxed'>
                                 {error ? (
-                                    <span className='text-destructive'>
+                                    <span className='text-red-600 font-medium'>
                                         {error}
                                     </span>
                                 ) : (
                                     <>
                                         Drag and drop your file here, or{' '}
-                                        <span className='text-primary underline'>
-                                            browse
+                                        <span className='text-cyan-600 font-medium underline hover:text-cyan-700 transition-colors'>
+                                            browse files
                                         </span>
                                     </>
                                 )}
                             </p>
-                            <div className='flex flex-wrap justify-center gap-1 mt-3'>
+                            <div className='flex flex-wrap justify-center gap-2 mt-4'>
                                 {Object.values(acceptedFileTypes)
                                     .flat()
                                     .map((ext) => {
                                         return (
                                             <Badge
                                                 key={ext}
-                                                variant='secondary'
-                                                className='text-xs'
+                                                variant='outline'
+                                                className='text-xs px-2 py-1 border-gray-300/50 text-gray-600 bg-gray-50/80 hover:bg-gray-100/80 transition-all duration-200'
                                             >
                                                 {ext}
                                             </Badge>
                                         );
                                     })}
                             </div>
-                            <p className='text-xs text-muted-foreground'>
-                                Max file size: {maxFileSize}MB
+                            <p className='text-xs text-gray-500 mt-2'>
+                                Maximum file size:{' '}
+                                <span className='font-medium'>
+                                    {maxFileSize}MB
+                                </span>
                             </p>
                         </div>
                     </CardContent>

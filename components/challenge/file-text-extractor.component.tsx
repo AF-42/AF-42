@@ -100,190 +100,171 @@ export const FileTextExtractor = ({
 
     return (
         <div className={className}>
-            <Card className='border-none'>
-                <CardContent className='space-y-4 border-none'>
-                    {/* File upload component with size limit */}
-                    <FileUploaderComponent
-                        onFileSelect={handleFileSelect}
-                        maxFileSize={50} // 50MB
-                        disabled={isExtracting}
-                    />
+            <div className='space-y-6'>
+                {/* File upload component with size limit */}
+                <FileUploaderComponent
+                    onFileSelect={handleFileSelect}
+                    maxFileSize={50} // 50MB
+                    disabled={isExtracting}
+                />
 
-                    {/* Show file details and extract button when file is selected */}
-                    {selectedFile && (
-                        <div className='space-y-3'>
-                            {/* File info display and extract button */}
-                            <div className='flex items-center justify-between'>
-                                <div className='flex items-center gap-2'>
-                                    <span className='text-sm font-medium'>
-                                        {selectedFile.name}
-                                    </span>
+                {/* Display extraction results if available */}
+                {extractionResult && (
+                    <Card
+                        className={
+                            extractionResult.success
+                                ? 'border border-green-200/60 bg-green-50/30 backdrop-blur-sm shadow-sm' // Green styling for success
+                                : 'border border-red-200/60 bg-red-50/30 backdrop-blur-sm shadow-sm' // Red styling for errors
+                        }
+                    >
+                        <CardContent className='p-6'>
+                            <div className='flex items-start gap-4'>
+                                {/* Success/error icon */}
+                                {extractionResult.success ? (
+                                    <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm flex-shrink-0'>
+                                        <CheckCircle className='h-5 w-5' />
+                                    </div>
+                                ) : (
+                                    <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm flex-shrink-0'>
+                                        <AlertCircle className='h-5 w-5' />
+                                    </div>
+                                )}
+                                <div className='flex-1 space-y-3'>
+                                    {/* Status message and extraction method badge */}
+                                    <div className='flex items-center gap-3'>
+                                        <span className='font-semibold text-gray-900'>
+                                            {extractionResult.success
+                                                ? 'Text Extracted Successfully'
+                                                : 'Extraction Failed'}
+                                        </span>
+                                        {/* Show extraction method if available */}
+                                        {extractionResult.metadata
+                                            ?.extractionMethod && (
+                                            <Badge
+                                                variant='outline'
+                                                className='text-xs px-2 py-1 border-cyan-400/50 text-cyan-600 bg-cyan-400/10'
+                                            >
+                                                {
+                                                    extractionResult.metadata
+                                                        .extractionMethod
+                                                }
+                                            </Badge>
+                                        )}
+                                    </div>
 
-                                    <Badge variant='secondary'>
-                                        {formatFileSize(selectedFile.size)}
-                                    </Badge>
-                                    <Badge variant='outline'>
-                                        {selectedFile.type}
-                                    </Badge>
-                                </div>
-                            </div>
-
-                            {/* Display extraction results if available */}
-                            {extractionResult && (
-                                <Card
-                                    className={
-                                        extractionResult.success
-                                            ? 'border-green-200 bg-green-50/50' // Green styling for success
-                                            : 'border-red-200 bg-red-50/50' // Red styling for errors
-                                    }
-                                >
-                                    <CardContent className='p-4 border-none'>
-                                        <div className='flex items-start gap-3'>
-                                            {/* Success/error icon */}
-                                            {extractionResult.success ? (
-                                                <CheckCircle className='h-5 w-5 text-green-500 mt-0.5' />
-                                            ) : (
-                                                <AlertCircle className='h-5 w-5 text-red-500 mt-0.5' />
-                                            )}
-                                            <div className='flex-1 space-y-2'>
-                                                {/* Status message and extraction method badge */}
-                                                <div className='flex items-center gap-2'>
-                                                    <span className='font-medium'>
-                                                        {extractionResult.success
-                                                            ? 'Text Extracted Successfully'
-                                                            : 'Extraction Failed'}
-                                                    </span>
-                                                    {/* Show extraction method if available */}
-                                                    {extractionResult.metadata
-                                                        ?.extractionMethod && (
-                                                        <Badge
-                                                            variant='outline'
-                                                            className='text-xs'
-                                                        >
+                                    {extractionResult.success ? (
+                                        <div className='space-y-4'>
+                                            {/* Grid layout for extraction metadata stats */}
+                                            <div className='grid grid-cols-2 md:grid-cols-4 gap-4'>
+                                                {/* Word count display */}
+                                                {extractionResult.metadata
+                                                    ?.wordCount && (
+                                                    <div className='bg-white/60 rounded-lg p-3 border border-gray-200/60'>
+                                                        <div className='text-xs text-gray-500 mb-1'>
+                                                            Words
+                                                        </div>
+                                                        <div className='text-lg font-semibold text-gray-900'>
                                                             {
                                                                 extractionResult
                                                                     .metadata
-                                                                    .extractionMethod
+                                                                    .wordCount
                                                             }
-                                                        </Badge>
-                                                    )}
-                                                </div>
-
-                                                {extractionResult.success ? (
-                                                    <div className='space-y-2'>
-                                                        {/* Grid layout for extraction metadata stats */}
-                                                        <div className='grid grid-cols-2 gap-4 text-sm'>
-                                                            {/* Word count display */}
-                                                            {extractionResult
-                                                                .metadata
-                                                                ?.wordCount && (
-                                                                <div>
-                                                                    <span className='text-muted-foreground'>
-                                                                        Words:
-                                                                    </span>
-                                                                    <span className='ml-2 font-medium'>
-                                                                        {
-                                                                            extractionResult
-                                                                                .metadata
-                                                                                .wordCount
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                            )}
-                                                            {/* Character count display */}
-                                                            {extractionResult
-                                                                .metadata
-                                                                ?.charCount && (
-                                                                <div>
-                                                                    <span className='text-muted-foreground'>
-                                                                        Characters:
-                                                                    </span>
-                                                                    <span className='ml-2 font-medium'>
-                                                                        {
-                                                                            extractionResult
-                                                                                .metadata
-                                                                                .charCount
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                            )}
-                                                            {/* Page count display for documents */}
-                                                            {extractionResult
-                                                                .metadata
-                                                                ?.pagesCount && (
-                                                                <div>
-                                                                    <span className='text-muted-foreground'>
-                                                                        Pages:
-                                                                    </span>
-                                                                    <span className='ml-2 font-medium'>
-                                                                        {
-                                                                            extractionResult
-                                                                                .metadata
-                                                                                .pagesCount
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                            )}
-                                                            {/* Sheet count display for spreadsheets */}
-                                                            {extractionResult
-                                                                .metadata
-                                                                ?.sheetsCount && (
-                                                                <div>
-                                                                    <span className='text-muted-foreground'>
-                                                                        Sheets:
-                                                                    </span>
-                                                                    <span className='ml-2 font-medium'>
-                                                                        {
-                                                                            extractionResult
-                                                                                .metadata
-                                                                                .sheetsCount
-                                                                        }
-                                                                    </span>
-                                                                </div>
-                                                            )}
-                                                        </div>
-
-                                                        {/* Collapsible text viewer section */}
-                                                        <div className='mt-3'>
-                                                            <details className='group'>
-                                                                {/* Clickable summary with character count */}
-                                                                <summary className='cursor-pointer text-sm font-medium text-muted-foreground hover:text-foreground'>
-                                                                    View
-                                                                    Extracted
-                                                                    Text (
-                                                                    {
-                                                                        extractionResult
-                                                                            .extractedText
-                                                                            .length
-                                                                    }{' '}
-                                                                    characters)
-                                                                </summary>
-                                                                {/* Scrollable text content area */}
-                                                                <div className='mt-2 p-3 bg-muted rounded-md max-h-60 overflow-y-auto'>
-                                                                    <pre className='text-xs whitespace-pre-wrap break-words'>
-                                                                        {
-                                                                            extractionResult.extractedText
-                                                                        }
-                                                                    </pre>
-                                                                </div>
-                                                            </details>
                                                         </div>
                                                     </div>
-                                                ) : (
-                                                    <div className='text-sm text-red-600'>
-                                                        {/* Error message display */}
-                                                        {extractionResult.error}
+                                                )}
+                                                {/* Character count display */}
+                                                {extractionResult.metadata
+                                                    ?.charCount && (
+                                                    <div className='bg-white/60 rounded-lg p-3 border border-gray-200/60'>
+                                                        <div className='text-xs text-gray-500 mb-1'>
+                                                            Characters
+                                                        </div>
+                                                        <div className='text-lg font-semibold text-gray-900'>
+                                                            {
+                                                                extractionResult
+                                                                    .metadata
+                                                                    .charCount
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {/* Page count display for documents */}
+                                                {extractionResult.metadata
+                                                    ?.pagesCount && (
+                                                    <div className='bg-white/60 rounded-lg p-3 border border-gray-200/60'>
+                                                        <div className='text-xs text-gray-500 mb-1'>
+                                                            Pages
+                                                        </div>
+                                                        <div className='text-lg font-semibold text-gray-900'>
+                                                            {
+                                                                extractionResult
+                                                                    .metadata
+                                                                    .pagesCount
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {/* Sheet count display for spreadsheets */}
+                                                {extractionResult.metadata
+                                                    ?.sheetsCount && (
+                                                    <div className='bg-white/60 rounded-lg p-3 border border-gray-200/60'>
+                                                        <div className='text-xs text-gray-500 mb-1'>
+                                                            Sheets
+                                                        </div>
+                                                        <div className='text-lg font-semibold text-gray-900'>
+                                                            {
+                                                                extractionResult
+                                                                    .metadata
+                                                                    .sheetsCount
+                                                            }
+                                                        </div>
                                                     </div>
                                                 )}
                                             </div>
+
+                                            {/* Collapsible text viewer section */}
+                                            <div className='mt-4'>
+                                                <details className='group'>
+                                                    {/* Clickable summary with character count */}
+                                                    <summary className='cursor-pointer text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2'>
+                                                        <span>
+                                                            View Extracted Text
+                                                        </span>
+                                                        <Badge
+                                                            variant='outline'
+                                                            className='text-xs px-2 py-1 border-gray-300/50 text-gray-600 bg-gray-50/80'
+                                                        >
+                                                            {
+                                                                extractionResult
+                                                                    .extractedText
+                                                                    .length
+                                                            }{' '}
+                                                            characters
+                                                        </Badge>
+                                                    </summary>
+                                                    {/* Scrollable text content area */}
+                                                    <div className='mt-3 p-4 bg-white/60 rounded-lg border border-gray-200/60 max-h-60 overflow-y-auto'>
+                                                        <pre className='text-sm whitespace-pre-wrap break-words text-gray-800 leading-relaxed'>
+                                                            {
+                                                                extractionResult.extractedText
+                                                            }
+                                                        </pre>
+                                                    </div>
+                                                </details>
+                                            </div>
                                         </div>
-                                    </CardContent>
-                                </Card>
-                            )}
-                        </div>
-                    )}
-                </CardContent>
-            </Card>
+                                    ) : (
+                                        <div className='text-sm text-red-600 bg-red-50/50 rounded-lg p-3 border border-red-200/60'>
+                                            {/* Error message display */}
+                                            {extractionResult.error}
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+                )}
+            </div>
         </div>
     );
 };
