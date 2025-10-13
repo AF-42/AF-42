@@ -33,6 +33,7 @@ import {
 } from '@/components/ui/sidebar';
 import { Badge } from '@/components/ui/badge';
 import { type usersTable } from '@/db/schema/users';
+import Link from 'next/link';
 // Import * as print from '@/lib/print-helpers';
 
 export function AppSidebar({
@@ -168,7 +169,7 @@ export function AppSidebar({
                         url: '/dashboard/company-profile',
                     },
                     {
-                        title: 'Team Members',
+                        title: 'Members',
                         icon: ContactRound,
                         url: '/dashboard/members',
                         badge: '8',
@@ -226,7 +227,7 @@ export function AppSidebar({
                             asChild
                             className='hover:bg-gray-100/60 hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
                         >
-                            <a href='#' className='group'>
+                            <Link href='#' className='group'>
                                 <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-black flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg group-hover:shadow-cyan-400/30 group-hover:shadow-xl group-hover:scale-105 transition-all duration-200'>
                                     <Command className='size-5 group-hover:rotate-12 transition-transform duration-200' />
                                 </div>
@@ -253,7 +254,7 @@ export function AppSidebar({
                                         </Badge>
                                     </div>
                                 </div>
-                            </a>
+                            </Link>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

@@ -2,6 +2,7 @@
 
 import { ChevronRight, type LucideIcon } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
 import {
     Collapsible,
     CollapsibleContent,
@@ -80,10 +81,10 @@ export function NavMain({
                                             : 'hover:bg-gray-100/60'
                                     }`}
                                 >
-                                    <a href={item.url}>
+                                    <Link href={item.url}>
                                         <item.icon />
                                         <span>{item.title}</span>
-                                    </a>
+                                    </Link>
                                 </SidebarMenuButton>
                                 {item.items?.length ? (
                                     <>
@@ -132,7 +133,7 @@ export function NavMain({
                                                                             : 'hover:bg-gray-50/80'
                                                                     }`}
                                                                 >
-                                                                    <a
+                                                                    <Link
                                                                         href={
                                                                             subItem.url
                                                                         }
@@ -145,7 +146,7 @@ export function NavMain({
                                                                                 subItem.title
                                                                             }
                                                                         </span>
-                                                                    </a>
+                                                                    </Link>
                                                                 </SidebarMenuSubButton>
                                                                 {subItem.items
                                                                     ?.length ? (
@@ -187,7 +188,7 @@ export function NavMain({
                                                                                                             : 'hover:bg-gray-50/60'
                                                                                                     }`}
                                                                                                 >
-                                                                                                    <a
+                                                                                                    <Link
                                                                                                         href={
                                                                                                             subSubItem.url
                                                                                                         }
@@ -200,7 +201,7 @@ export function NavMain({
                                                                                                                 subSubItem.title
                                                                                                             }
                                                                                                         </span>
-                                                                                                    </a>
+                                                                                                    </Link>
                                                                                                 </SidebarMenuSubButton>
                                                                                             </SidebarMenuSubItem>
                                                                                         );

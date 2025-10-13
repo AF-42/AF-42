@@ -1,8 +1,9 @@
 'use client';
 
 import {
-    Folder, type LucideIcon, MoreHorizontal, Share, Trash2
+    Folder, type LucideIcon, MoreHorizontal, Share, Trash2,
 } from 'lucide-react';
+import Link from 'next/link';
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -39,10 +40,10 @@ export function NavChallenges({
                     return (
                         <SidebarMenuItem key={item.name}>
                             <SidebarMenuButton asChild>
-                                <a href={item.url}>
+                                <Link href={item.url}>
                                     <item.icon />
                                     <span>{item.name}</span>
-                                </a>
+                                </Link>
                             </SidebarMenuButton>
                             <DropdownMenu>
                                 <DropdownMenuTrigger asChild>

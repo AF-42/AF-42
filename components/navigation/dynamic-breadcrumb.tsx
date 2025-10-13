@@ -7,85 +7,120 @@ import {
     BreadcrumbLink,
     BreadcrumbList,
     BreadcrumbPage,
-    BreadcrumbSeparator
+    BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
 
 type BreadcrumbItem = {
-    label : string;
-    href? : string;
+    label: string;
+    href?: string;
 };
 
 const pathToBreadcrumbs: Record<string, BreadcrumbItem[]> = {
-    '/dashboard' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }],
-    '/dashboard/profile' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }, { label : 'Profile' }],
-    '/dashboard/settings' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }, { label : 'Settings' }],
-    '/dashboard/company-profile' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }, { label : 'Company Profile' }],
-    '/dashboard/members' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }, { label : 'Members' }],
-    '/dashboard/user-profile' : [{
-        label : 'Dashboard',
-        href  : '/dashboard'
-    }, { label : 'User Profile' }],
-    '/challenge' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }],
-    '/challenge/challenge-board' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }, { label : 'Challenge Board' }],
-    '/challenge/my-challenges' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }, { label : 'My Challenges' }],
-    '/challenge/my-challenges/ongoing' : [
+    '/dashboard': [
         {
-            label : 'Challenges',
-            href  : '/challenge'
+            label: 'Dashboard',
+            href: '/dashboard',
         },
-        {
-            label : 'My Challenges',
-            href  : '/challenge/my-challenges'
-        },
-        { label : 'Ongoing' }
     ],
-    '/challenge/my-challenges/completed' : [
+    '/dashboard/profile': [
         {
-            label : 'Challenges',
-            href  : '/challenge'
+            label: 'Dashboard',
+            href: '/dashboard',
         },
-        {
-            label : 'My Challenges',
-            href  : '/challenge/my-challenges'
-        },
-        { label : 'Completed' }
+        { label: 'Profile' },
     ],
-    '/challenge/generate' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }, { label : 'Generate Challenge' }],
-    '/challenge/published' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }, { label : 'Published Challenges' }],
-    '/challenge/candidates' : [{
-        label : 'Challenges',
-        href  : '/challenge'
-    }, { label : 'Candidates' }]
+    '/dashboard/settings': [
+        {
+            label: 'Dashboard',
+            href: '/dashboard',
+        },
+        { label: 'Settings' },
+    ],
+    '/dashboard/company-profile': [
+        {
+            label: 'Dashboard',
+            href: '/dashboard',
+        },
+        { label: 'Company Profile' },
+    ],
+    '/dashboard/members': [
+        {
+            label: 'Dashboard',
+            href: '/dashboard',
+        },
+        { label: 'Members' },
+    ],
+    '/dashboard/user-profile': [
+        {
+            label: 'Dashboard',
+            href: '/dashboard',
+        },
+        { label: 'User Profile' },
+    ],
+    '/challenge': [
+        {
+            label: 'Challenges',
+            href: '/challenge/all',
+        },
+    ],
+    '/challenge/challenge-board': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        { label: 'Challenge Board' },
+    ],
+    '/challenge/my-challenges': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        { label: 'My Challenges' },
+    ],
+    '/challenge/my-challenges/ongoing': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        {
+            label: 'My Challenges',
+            href: '/challenge/my-challenges',
+        },
+        { label: 'Ongoing' },
+    ],
+    '/challenge/my-challenges/completed': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        {
+            label: 'My Challenges',
+            href: '/challenge/my-challenges',
+        },
+        { label: 'Completed' },
+    ],
+
+    '/challenge/generate': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        { label: 'Generate Challenge' },
+    ],
+    '/challenge/published': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        { label: 'Published Challenges' },
+    ],
+    '/challenge/candidates': [
+        {
+            label: 'Challenges',
+            href: '/challenge',
+        },
+        { label: 'Candidates' },
+    ],
 };
 
 // Helper function to generate breadcrumbs dynamically for unknown paths
@@ -111,7 +146,7 @@ function generateDynamicBreadcrumbs(pathname: string): BreadcrumbItem[] {
 
         breadcrumbs.push({
             label,
-            href
+            href,
         });
     }
 
@@ -129,10 +164,12 @@ export function DynamicBreadcrumb() {
 
     // Fallback to dashboard if no breadcrumbs can be generated
     if (!breadcrumbs || breadcrumbs.length === 0) {
-        breadcrumbs = [{
-            label : 'Dashboard',
-            href  : '/dashboard'
-        }];
+        breadcrumbs = [
+            {
+                label: 'Dashboard',
+                href: '/dashboard',
+            },
+        ];
     }
 
     return (
@@ -140,17 +177,23 @@ export function DynamicBreadcrumb() {
             <BreadcrumbList>
                 {breadcrumbs.map((item, index) => {
                     return (
-                        <div key={index} className="flex items-center">
-                            <BreadcrumbItem className={index === 0 ? 'hidden md:block' : ''}>
-                                {item.href
-                                    ? (
-                                        <BreadcrumbLink href={item.href}>{item.label}</BreadcrumbLink>
-                                    )
-                                    : (
-                                        <BreadcrumbPage>{item.label}</BreadcrumbPage>
-                                    )}
+                        <div key={index} className='flex items-center'>
+                            <BreadcrumbItem
+                                className={index === 0 ? 'hidden md:block' : ''}
+                            >
+                                {item.href ? (
+                                    <BreadcrumbLink href={item.href}>
+                                        {item.label}
+                                    </BreadcrumbLink>
+                                ) : (
+                                    <BreadcrumbPage>
+                                        {item.label}
+                                    </BreadcrumbPage>
+                                )}
                             </BreadcrumbItem>
-                            {index < breadcrumbs.length - 1 && <BreadcrumbSeparator className="hidden md:block" />}
+                            {index < breadcrumbs.length - 1 && (
+                                <BreadcrumbSeparator className='hidden md:block' />
+                            )}
                         </div>
                     );
                 })}
