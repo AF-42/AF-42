@@ -35,13 +35,7 @@ import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/gen
 import { FileTextExtractor } from '@/components/challenge';
 import { type TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
 import { getCompanyDescriptionAction } from '@/app/actions/get-company-description.action';
@@ -509,10 +503,10 @@ export function TaskGeneratorFormFromFileUpload() {
                                                     'completed' ? (
                                                         <CheckCircle className='h-4 w-4 text-green-500' />
                                                     ) : step.status ===
-                                                        'in_progress' ? (
+                                                      'in_progress' ? (
                                                         <Loader2 className='h-4 w-4 animate-spin text-blue-500' />
                                                     ) : step.status ===
-                                                        'error' ? (
+                                                      'error' ? (
                                                         <AlertCircle className='h-4 w-4 text-red-500' />
                                                     ) : (
                                                         <div className='h-4 w-4 rounded-full border-2 border-muted-foreground/30' />
