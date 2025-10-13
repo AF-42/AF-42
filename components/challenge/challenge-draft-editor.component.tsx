@@ -12,6 +12,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import Link from 'next/link';
 import { type ChallengeType } from '@/types/challenge.type';
 import {
     Edit3,
@@ -305,13 +306,15 @@ export function ChallengeDraftEditor({
 
             {/* Back Navigation */}
             <div className='flex justify-center pt-6'>
-                <Button
-                    variant='ghost'
-                    className='text-gray-600 hover:text-gray-900'
-                >
-                    <ArrowLeft className='size-4 mr-2' />
-                    Back to Challenge List
-                </Button>
+                <Link href='/challenge/all'>
+                    <Button
+                        variant='ghost'
+                        className='text-gray-600 hover:text-gray-900'
+                    >
+                        <ArrowLeft className='size-4 mr-2' />
+                        Back to Challenge List
+                    </Button>
+                </Link>
             </div>
         </div>
     );
