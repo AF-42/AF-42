@@ -330,7 +330,7 @@ export function TaskGeneratorFormFromFileUpload() {
 
             // Step 4: Generate challenge
             updateStep('generate', { status: 'in_progress' });
-
+            //
             const companyDescription = await getCompanyDescriptionAction();
 
             const issueDescription = await translateIssueDescriptionAction(
@@ -364,7 +364,7 @@ export function TaskGeneratorFormFromFileUpload() {
                     setSavedChallengeId(saveResult.challengeId);
 
                     // Automatically redirect to edit page
-                    const redirectUrl = `/challenge/edit/${saveResult.challengeId}`;
+                    const redirectUrl = `/challenge/${saveResult.challengeId}/edit`;
                     setTimeout(() => {
                         router.push(redirectUrl);
                     }, 2000); // Give user 2 seconds to see the success message
