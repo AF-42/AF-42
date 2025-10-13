@@ -11,7 +11,22 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
+import { Badge } from '@/components/ui/badge';
 import { type ChallengeType } from '@/types/challenge.type';
+import {
+    Edit3,
+    Save,
+    Users,
+    Globe,
+    FileText,
+    CheckCircle2,
+    Target,
+    Award,
+    ClipboardList,
+    BarChart3,
+    Sparkles,
+    ArrowLeft,
+} from 'lucide-react';
 
 const SECTION_HEADERS = [
     '## 1. Problem Overview:',
@@ -21,6 +36,15 @@ const SECTION_HEADERS = [
     '## 5. Deliverables:',
     '## 6. Evaluation Rubric:',
 ];
+
+const SECTION_ICONS = {
+    '## 1. Problem Overview:': Target,
+    '## 2. Problem Statement:': FileText,
+    '## 3. Requirements:': CheckCircle2,
+    '## 4. Optional Requirements:': Award,
+    '## 5. Deliverables:': ClipboardList,
+    '## 6. Evaluation Rubric:': BarChart3,
+};
 
 function extractSections(draft: ChallengeType, headers: string[]) {
     const result: Record<string, string> = {};
@@ -111,53 +135,112 @@ export function ChallengeDraftEditor({
             e.target.style.height = `${e.target.scrollHeight}px`;
         };
     };
+
     return (
-        <>
-            <div>
-                <div className='p-3 bg-background rounded-md'>
-                    <h4 className='font-medium text-sm mb-2'>
-                        Challenge Details:
-                    </h4>
-                    <div className='text-xs text-muted-foreground space-y-1'>
-                        <div>
-                            Role:{' '}
-                            {challengeDraft.challenge_name || 'Not specified'}
-                        </div>
-                        <div>
-                            Seniority:{' '}
-                            {challengeDraft.challenge_difficulty ||
-                                'Not specified'}
-                        </div>
-                        <div>
-                            Technologies:{' '}
-                            {challengeDraft.challenge_requirements?.length || 0}{' '}
-                            identified
-                        </div>
+        <div className='w-full max-w-6xl mx-auto space-y-6 sm:space-y-8'>
+            {/* Header Section */}
+            <div className='text-center space-y-4 sm:space-y-6'>
+                <div className='flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-4 sm:mb-6'>
+                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-lg'>
+                        <Edit3 className='size-5 sm:size-6' />
                     </div>
+                    <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 font-source-code-pro'>
+                        Edit Challenge
+                    </h1>
                 </div>
-                <div className='flex gap-2 justify-end mt-4'>
-                    <Button variant='outline' onClick={() => {}}>
-                        Invite a tech member of your team to review the
-                        challenge
-                    </Button>
-                    <Button variant='outline' onClick={() => {}}>
-                        Publish Challenge
-                    </Button>
-                    <Button variant='outline' onClick={() => {}}>
-                        Save Draft
-                    </Button>
-                </div>
+                <p className='text-base sm:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0'>
+                    Refine and customize your technical challenge before
+                    publishing
+                </p>
             </div>
 
-            {SECTION_HEADERS.map((header) => {
-                return (
-                    <div key={header} className='w-full mb-4'>
-                        <Card className='w-full border-none shadow-sm mb-4'>
-                            <CardHeader>
-                                <CardTitle>{headerToTitle(header)}</CardTitle>
+            {/* Challenge Overview Card */}
+            <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg'>
+                <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-4 sm:p-6'>
+                    <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
+                        <div className='bg-gradient-to-br from-blue-400 to-blue-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-md flex-shrink-0'>
+                            <Sparkles className='size-5' />
+                        </div>
+                        <div className='flex-1'>
+                            <CardTitle className='text-lg sm:text-xl font-semibold text-gray-900'>
+                                Challenge Overview
+                            </CardTitle>
+                            <div className='flex flex-wrap gap-2 mt-3'>
+                                <Badge
+                                    variant='outline'
+                                    className='text-sm px-3 py-1 border-cyan-400/50 text-cyan-600 bg-cyan-400/10'
+                                >
+                                    <Target className='size-3 mr-1' />
+                                    {challengeDraft.challenge_name ||
+                                        'Not specified'}
+                                </Badge>
+                                <Badge
+                                    variant='outline'
+                                    className='text-sm px-3 py-1 border-gray-300/50 text-gray-600 bg-gray-50/80'
+                                >
+                                    <Award className='size-3 mr-1' />
+                                    {challengeDraft.challenge_difficulty ||
+                                        'Not specified'}
+                                </Badge>
+                                <Badge
+                                    variant='outline'
+                                    className='text-sm px-3 py-1 border-green-400/50 text-green-600 bg-green-400/10'
+                                >
+                                    <CheckCircle2 className='size-3 mr-1' />
+                                    {challengeDraft.challenge_requirements
+                                        ?.length || 0}{' '}
+                                    technologies
+                                </Badge>
+                            </div>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent className='p-4 sm:p-6'>
+                    <div className='flex flex-col sm:flex-row gap-3 sm:gap-4'>
+                        <Button
+                            variant='outline'
+                            className='flex-1 sm:flex-none justify-center sm:justify-start'
+                        >
+                            <Users className='size-4 mr-2' />
+                            Invite Team Review
+                        </Button>
+                        <Button
+                            variant='outline'
+                            className='flex-1 sm:flex-none justify-center sm:justify-start'
+                        >
+                            <Globe className='size-4 mr-2' />
+                            Publish Challenge
+                        </Button>
+                        <Button className='flex-1 sm:flex-none justify-center sm:justify-start bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700'>
+                            <Save className='size-4 mr-2' />
+                            Save Draft
+                        </Button>
+                    </div>
+                </CardContent>
+            </Card>
+
+            {/* Challenge Sections */}
+            <div className='space-y-4 sm:space-y-6'>
+                {SECTION_HEADERS.map((header) => {
+                    const IconComponent =
+                        SECTION_ICONS[header as keyof typeof SECTION_ICONS];
+                    return (
+                        <Card
+                            key={header}
+                            className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300'
+                        >
+                            <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-4 sm:p-6'>
+                                <div className='flex items-center gap-3 sm:gap-4'>
+                                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-8 sm:size-10 items-center justify-center rounded-lg shadow-md flex-shrink-0'>
+                                        <IconComponent className='size-4 sm:size-5' />
+                                    </div>
+                                    <CardTitle className='text-lg sm:text-xl font-semibold text-gray-900'>
+                                        {headerToTitle(header)}
+                                    </CardTitle>
+                                </div>
                             </CardHeader>
-                            <CardContent>
-                                <ScrollArea>
+                            <CardContent className='p-4 sm:p-6'>
+                                <ScrollArea className='max-h-96'>
                                     {isEditing[header] ? (
                                         <Textarea
                                             ref={
@@ -167,32 +250,69 @@ export function ChallengeDraftEditor({
                                             }
                                             value={editedSections[header]}
                                             onChange={handleChange(header)}
-                                            className='resize-none overflow-hidden'
+                                            className='resize-none overflow-hidden min-h-[120px] border-gray-200 focus:border-cyan-400 focus:ring-cyan-400/20'
+                                            placeholder={`Enter content for ${headerToTitle(header)}...`}
                                         />
                                     ) : (
-                                        <div>
-                                            {editedSections[header] ?? ''}
+                                        <div className='prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap'>
+                                            {editedSections[header] || (
+                                                <span className='text-gray-400 italic'>
+                                                    No content available
+                                                </span>
+                                            )}
                                         </div>
                                     )}
                                 </ScrollArea>
                             </CardContent>
-                            <CardFooter className='border-none flex gap-2 justify-end'>
-                                <Button
-                                    variant='outline'
-                                    onClick={() => {
-                                        setIsEditing({
-                                            ...isEditing,
-                                            [header]: !isEditing[header],
-                                        });
-                                    }}
-                                >
-                                    {isEditing[header] ? 'Save' : 'Edit'}
-                                </Button>
+                            <CardFooter className='border-t border-gray-200/60 bg-gray-50/50 p-4 sm:p-6'>
+                                <div className='flex justify-end w-full'>
+                                    <Button
+                                        variant={
+                                            isEditing[header]
+                                                ? 'default'
+                                                : 'outline'
+                                        }
+                                        onClick={() => {
+                                            setIsEditing({
+                                                ...isEditing,
+                                                [header]: !isEditing[header],
+                                            });
+                                        }}
+                                        className={
+                                            isEditing[header]
+                                                ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700'
+                                                : 'hover:border-cyan-400 hover:text-cyan-600'
+                                        }
+                                    >
+                                        {isEditing[header] ? (
+                                            <>
+                                                <Save className='size-4 mr-2' />
+                                                Save Changes
+                                            </>
+                                        ) : (
+                                            <>
+                                                <Edit3 className='size-4 mr-2' />
+                                                Edit Section
+                                            </>
+                                        )}
+                                    </Button>
+                                </div>
                             </CardFooter>
                         </Card>
-                    </div>
-                );
-            })}
-        </>
+                    );
+                })}
+            </div>
+
+            {/* Back Navigation */}
+            <div className='flex justify-center pt-6'>
+                <Button
+                    variant='ghost'
+                    className='text-gray-600 hover:text-gray-900'
+                >
+                    <ArrowLeft className='size-4 mr-2' />
+                    Back to Challenge List
+                </Button>
+            </div>
+        </div>
     );
 }
