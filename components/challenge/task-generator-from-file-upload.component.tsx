@@ -35,7 +35,13 @@ import { createTechChallenge } from '@/app/(users)/challenge/(for-companies)/gen
 import { FileTextExtractor } from '@/components/challenge';
 import { type TextExtractionResult } from '@/mastra/utils/extract-text-from-file';
 import { formatTextToMarkdown } from '@/mastra/utils/format-text-to-markdown';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
@@ -428,80 +434,88 @@ export function TaskGeneratorFormFromFileUpload() {
             <Form {...form}>
                 <form className='space-y-8 flex flex-col gap-4'>
                     {/* File Upload Section */}
-                    <FileTextExtractor onFileSelect={handleFileSelect} />
+                    <div className='space-y-6'>
+                        <FileTextExtractor onFileSelect={handleFileSelect} />
+                    </div>
 
                     {/* Generate Challenge Button */}
                     {selectedFile && (
-                        <>
+                        <div className='space-y-6'>
                             <FormItem>
-                                <FormLabel className='text-sm font-semibold text-gray-900'>
+                                <FormLabel className='text-lg font-semibold text-gray-900 flex items-center gap-3'>
+                                    <div className='bg-gradient-to-br from-cyan-500 to-cyan-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg shadow-sm'>
+                                        <Zap className='h-4 w-4' />
+                                    </div>
                                     Describe the issue for which you want to
                                     generate a challenge
                                 </FormLabel>
                                 <FormControl>
                                     <Textarea
                                         {...form.register('issueDescription')}
-                                        placeholder='Describe the issue for which you want to generate a challenge'
-                                        className='h-24 border border-gray-200/60 bg-white/95 backdrop-blur-sm focus:border-cyan-400/50 focus:ring-cyan-400/20 transition-all duration-200'
+                                        placeholder='Describe the issue for which you want to generate a challenge...'
+                                        className='min-h-[120px] resize-none rounded-xl border-gray-200 focus:border-cyan-500 focus:ring-cyan-500/20 transition-all duration-200'
                                     />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
-                            <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-sm hover:shadow-md transition-all duration-200'>
-                                <CardContent className='p-6'>
+
+                            <div className='relative'>
+                                <div className='absolute inset-0 bg-gradient-to-r from-blue-500/10 to-purple-600/10 rounded-2xl blur-sm'></div>
+                                <div className='relative'>
                                     <Button
                                         type='button'
                                         onClick={handleAutomatedProcessing}
                                         disabled={processingState.isProcessing}
-                                        className='w-full h-12 text-lg bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-white shadow-lg hover:shadow-xl hover:shadow-cyan-400/30 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed'
+                                        className='w-full h-14 text-lg font-semibold bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed rounded-xl'
                                         size='lg'
                                     >
                                         {processingState.isProcessing ? (
                                             <>
-                                                <Loader2 className='h-5 w-5 animate-spin mr-2' />
+                                                <Loader2 className='h-6 w-6 animate-spin mr-3' />
                                                 Generating Challenge...
                                             </>
                                         ) : (
                                             <>
-                                                <Zap className='h-5 w-5 mr-2' />
+                                                <Zap className='h-6 w-6 mr-3' />
                                                 Generate Challenge
                                             </>
                                         )}
                                     </Button>
-                                </CardContent>
-                            </Card>
-                        </>
+                                </div>
+                            </div>
+                        </div>
                     )}
 
                     {/* Processing Progress */}
                     {processingState.isProcessing && (
-                        <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg'>
-                            <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm'>
-                                <CardTitle className='flex items-center gap-3'>
-                                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm'>
-                                        <Loader2 className='h-5 w-5 animate-spin' />
+                        <Card className='bg-white/90 backdrop-blur-sm shadow-xl rounded-2xl border-0 overflow-hidden'>
+                            <CardHeader className='bg-gradient-to-r from-gray-50 to-white border-b border-gray-200/60 p-6'>
+                                <CardTitle className='flex items-center gap-4 text-xl font-bold text-gray-900'>
+                                    <div className='bg-gradient-to-br from-blue-500 to-purple-600 text-white flex aspect-square size-12 items-center justify-center rounded-xl shadow-lg'>
+                                        <Loader2 className='h-6 w-6 animate-spin' />
                                     </div>
-                                    <div>
-                                        <div className='text-lg font-semibold text-gray-900'>
-                                            Processing Challenge Generation
-                                        </div>
-                                        <div className='text-sm text-gray-600'>
-                                            {Math.round(
-                                                processingState.progress,
-                                            )}
-                                            % Complete
-                                        </div>
-                                    </div>
+                                    Processing Challenge Generation
                                 </CardTitle>
+                                <CardDescription className='text-lg text-gray-600 font-medium'>
+                                    {Math.round(processingState.progress)}%
+                                    Complete
+                                </CardDescription>
                             </CardHeader>
                             <CardContent className='p-6 space-y-6'>
                                 {/* Progress Bar */}
-                                <div className='space-y-2'>
-                                    <Progress
-                                        value={processingState.progress}
-                                        className='w-full h-3'
-                                    />
-                                    <div className='flex justify-between text-sm text-gray-600'>
+                                <div className='space-y-4'>
+                                    <div className='relative'>
+                                        <div className='w-full bg-gray-200 rounded-full h-3 overflow-hidden'>
+                                            <div
+                                                className='bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 h-3 rounded-full transition-all duration-500'
+                                                style={{
+                                                    width: `${processingState.progress}%`,
+                                                }}
+                                            ></div>
+                                        </div>
+                                        <div className='absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-indigo-600/20 rounded-full'></div>
+                                    </div>
+                                    <div className='flex justify-between text-base text-gray-600 font-medium'>
                                         <span>Processing steps...</span>
                                         <span>
                                             {Math.round(
@@ -519,71 +533,62 @@ export function TaskGeneratorFormFromFileUpload() {
                                             return (
                                                 <div
                                                     key={step.id}
-                                                    className='flex items-start gap-4 p-4 rounded-lg border border-gray-200/60 bg-white/60 backdrop-blur-sm transition-all duration-200'
+                                                    className='flex items-start gap-4 p-4 rounded-xl border border-gray-200/60 bg-gray-50/50 backdrop-blur-sm transition-all duration-200 hover:shadow-md'
                                                 >
                                                     {/* Step Icon */}
-                                                    <div className='flex-shrink-0 mt-0.5'>
+                                                    <div className='flex-shrink-0 mt-1'>
                                                         {step.status ===
                                                         'completed' ? (
-                                                            <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg shadow-sm'>
-                                                                <CheckCircle className='h-4 w-4' />
+                                                            <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg'>
+                                                                <CheckCircle className='h-5 w-5' />
                                                             </div>
                                                         ) : step.status ===
                                                           'in_progress' ? (
-                                                            <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg shadow-sm'>
-                                                                <Loader2 className='h-4 w-4 animate-spin' />
+                                                            <div className='bg-gradient-to-br from-blue-500 to-purple-600 text-white flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg'>
+                                                                <Loader2 className='h-5 w-5 animate-spin' />
                                                             </div>
                                                         ) : step.status ===
                                                           'error' ? (
-                                                            <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg shadow-sm'>
-                                                                <AlertCircle className='h-4 w-4' />
+                                                            <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg'>
+                                                                <AlertCircle className='h-5 w-5' />
                                                             </div>
                                                         ) : (
-                                                            <div className='bg-gray-100 flex aspect-square size-8 items-center justify-center rounded-lg border-2 border-gray-300/50'>
-                                                                <div className='h-2 w-2 rounded-full bg-gray-400' />
+                                                            <div className='bg-gray-200 flex aspect-square size-10 items-center justify-center rounded-xl border-2 border-gray-300/50'>
+                                                                <div className='h-3 w-3 rounded-full bg-gray-400' />
                                                             </div>
                                                         )}
                                                     </div>
 
                                                     {/* Step Content */}
                                                     <div className='flex-1 min-w-0'>
-                                                        <div className='flex items-center gap-2 mb-1'>
-                                                            <h4 className='text-sm font-semibold text-gray-900'>
+                                                        <div className='flex items-center gap-3 mb-2'>
+                                                            <h4 className='text-base font-semibold text-gray-900'>
                                                                 {step.name}
                                                             </h4>
                                                             {step.status ===
                                                                 'completed' && (
-                                                                <Badge
-                                                                    variant='outline'
-                                                                    className='text-xs px-2 py-0.5 h-5 border-green-400/50 text-green-600 bg-green-400/10'
-                                                                >
+                                                                <Badge className='bg-green-100 text-green-700 border-green-200 text-xs px-3 py-1'>
                                                                     Complete
                                                                 </Badge>
                                                             )}
                                                             {step.status ===
                                                                 'in_progress' && (
-                                                                <Badge
-                                                                    variant='outline'
-                                                                    className='text-xs px-2 py-0.5 h-5 border-cyan-400/50 text-cyan-600 bg-cyan-400/10'
-                                                                >
+                                                                <Badge className='bg-blue-100 text-blue-700 border-blue-200 text-xs px-3 py-1'>
                                                                     Processing
                                                                 </Badge>
                                                             )}
                                                             {step.status ===
                                                                 'error' && (
-                                                                <Badge
-                                                                    variant='outline'
-                                                                    className='text-xs px-2 py-0.5 h-5 border-red-400/50 text-red-600 bg-red-400/10'
-                                                                >
+                                                                <Badge className='bg-red-100 text-red-700 border-red-200 text-xs px-3 py-1'>
                                                                     Error
                                                                 </Badge>
                                                             )}
                                                         </div>
-                                                        <p className='text-sm text-gray-600 mb-2'>
+                                                        <p className='text-sm text-gray-600 mb-2 leading-relaxed'>
                                                             {step.description}
                                                         </p>
                                                         {step.error && (
-                                                            <div className='text-sm text-red-600 bg-red-50/50 rounded-md p-2 border border-red-200/60'>
+                                                            <div className='text-sm text-red-700 bg-red-50/80 rounded-lg p-3 border border-red-200/60'>
                                                                 {step.error}
                                                             </div>
                                                         )}
@@ -599,17 +604,17 @@ export function TaskGeneratorFormFromFileUpload() {
 
                     {/* Error Display */}
                     {processingState.error && (
-                        <Card className='border border-red-200/60 bg-red-50/30 backdrop-blur-sm shadow-lg'>
+                        <Card className='bg-red-50/80 backdrop-blur-sm shadow-xl rounded-2xl border-red-200 overflow-hidden'>
                             <CardContent className='p-6'>
                                 <div className='flex items-start gap-4'>
-                                    <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm flex-shrink-0'>
-                                        <AlertCircle className='h-5 w-5' />
+                                    <div className='bg-gradient-to-br from-red-400 to-red-600 text-white flex aspect-square size-12 items-center justify-center rounded-xl shadow-lg flex-shrink-0'>
+                                        <AlertCircle className='h-6 w-6' />
                                     </div>
                                     <div className='flex-1'>
-                                        <h3 className='text-lg font-semibold text-red-900 mb-2'>
+                                        <h3 className='text-xl font-bold text-red-900 mb-3'>
                                             Processing Error
                                         </h3>
-                                        <p className='text-sm text-red-700 bg-red-50/50 rounded-md p-3 border border-red-200/60'>
+                                        <p className='text-base text-red-700 bg-red-100/80 rounded-xl p-4 border border-red-200/60 leading-relaxed'>
                                             {processingState.error}
                                         </p>
                                     </div>
@@ -620,34 +625,30 @@ export function TaskGeneratorFormFromFileUpload() {
 
                     {/* Results Display */}
                     {processingState.result && (
-                        <Card className='border border-green-200/60 bg-green-50/30 backdrop-blur-sm shadow-lg'>
-                            <CardHeader className='border-b border-green-200/60 bg-gradient-to-r from-green-50/80 to-white/95 backdrop-blur-sm'>
-                                <CardTitle className='flex items-center gap-3'>
-                                    <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-sm'>
-                                        <CheckCircle className='h-5 w-5' />
+                        <Card className='bg-green-50/80 backdrop-blur-sm shadow-xl rounded-2xl border-green-200 overflow-hidden'>
+                            <CardHeader className='bg-gradient-to-r from-green-50 to-emerald-50 border-b border-green-200/60 p-6'>
+                                <CardTitle className='flex items-center gap-4 text-xl font-bold text-green-900'>
+                                    <div className='bg-gradient-to-br from-green-400 to-green-600 text-white flex aspect-square size-12 items-center justify-center rounded-xl shadow-lg'>
+                                        <CheckCircle className='h-6 w-6' />
                                     </div>
-                                    <div>
-                                        <div className='text-lg font-semibold text-green-900'>
-                                            Challenge Generated Successfully
-                                        </div>
-                                        <div className='text-sm text-green-700'>
-                                            Your technical challenge is ready
-                                        </div>
-                                    </div>
+                                    Challenge Generated Successfully
                                 </CardTitle>
+                                <CardDescription className='text-lg text-green-700 font-medium'>
+                                    Your technical challenge is ready
+                                </CardDescription>
                             </CardHeader>
-                            <CardContent className='p-6 space-y-4'>
+                            <CardContent className='p-6 space-y-6'>
                                 {/* Auto-save status */}
                                 {savedChallengeId && (
-                                    <div className='p-4 bg-green-100/60 border border-green-200/60 rounded-lg'>
-                                        <div className='flex items-center gap-3'>
-                                            <CheckCircle className='h-5 w-5 text-green-600' />
+                                    <div className='p-6 bg-green-100/80 border border-green-200/60 rounded-xl'>
+                                        <div className='flex items-center gap-4'>
+                                            <CheckCircle className='h-6 w-6 text-green-600' />
                                             <div>
-                                                <div className='text-sm font-medium text-green-800'>
+                                                <div className='text-base font-semibold text-green-800'>
                                                     Challenge automatically
                                                     saved!
                                                 </div>
-                                                <div className='text-xs text-green-700 mt-1'>
+                                                <div className='text-sm text-green-700 mt-1'>
                                                     Redirecting to edit page in
                                                     a moment...
                                                 </div>
@@ -658,37 +659,37 @@ export function TaskGeneratorFormFromFileUpload() {
 
                                 {/* Extracted Tech Stack Summary */}
                                 {extractedTechStack && (
-                                    <div className='p-4 bg-white/60 rounded-lg border border-gray-200/60'>
-                                        <h4 className='font-semibold text-gray-900 mb-3 flex items-center gap-2'>
-                                            <div className='bg-gradient-to-br from-blue-400 to-blue-600 text-white flex aspect-square size-6 items-center justify-center rounded-md shadow-sm'>
-                                                <Zap className='h-3 w-3' />
+                                    <div className='p-6 bg-white/80 rounded-xl border border-gray-200/60'>
+                                        <h4 className='font-bold text-gray-900 mb-4 flex items-center gap-3'>
+                                            <div className='bg-gradient-to-br from-blue-400 to-blue-600 text-white flex aspect-square size-8 items-center justify-center rounded-lg shadow-sm'>
+                                                <Zap className='h-4 w-4' />
                                             </div>
                                             Extracted Requirements
                                         </h4>
                                         <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-                                            <div className='bg-gray-50/80 rounded-md p-3 border border-gray-200/60'>
-                                                <div className='text-xs text-gray-500 mb-1'>
+                                            <div className='bg-gray-50/80 rounded-lg p-4 border border-gray-200/60'>
+                                                <div className='text-sm text-gray-500 mb-2 font-medium'>
                                                     Role
                                                 </div>
-                                                <div className='text-sm font-medium text-gray-900'>
+                                                <div className='text-base font-semibold text-gray-900'>
                                                     {extractedTechStack.role_title ??
                                                         'Not specified'}
                                                 </div>
                                             </div>
-                                            <div className='bg-gray-50/80 rounded-md p-3 border border-gray-200/60'>
-                                                <div className='text-xs text-gray-500 mb-1'>
+                                            <div className='bg-gray-50/80 rounded-lg p-4 border border-gray-200/60'>
+                                                <div className='text-sm text-gray-500 mb-2 font-medium'>
                                                     Seniority
                                                 </div>
-                                                <div className='text-sm font-medium text-gray-900'>
+                                                <div className='text-base font-semibold text-gray-900'>
                                                     {extractedTechStack.seniority ??
                                                         'Not specified'}
                                                 </div>
                                             </div>
-                                            <div className='bg-gray-50/80 rounded-md p-3 border border-gray-200/60'>
-                                                <div className='text-xs text-gray-500 mb-1'>
+                                            <div className='bg-gray-50/80 rounded-lg p-4 border border-gray-200/60'>
+                                                <div className='text-sm text-gray-500 mb-2 font-medium'>
                                                     Technologies
                                                 </div>
-                                                <div className='text-sm font-medium text-gray-900'>
+                                                <div className='text-base font-semibold text-gray-900'>
                                                     {extractedTechStack
                                                         .technical_stack
                                                         ?.length ?? 0}{' '}
