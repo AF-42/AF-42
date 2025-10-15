@@ -311,14 +311,14 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                 {/* Subtle border */}
                 <div className='absolute top-0 left-4 right-4 sm:left-6 sm:right-6 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent'></div>
 
-                <div className='flex flex-col sm:flex-row gap-3 w-full'>
+                <div className='flex flex-col max-w-sm sm:flex-row gap-3 w-full'>
                     <Link
                         href={`/challenge/${challenge.id}`}
                         className='flex-1 group/btn'
                     >
                         <Button
                             variant='outline'
-                            className='w-full h-9 sm:h-10 justify-center sm:justify-start border-2 border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg transition-all duration-300 font-semibold text-blue-700 group-hover/btn:scale-[1.02]'
+                            className='cursor-pointer w-full h-9 sm:h-10 justify-center sm:justify-start border-2 border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg transition-all duration-300 font-semibold text-blue-700 group-hover/btn:scale-[1.02]'
                         >
                             <Eye className='size-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200' />
                             View Challenge
@@ -331,7 +331,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                     >
                         <Button
                             variant='outline'
-                            className='w-full h-9 sm:h-10 justify-center sm:justify-start border-2 border-emerald-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 font-semibold text-emerald-700 group-hover/btn:scale-[1.02]'
+                            className='cursor-pointer w-full h-9 sm:h-10 justify-center sm:justify-start border-2 border-emerald-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 font-semibold text-emerald-700 group-hover/btn:scale-[1.02]'
                         >
                             <Edit3 className='size-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200' />
                             Edit Challenge
@@ -342,7 +342,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                         <DialogTrigger asChild>
                             <Button
                                 variant='outline'
-                                className='flex-1 sm:flex-none h-9 sm:h-10 justify-center sm:justify-start border-2 border-red-200 bg-white hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold text-red-700 disabled:opacity-50 disabled:cursor-not-allowed group/btn'
+                                className='cursor-pointer flex-1 sm:flex-none h-9 sm:h-10 justify-center sm:justify-start border-2 border-red-200 bg-white hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold text-red-700 disabled:opacity-50 disabled:cursor-not-allowed group/btn'
                                 disabled={isDeleting}
                             >
                                 <Trash2 className='size-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200' />

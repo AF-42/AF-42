@@ -1,5 +1,20 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+:root {
+    /* === Base Palette === */
+    --color-light: #eeeeee; /* Light gray / text on dark backgrounds */
+    --color-accent: #00adb5; /* Cyan pastel accent / brand color */
+    --color-dark: #393e46; /* Dark gray background / surfaces */
+    --color-darker: #222831; /* Deep black background / main app bg */
+
+    /* === Semantic Tokens === */
+    --color-background: var(--color-darker);
+    --color-surface: var(--color-dark);
+    --color-text: var(--color-light);
+    --color-primary: var(--color-accent);
+    --color-border: rgba(238, 238, 238, 0.1);
+    --color-hover: #03c2cc;
+}
 
 /* Enhanced Sidebar Navigation Hover Effects */
 .sidebar-nav-item {

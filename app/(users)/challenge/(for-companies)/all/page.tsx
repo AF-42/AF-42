@@ -76,7 +76,7 @@ export default async function AllChallengesPage() {
                         {/* Action button section */}
                         <div className='flex-shrink-0 w-full sm:w-auto'>
                             <Link href='/challenge/generate' className='block'>
-                                <Button className='w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 bg-gradient-to-r from-blue-600 via-blue-500 to-emerald-600 hover:from-blue-700 hover:via-blue-600 hover:to-emerald-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base sm:text-lg group'>
+                                <Button className='cursor-pointer w-full sm:w-auto h-12 sm:h-14 px-6 sm:px-8 bg-gradient-to-r from-blue-600 via-blue-500 to-emerald-600 hover:from-blue-700 hover:via-blue-600 hover:to-emerald-700 text-white shadow-xl hover:shadow-2xl transition-all duration-300 font-semibold text-base sm:text-lg group'>
                                     <Plus className='w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform duration-200' />
                                     <span className='hidden sm:inline'>
                                         Generate New Challenge
