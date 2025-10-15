@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono } from 'next/font/google';
+import { IBM_Plex_Mono, Inter, Lato } from 'next/font/google';
 import './globals.css';
 import { AuthProvider } from './AuthProvider';
 
@@ -7,6 +7,18 @@ const ibmPlexMono = IBM_Plex_Mono({
     variable : '--font-ibm-plex-mono',
     subsets  : ['latin'],
     weight   : ['100', '200', '300', '400', '500', '600', '700']
+});
+
+const inter = Inter({
+    variable : '--font-inter',
+    subsets  : ['latin'],
+    weight   : ['100', '200', '300', '400', '500', '600', '700']
+});
+
+const lato = Lato({
+    variable : '--font-lato',
+    subsets  : ['latin'],
+    weight   : ['100',  '300', '400', '700']
 });
 
 export const metadata: Metadata = {
@@ -21,7 +33,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${ibmPlexMono.className} antialiased`}>
+            <body className={`${lato.className} antialiased`}>
                 <AuthProvider>{children}</AuthProvider>
             </body>
         </html>
