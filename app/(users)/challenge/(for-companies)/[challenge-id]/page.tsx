@@ -503,7 +503,7 @@ export default async function ChallengePage({
                                                                                 </div>
                                                                                 <div className='ml-4 sm:ml-6 space-y-2'>
                                                                                     <ScrollArea className='h-[200px] sm:h-[250px] lg:h-[300px]'>
-                                                                                        <div className='space-y-2 sm:space-y-3 pr-2'>
+                                                                                        <div className='pr-2'>
                                                                                             {challenge.challenge_requirements.map(
                                                                                                 (
                                                                                                     requirement,
@@ -513,7 +513,7 @@ export default async function ChallengePage({
                                                                                                         key={
                                                                                                             index
                                                                                                         }
-                                                                                                        className='flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-green-50/50 transition-colors duration-200'
+                                                                                                        className='flex items-start gap-2  rounded-lg hover:bg-green-50/50 transition-colors duration-200'
                                                                                                     >
                                                                                                         <div className='w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0'></div>
                                                                                                         <div className='flex-1 min-w-0'>

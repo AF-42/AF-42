@@ -1,3 +1,4 @@
+import * as print from '@/lib/print-helpers';
 /**
  * Challenge Description Parser Utility
  *
@@ -269,18 +270,21 @@ export function parseRequirementsSubsections(requirementsText: string): {
     for (const line of lines) {
         const lowerLine = line.toLowerCase();
 
-        // Detect section headers
-        if (lowerLine.includes('functional requirements') || lowerLine.includes('functional:')) {
-            if (currentSection && currentItems.length > 0) {
-                (result as any)[currentSection] = [...currentItems];
-            }
-            currentSection = 'functionalRequirements';
-            currentItems = [];
-        } else if (lowerLine.includes('non-functional requirements') || lowerLine.includes('non-functional:')) {
+        const isNonFunctionalHeader = /\bnon[- ]functional requirements\b/.test(lowerLine) || /^non[- ]functional:/.test(lowerLine);
+        const isFunctionalHeader = /\bfunctional requirements\b/.test(lowerLine) || /^functional:/.test(lowerLine);
+
+        // Detect section headers (check non-functional BEFORE functional to avoid substring clashes)
+        if (isNonFunctionalHeader) {
             if (currentSection && currentItems.length > 0) {
                 (result as any)[currentSection] = [...currentItems];
             }
             currentSection = 'nonFunctionalRequirements';
+            currentItems = [];
+        } else if (isFunctionalHeader) {
+            if (currentSection && currentItems.length > 0) {
+                (result as any)[currentSection] = [...currentItems];
+            }
+            currentSection = 'functionalRequirements';
             currentItems = [];
         } else if (lowerLine.includes('constraints') || lowerLine.includes('constraint:')) {
             if (currentSection && currentItems.length > 0) {
