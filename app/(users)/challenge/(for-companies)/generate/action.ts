@@ -68,7 +68,7 @@ export async function createTechChallenge(
         let challenge;
         let lastError;
         const maxRetries = 2;
-        const timeoutMs = 30000; // 30 second timeout per attempt
+        const timeoutMs = 90000; // 90 second timeout per attempt
 
         for (let attempt = 1; attempt <= maxRetries; attempt++) {
             try {

@@ -241,6 +241,29 @@ export function TaskGeneratorFormFromFileUpload() {
         });
     };
 
+    // Helper function to retry network requests
+    const retryFetch = async (
+        url: string,
+        options: RequestInit,
+        maxRetries = 3,
+    ): Promise<Response> => {
+        for (let attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                const response = await fetch(url, options);
+                return response;
+            } catch (error) {
+                if (attempt === maxRetries) {
+                    throw error;
+                }
+                // Wait before retrying (exponential backoff)
+                await new Promise((resolve) =>
+                    setTimeout(resolve, Math.pow(2, attempt) * 1000),
+                );
+            }
+        }
+        throw new Error('Max retries exceeded');
+    };
+
     // Main automated processing function
     const handleAutomatedProcessing = async () => {
         if (!selectedFile) {
@@ -279,7 +302,7 @@ export function TaskGeneratorFormFromFileUpload() {
 
             // ! TODO: update the fetch to use model or server action
             const extractResponse = await Promise.race([
-                fetch('/api/extract-text', {
+                retryFetch('/api/extract-text', {
                     method: 'POST',
                     body: formData,
                 }),
@@ -313,7 +336,7 @@ export function TaskGeneratorFormFromFileUpload() {
 
             // ! TODO: update the fetch to use model or server action
             const translateResponse = await Promise.race([
-                fetch('/api/translate-text', {
+                retryFetch('/api/translate-text', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ text: extractResult.extractedText }),
@@ -341,7 +364,7 @@ export function TaskGeneratorFormFromFileUpload() {
 
             // ! TODO: update the fetch to use model or server action
             const techStackResponse = await Promise.race([
-                fetch('/api/extract-tech-stack', {
+                retryFetch('/api/extract-tech-stack', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
