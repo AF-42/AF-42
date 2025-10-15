@@ -42,7 +42,6 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { translateIssueDescriptionAction } from '@/app/actions/translate-issue-description.action';
 import { getCompanyDescriptionAction } from '@/app/actions/get-company-description.action';
