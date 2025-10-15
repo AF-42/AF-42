@@ -35,17 +35,19 @@ export default async function AllChallengesPage() {
             <div className='relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12'>
                 <div className='w-full max-w-7xl mx-auto space-y-8'>
                     {/* Header Section */}
-                    <div className='text-center space-y-6'>
+                    <div className='flex flex-row gap-4 items-start justify-start space-y-6'>
                         <div className='inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-emerald-500 rounded-2xl shadow-lg mb-4'>
                             <Code2 className='w-8 h-8 text-white' />
                         </div>
-                        <h1 className='text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent'>
-                            Challenge Management
-                        </h1>
-                        <p className='text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
-                            Create, manage, and track your technical challenges
-                            with professional-grade tools
-                        </p>
+                        <div className='flex flex-col items-start justify-start gap-2'>
+                            <h1 className='pb-4 text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 bg-clip-text text-transparent'>
+                                Challenge Management
+                            </h1>
+                            <p className='text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
+                                Create, manage, and track your technical
+                                challenges with professional-grade tools
+                            </p>
+                        </div>
                     </div>
 
                     {/* Stats Cards */}
