@@ -11,11 +11,6 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card';
-import {
-    Collapsible,
-    CollapsibleContent,
-    CollapsibleTrigger,
-} from '@/components/ui/collapsible';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -40,8 +35,6 @@ import {
     Clock,
     CheckCircle2,
     AlertCircle,
-    ChevronDown,
-    ChevronUp,
 } from 'lucide-react';
 import * as print from '@/lib/print-helpers';
 
@@ -108,7 +101,6 @@ const getDifficultyConfig = (difficulty: string) => {
 export function AllChallengeCardComponent(challenge: ChallengeType) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
-    const [isExpanded, setIsExpanded] = useState(true);
     const router = useRouter();
 
     const statusConfig = getStatusConfig(challenge.challenge_status);
@@ -141,153 +133,181 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
     };
 
     return (
-        <Collapsible open={isExpanded} onOpenChange={setIsExpanded}>
-            <Card className='group border border-gray-200/60 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-xl transition-all duration-300 hover:border-gray-300/60 overflow-hidden'>
-                <CardHeader className='border-b border-gray-200/40 bg-gradient-to-r from-gray-50/50 to-white/80 backdrop-blur-sm p-6'>
-                    <div className='flex items-start gap-4'>
-                        <div className='bg-gradient-to-br from-blue-500 to-emerald-500 text-white flex aspect-square size-12 items-center justify-center rounded-xl shadow-lg flex-shrink-0 group-hover:scale-105 transition-transform duration-200'>
-                            <Code className='size-6' />
+        <Card className='group relative border-0 bg-white shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 overflow-hidden rounded-2xl'>
+            <CardHeader className='relative p-4 sm:p-6 lg:p-8 pb-4 sm:pb-6'>
+                {/* Background gradient overlay */}
+                <div className='absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-blue-50/30'></div>
+
+                <div className='relative flex flex-col sm:flex-row items-start gap-4 sm:gap-6'>
+                    {/* Icon and status indicator */}
+                    <div className='relative flex-shrink-0 self-center sm:self-start'>
+                        <div className='bg-gradient-to-br from-blue-600 via-blue-500 to-indigo-600 text-white flex aspect-square size-12 sm:size-14 lg:size-16 items-center justify-center rounded-xl sm:rounded-2xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300'>
+                            <Code className='size-5 sm:size-6 lg:size-8' />
                         </div>
-                        <div className='flex-1 min-w-0'>
-                            <div className='flex items-center justify-between mb-3'>
-                                <CardTitle className='text-xl font-bold text-gray-900 group-hover:text-gray-700 transition-colors duration-200'>
-                                    {challenge.challenge_name ||
-                                        'Untitled Challenge'}
-                                </CardTitle>
-                                <CollapsibleTrigger asChild>
-                                    <Button
-                                        variant='ghost'
-                                        size='sm'
-                                        className='h-8 w-8 p-0 hover:bg-gray-100 transition-colors duration-200'
-                                    >
-                                        {isExpanded ? (
-                                            <ChevronUp className='size-4 text-gray-500' />
-                                        ) : (
-                                            <ChevronDown className='size-4 text-gray-500' />
-                                        )}
-                                    </Button>
-                                </CollapsibleTrigger>
-                            </div>
-                            <div className='flex flex-wrap gap-2'>
-                                <Badge
-                                    variant='outline'
-                                    className={`text-xs px-3 py-1.5 font-medium ${statusConfig.color} border-0 shadow-sm`}
-                                >
-                                    <StatusIcon className='size-3 mr-1.5' />
-                                    {statusConfig.label}
-                                </Badge>
-                                <Badge
-                                    variant='outline'
-                                    className={`text-xs px-3 py-1.5 font-medium ${difficultyConfig.color} border-0 shadow-sm`}
-                                >
-                                    <Award className='size-3 mr-1.5' />
-                                    {difficultyConfig.label}
-                                </Badge>
-                                {challenge.challenge_industry && (
-                                    <Badge
-                                        variant='outline'
-                                        className='text-xs px-3 py-1.5 font-medium border-0 shadow-sm bg-blue-50 text-blue-700'
-                                    >
-                                        <Target className='size-3 mr-1.5' />
-                                        {challenge.challenge_industry}
-                                    </Badge>
-                                )}
-                            </div>
+                        <div className='absolute -top-1 -right-1 w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full shadow-lg flex items-center justify-center'>
+                            <div className='w-2 h-2 sm:w-2.5 sm:h-2.5 lg:w-3 lg:h-3 bg-white rounded-full'></div>
                         </div>
                     </div>
-                </CardHeader>
 
-                <CollapsibleContent>
-                    <CardContent className='p-6'>
-                        <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
-                            {/* Challenge Details */}
-                            <div className='space-y-4'>
-                                <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
-                                    <div className='w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                                        <Calendar className='size-4 text-blue-600' />
-                                    </div>
-                                    <div className='flex-1 min-w-0'>
-                                        <p className='text-sm font-medium text-gray-600'>
-                                            Challenge Type
-                                        </p>
-                                        <p className='text-sm font-semibold text-gray-900 truncate'>
-                                            {challenge.challenge_type ||
-                                                'Not specified'}
-                                        </p>
-                                    </div>
-                                </div>
+                    {/* Title and badges section */}
+                    <div className='flex-1 min-w-0 space-y-3 sm:space-y-4 w-full'>
+                        {/* Title section */}
+                        <div className='text-center sm:text-left'>
+                            <CardTitle className='text-lg sm:text-xl lg:text-2xl font-bold text-gray-900 mb-1 sm:mb-2 group-hover:text-blue-600 transition-colors duration-300 leading-tight break-words'>
+                                {challenge.challenge_name ||
+                                    'Untitled Challenge'}
+                            </CardTitle>
+                            <p className='text-xs sm:text-sm text-gray-500 font-medium'>
+                                Challenge ID: #{challenge.id}
+                            </p>
+                        </div>
 
-                                <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
-                                    <div className='w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                                        <Globe className='size-4 text-emerald-600' />
-                                    </div>
-                                    <div className='flex-1 min-w-0'>
-                                        <p className='text-sm font-medium text-gray-600'>
-                                            Publication Status
-                                        </p>
-                                        <p
-                                            className={`text-sm font-semibold ${
-                                                challenge.is_published
-                                                    ? 'text-emerald-600'
-                                                    : 'text-gray-500'
-                                            }`}
-                                        >
-                                            {challenge.is_published
-                                                ? 'Published'
-                                                : 'Draft'}
-                                        </p>
-                                    </div>
-                                </div>
+                        {/* Badges section */}
+                        <div className='flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-3'>
+                            <Badge
+                                variant='outline'
+                                className={`text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 font-semibold ${statusConfig.color} border-0 shadow-sm rounded-full`}
+                            >
+                                <StatusIcon className='size-3 sm:size-4 mr-1.5 sm:mr-2' />
+                                {statusConfig.label}
+                            </Badge>
+                            <Badge
+                                variant='outline'
+                                className={`text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 font-semibold ${difficultyConfig.color} border-0 shadow-sm rounded-full`}
+                            >
+                                <Award className='size-3 sm:size-4 mr-1.5 sm:mr-2' />
+                                {difficultyConfig.label}
+                            </Badge>
+                            {challenge.challenge_industry && (
+                                <Badge
+                                    variant='outline'
+                                    className='text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 font-semibold border-0 shadow-sm bg-gradient-to-r from-blue-50 to-indigo-50 text-blue-700 rounded-full'
+                                >
+                                    <Target className='size-3 sm:size-4 mr-1.5 sm:mr-2' />
+                                    {challenge.challenge_industry}
+                                </Badge>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            </CardHeader>
 
-                                {challenge.github_url && (
-                                    <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
-                                        <div className='w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                                            <Github className='size-4 text-gray-600' />
+            <CardContent className='px-4 sm:px-6 lg:px-8 py-4 sm:py-6'>
+                <div className='grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8'>
+                    {/* Challenge Details */}
+                    <div className='lg:col-span-2 space-y-4 sm:space-y-6'>
+                        <div className='space-y-3 sm:space-y-4'>
+                            <h3 className='text-base sm:text-lg font-semibold text-gray-900 flex items-center gap-2'>
+                                <div className='w-1.5 h-1.5 sm:w-2 sm:h-2 bg-blue-500 rounded-full'></div>
+                                Challenge Information
+                            </h3>
+
+                            <div className='grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4'>
+                                <div className='group/item bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-300'>
+                                    <div className='flex items-center gap-2 sm:gap-3'>
+                                        <div className='w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200'>
+                                            <Calendar className='size-4 sm:size-5 text-blue-600' />
                                         </div>
                                         <div className='flex-1 min-w-0'>
-                                            <p className='text-sm font-medium text-gray-600'>
+                                            <p className='text-xs sm:text-sm font-medium text-gray-600 mb-1'>
+                                                Challenge Type
+                                            </p>
+                                            <p className='text-sm sm:text-base font-semibold text-gray-900 truncate'>
+                                                {challenge.challenge_type ||
+                                                    'Not specified'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className='group/item bg-gradient-to-br from-emerald-50 to-green-50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-300'>
+                                    <div className='flex items-center gap-2 sm:gap-3'>
+                                        <div className='w-8 h-8 sm:w-10 sm:h-10 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200'>
+                                            <Globe className='size-4 sm:size-5 text-emerald-600' />
+                                        </div>
+                                        <div className='flex-1 min-w-0'>
+                                            <p className='text-xs sm:text-sm font-medium text-gray-600 mb-1'>
+                                                Publication Status
+                                            </p>
+                                            <p
+                                                className={`text-sm sm:text-base font-semibold ${
+                                                    challenge.is_published
+                                                        ? 'text-emerald-600'
+                                                        : 'text-gray-500'
+                                                }`}
+                                            >
+                                                {challenge.is_published
+                                                    ? 'Published'
+                                                    : 'Draft'}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {challenge.github_url && (
+                                <div className='group/item bg-gradient-to-br from-gray-50 to-slate-50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-300'>
+                                    <div className='flex items-center gap-2 sm:gap-3'>
+                                        <div className='w-8 h-8 sm:w-10 sm:h-10 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200'>
+                                            <Github className='size-4 sm:size-5 text-gray-600' />
+                                        </div>
+                                        <div className='flex-1 min-w-0'>
+                                            <p className='text-xs sm:text-sm font-medium text-gray-600 mb-1'>
                                                 Repository
                                             </p>
                                             <a
                                                 href={challenge.github_url}
                                                 target='_blank'
                                                 rel='noopener noreferrer'
-                                                className='text-sm font-semibold text-blue-600 hover:text-blue-700 truncate block'
+                                                className='text-sm sm:text-base font-semibold text-blue-600 hover:text-blue-700 truncate block transition-colors duration-200'
                                             >
                                                 View on GitHub →
                                             </a>
                                         </div>
                                     </div>
-                                )}
-                            </div>
+                                </div>
+                            )}
+                        </div>
+                    </div>
 
-                            {/* Challenge Stats */}
-                            <div className='space-y-4'>
-                                <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
-                                    <div className='w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                                        <CheckCircle2 className='size-4 text-amber-600' />
+                    {/* Challenge Stats */}
+                    <div className='space-y-4 sm:space-y-6'>
+                        <h3 className='text-base sm:text-lg font-semibold text-gray-900 flex items-center gap-2'>
+                            <div className='w-1.5 h-1.5 sm:w-2 sm:h-2 bg-emerald-500 rounded-full'></div>
+                            Statistics
+                        </h3>
+
+                        <div className='space-y-3 sm:space-y-4'>
+                            <div className='group/item bg-gradient-to-br from-amber-50 to-yellow-50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-300'>
+                                <div className='flex items-center gap-2 sm:gap-3'>
+                                    <div className='w-8 h-8 sm:w-10 sm:h-10 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200'>
+                                        <CheckCircle2 className='size-4 sm:size-5 text-amber-600' />
                                     </div>
                                     <div className='flex-1 min-w-0'>
-                                        <p className='text-sm font-medium text-gray-600'>
+                                        <p className='text-xs sm:text-sm font-medium text-gray-600 mb-1'>
                                             Requirements
                                         </p>
-                                        <p className='text-sm font-semibold text-gray-900'>
+                                        <p className='text-xl sm:text-2xl font-bold text-gray-900'>
                                             {challenge.challenge_requirements
-                                                ?.length || 0}{' '}
+                                                ?.length || 0}
+                                        </p>
+                                        <p className='text-xs text-gray-500'>
                                             items
                                         </p>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
-                                    <div className='w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0'>
-                                        <Clock className='size-4 text-purple-600' />
+                            <div className='group/item bg-gradient-to-br from-purple-50 to-violet-50 rounded-lg sm:rounded-xl p-3 sm:p-4 hover:shadow-md transition-all duration-300'>
+                                <div className='flex items-center gap-2 sm:gap-3'>
+                                    <div className='w-8 h-8 sm:w-10 sm:h-10 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 transition-transform duration-200'>
+                                        <Clock className='size-4 sm:size-5 text-purple-600' />
                                     </div>
                                     <div className='flex-1 min-w-0'>
-                                        <p className='text-sm font-medium text-gray-600'>
+                                        <p className='text-xs sm:text-sm font-medium text-gray-600 mb-1'>
                                             Created
                                         </p>
-                                        <p className='text-sm font-semibold text-gray-900'>
+                                        <p className='text-sm sm:text-base font-semibold text-gray-900'>
                                             {challenge.created_at
                                                 ? new Date(
                                                       challenge.created_at,
@@ -305,94 +325,94 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                 </div>
                             </div>
                         </div>
-                    </CardContent>
+                    </div>
+                </div>
+            </CardContent>
 
-                    <CardFooter className='border-t border-gray-200/40 bg-gradient-to-r from-gray-50/30 to-white/50 p-6'>
-                        <div className='flex flex-col sm:flex-row gap-3 w-full'>
-                            <Link
-                                href={`/challenge/${challenge.id}`}
-                                className='flex-1'
+            <CardFooter className='relative px-4 sm:px-6 lg:px-8 py-4 sm:py-6 bg-gradient-to-r from-slate-50/50 via-white to-blue-50/30'>
+                {/* Subtle border */}
+                <div className='absolute top-0 left-4 right-4 sm:left-6 sm:right-6 lg:left-8 lg:right-8 h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent'></div>
+
+                <div className='flex flex-col sm:flex-row gap-4 w-full'>
+                    <Link
+                        href={`/challenge/${challenge.id}`}
+                        className='flex-1 group/btn'
+                    >
+                        <Button
+                            variant='outline'
+                            className='w-full h-10 sm:h-12 justify-center sm:justify-start border-2 border-blue-200 bg-white hover:bg-blue-50 hover:border-blue-300 hover:shadow-lg transition-all duration-300 font-semibold text-blue-700 group-hover/btn:scale-[1.02]'
+                        >
+                            <Eye className='size-4 sm:size-5 mr-2 sm:mr-3 group-hover/btn:scale-110 transition-transform duration-200' />
+                            View Challenge
+                        </Button>
+                    </Link>
+
+                    <Link
+                        href={`/challenge/${challenge.id}/edit`}
+                        className='flex-1 group/btn'
+                    >
+                        <Button
+                            variant='outline'
+                            className='w-full h-10 sm:h-12 justify-center sm:justify-start border-2 border-emerald-200 bg-white hover:bg-emerald-50 hover:border-emerald-300 hover:shadow-lg transition-all duration-300 font-semibold text-emerald-700 group-hover/btn:scale-[1.02]'
+                        >
+                            <Edit3 className='size-4 sm:size-5 mr-2 sm:mr-3 group-hover/btn:scale-110 transition-transform duration-200' />
+                            Edit Challenge
+                        </Button>
+                    </Link>
+
+                    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                        <DialogTrigger asChild>
+                            <Button
+                                variant='outline'
+                                className='flex-1 sm:flex-none h-10 sm:h-12 justify-center sm:justify-start border-2 border-red-200 bg-white hover:bg-red-50 hover:border-red-300 hover:shadow-lg transition-all duration-300 font-semibold text-red-700 disabled:opacity-50 disabled:cursor-not-allowed group/btn'
+                                disabled={isDeleting}
                             >
+                                <Trash2 className='size-4 sm:size-5 mr-2 sm:mr-3 group-hover/btn:scale-110 transition-transform duration-200' />
+                                {isDeleting ? 'Deleting...' : 'Delete'}
+                            </Button>
+                        </DialogTrigger>
+                        <DialogContent className='sm:max-w-md bg-white border-0 shadow-2xl rounded-2xl'>
+                            <DialogHeader className='pb-4'>
+                                <DialogTitle className='flex items-center gap-3 text-xl font-bold text-gray-900'>
+                                    <div className='w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center'>
+                                        <Trash2 className='size-6 text-red-600' />
+                                    </div>
+                                    Delete Challenge
+                                </DialogTitle>
+                                <DialogDescription className='pt-4 text-gray-600 leading-relaxed text-base'>
+                                    Are you sure you want to delete "
+                                    <span className='font-semibold text-gray-900'>
+                                        {challenge.challenge_name}
+                                    </span>
+                                    "? This action cannot be undone and will
+                                    permanently remove the challenge and all
+                                    associated data.
+                                </DialogDescription>
+                            </DialogHeader>
+                            <DialogFooter className='flex-col sm:flex-row gap-3 pt-6'>
                                 <Button
                                     variant='outline'
-                                    className='w-full justify-center sm:justify-start border-gray-200 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-200 font-medium'
+                                    onClick={() => setIsDialogOpen(false)}
+                                    disabled={isDeleting}
+                                    className='w-full sm:w-auto h-11 border-2 border-gray-200 hover:border-gray-300 hover:bg-gray-50 font-semibold'
                                 >
-                                    <Eye className='size-4 mr-2' />
-                                    View Challenge
+                                    Cancel
                                 </Button>
-                            </Link>
-                            <Link
-                                href={`/challenge/${challenge.id}/edit`}
-                                className='flex-1'
-                            >
                                 <Button
-                                    variant='outline'
-                                    className='w-full justify-center sm:justify-start border-gray-200 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200 font-medium'
+                                    variant='destructive'
+                                    onClick={handleDelete}
+                                    disabled={isDeleting}
+                                    className='w-full sm:w-auto h-11 bg-red-600 hover:bg-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 font-semibold'
                                 >
-                                    <Edit3 className='size-4 mr-2' />
-                                    Edit Challenge
+                                    {isDeleting
+                                        ? 'Deleting...'
+                                        : 'Delete Challenge'}
                                 </Button>
-                            </Link>
-                            <Dialog
-                                open={isDialogOpen}
-                                onOpenChange={setIsDialogOpen}
-                            >
-                                <DialogTrigger asChild>
-                                    <Button
-                                        variant='outline'
-                                        className='flex-1 sm:flex-none justify-center sm:justify-start border-gray-200 text-red-600 hover:text-red-700 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 font-medium'
-                                        disabled={isDeleting}
-                                    >
-                                        <Trash2 className='size-4 mr-2' />
-                                        {isDeleting ? 'Deleting...' : 'Delete'}
-                                    </Button>
-                                </DialogTrigger>
-                                <DialogContent className='sm:max-w-md bg-white border border-gray-200 shadow-xl'>
-                                    <DialogHeader>
-                                        <DialogTitle className='flex items-center gap-2 text-lg font-semibold'>
-                                            <div className='w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center'>
-                                                <Trash2 className='size-4 text-red-600' />
-                                            </div>
-                                            Delete Challenge
-                                        </DialogTitle>
-                                        <DialogDescription className='pt-3 text-gray-600 leading-relaxed'>
-                                            Are you sure you want to delete "
-                                            <span className='font-medium text-gray-900'>
-                                                {challenge.challenge_name}
-                                            </span>
-                                            "? This action cannot be undone and
-                                            will permanently remove the
-                                            challenge and all associated data.
-                                        </DialogDescription>
-                                    </DialogHeader>
-                                    <DialogFooter className='flex-col sm:flex-row gap-3 pt-6'>
-                                        <Button
-                                            variant='outline'
-                                            onClick={() =>
-                                                setIsDialogOpen(false)
-                                            }
-                                            disabled={isDeleting}
-                                            className='w-full sm:w-auto border-gray-200 hover:border-gray-300'
-                                        >
-                                            Cancel
-                                        </Button>
-                                        <Button
-                                            variant='destructive'
-                                            onClick={handleDelete}
-                                            disabled={isDeleting}
-                                            className='w-full sm:w-auto bg-red-600 text-white hover:bg-red-700 shadow-sm'
-                                        >
-                                            {isDeleting
-                                                ? 'Deleting...'
-                                                : 'Delete Challenge'}
-                                        </Button>
-                                    </DialogFooter>
-                                </DialogContent>
-                            </Dialog>
-                        </div>
-                    </CardFooter>
-                </CollapsibleContent>
-            </Card>
-        </Collapsible>
+                            </DialogFooter>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            </CardFooter>
+        </Card>
     );
 }
