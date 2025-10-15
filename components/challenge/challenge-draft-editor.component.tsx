@@ -30,7 +30,6 @@ import {
     Sparkles,
     ArrowLeft,
 } from 'lucide-react';
-import Image from 'next/image';
 import techUrls from '@/app/data-json/tech-logo-url.json';
 
 // Helper function to convert CDN URLs to GitHub direct URLs
