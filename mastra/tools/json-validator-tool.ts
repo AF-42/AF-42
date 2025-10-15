@@ -24,6 +24,18 @@ export const jsonValidatorTool = createTool({
 });
 
 const validateJson = async (jsonContent: string) => {
-    const parsedData = JSON.parse(jsonContent);
-    return parsedData;
+    try {
+        const parsedData = JSON.parse(jsonContent);
+        return {
+            isValid: true,
+            parsedData: parsedData,
+            errors: []
+        };
+    } catch (error) {
+        return {
+            isValid: false,
+            parsedData: null,
+            errors: [error instanceof Error ? error.message : 'Invalid JSON format']
+        };
+    }
 };

@@ -10,8 +10,6 @@ import {
     BookOpen,
     Target,
     Award,
-    PlusCircle,
-    ClipboardList,
     Package,
     Star,
     Settings,
@@ -19,12 +17,13 @@ import {
     Wrench,
     XCircle,
     ExternalLink,
+    Edit3,
+    Globe,
 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ChallengeNotFound } from '@/components/challenge/challenge-not-found.component';
-import * as print from '@/lib/print-helpers';
 import {
     extractAllSections,
     parseRequirementsSubsections,
@@ -128,29 +127,25 @@ export default async function ChallengePage({
                                         <div className='flex flex-col gap-4'>
                                             <div className='flex flex-wrap items-center gap-3'>
                                                 <Badge
-                                                    className={`${getDifficultyColor(challenge.challenge_difficulty)} border`}
+                                                    className={`${getDifficultyColor(challenge.challenge_difficulty)} border border-cyan-400/50 text-sm`}
                                                 >
+                                                    <Target className='w-6 h-6' />
                                                     {
                                                         challenge.challenge_difficulty
                                                     }
                                                 </Badge>
                                                 <Badge
-                                                    className={`${getCategoryColor(challenge.challenge_industry)} border`}
+                                                    className={`${getCategoryColor(challenge.challenge_industry)} border border-cyan-400/50 text-sm`}
                                                 >
+                                                    <Target className='w-6 h-6' />
                                                     {
                                                         challenge.challenge_industry
                                                     }
                                                 </Badge>
-                                                <div className='flex items-center gap-2 text-sm text-slate-600 bg-slate-50 px-3 py-1 rounded-md'>
-                                                    <MapPin className='w-4 h-4 text-cyan-500' />
-                                                    {
-                                                        challenge.challenge_industry
-                                                    }
-                                                </div>
                                             </div>
 
                                             <div className='space-y-3'>
-                                                <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold text-slate-900 leading-tight'>
+                                                <h1 className='text-2xl sm:text-2xl lg:text-3xl font-bold text-slate-900 leading-tight'>
                                                     {challenge.challenge_name}
                                                 </h1>
                                                 <div className='h-1 w-20 sm:w-24 bg-cyan-600 rounded-sm'></div>
@@ -181,13 +176,46 @@ export default async function ChallengePage({
                                                     </span>
                                                 </div>
                                             </div>
-                                            <Button
-                                                className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 w-full sm:w-auto disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'
-                                                size='lg'
-                                            >
-                                                <PlayCircle className='w-5 h-5 mr-2' />
-                                                Start Challenge
-                                            </Button>
+                                            <div className='flex flex-col sm:flex-row gap-2 sm:gap-3'>
+                                                <Button
+                                                    variant='outline'
+                                                    className='hover:border-cyan-400 hover:text-white hover:bg-cyan-600 flex-1 sm:flex-none'
+                                                    size='sm'
+                                                >
+                                                    <Edit3 className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                                                    <span className='hidden sm:inline'>
+                                                        Edit Challenge
+                                                    </span>
+                                                    <span className='sm:hidden'>
+                                                        Edit
+                                                    </span>
+                                                </Button>
+                                                <Button
+                                                    variant='outline'
+                                                    className='hover:border-cyan-400 hover:text-cyan-600 flex-1 sm:flex-none'
+                                                    size='sm'
+                                                >
+                                                    <Users className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                                                    <span className='hidden sm:inline'>
+                                                        Invite Team Review
+                                                    </span>
+                                                    <span className='sm:hidden'>
+                                                        Review
+                                                    </span>
+                                                </Button>
+                                                <Button
+                                                    className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 flex-1 sm:flex-none disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'
+                                                    size='sm'
+                                                >
+                                                    <Globe className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                                                    <span className='hidden sm:inline'>
+                                                        Publish Challenge
+                                                    </span>
+                                                    <span className='sm:hidden'>
+                                                        Publish
+                                                    </span>
+                                                </Button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -197,44 +225,6 @@ export default async function ChallengePage({
                             <div className='grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8'>
                                 {/* Sidebar - Additional Info */}
                                 <div className='lg:col-span-1 space-y-4 sm:space-y-6 order-1 lg:order-1'>
-                                    {/* Rewards Card */}
-                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200'>
-                                        <div className='p-4 sm:p-6'>
-                                            <div className='mb-6'>
-                                                <div className='flex items-center gap-3 mb-3'>
-                                                    <div className='p-2 bg-yellow-500 rounded-md'>
-                                                        <Award className='w-5 h-5 text-white' />
-                                                    </div>
-                                                    <h3 className='text-lg font-bold text-slate-900'>
-                                                        Rewards
-                                                    </h3>
-                                                </div>
-                                                <div className='h-0.5 w-12 bg-yellow-600 rounded-sm'></div>
-                                            </div>
-                                            <div className='space-y-3'>
-                                                <div className='flex items-center gap-4 p-4 bg-yellow-50 rounded-md border border-yellow-200'>
-                                                    <Award className='w-5 h-5 text-yellow-600 flex-shrink-0' />
-                                                    <span className='text-sm font-semibold text-slate-700'>
-                                                        {/* {challenge[0].challenge_points}{' '} */}
-                                                        Achievement Points
-                                                    </span>
-                                                </div>
-                                                <div className='flex items-center gap-4 p-4 bg-blue-50 rounded-md border border-blue-200'>
-                                                    <Trophy className='w-5 h-5 text-blue-600 flex-shrink-0' />
-                                                    <span className='text-sm font-medium text-slate-700'>
-                                                        Portfolio Recognition
-                                                    </span>
-                                                </div>
-                                                <div className='flex items-center gap-4 p-4 bg-cyan-50 rounded-md border border-cyan-200'>
-                                                    <Users className='w-5 h-5 text-cyan-600 flex-shrink-0' />
-                                                    <span className='text-sm font-medium text-slate-700'>
-                                                        Community Visibility
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                     {/* Additional Information */}
                                     <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200'>
                                         <div className='p-4 sm:p-6'>
@@ -508,9 +498,9 @@ export default async function ChallengePage({
                                                                                         Tools
                                                                                     </h4>
                                                                                 </div>
-                                                                                <div className='ml-6 space-y-2'>
-                                                                                    <ScrollArea className='h-[200px]'>
-                                                                                        <div className='space-y-4'>
+                                                                                <div className='ml-4 sm:ml-6 space-y-2'>
+                                                                                    <ScrollArea className='h-[200px] sm:h-[250px] lg:h-[300px]'>
+                                                                                        <div className='space-y-2 sm:space-y-3 pr-2'>
                                                                                             {challenge.challenge_requirements.map(
                                                                                                 (
                                                                                                     requirement,
@@ -520,10 +510,10 @@ export default async function ChallengePage({
                                                                                                         key={
                                                                                                             index
                                                                                                         }
-                                                                                                        className='flex items-start gap-3'
+                                                                                                        className='flex items-start gap-2 sm:gap-3 p-2 sm:p-3 rounded-lg hover:bg-green-50/50 transition-colors duration-200'
                                                                                                     >
-                                                                                                        <div className='w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0'></div>
-                                                                                                        <div className='flex-1'>
+                                                                                                        <div className='w-1.5 h-1.5 bg-green-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                        <div className='flex-1 min-w-0'>
                                                                                                             {(() => {
                                                                                                                 const docUrl =
                                                                                                                     getTechDocumentationUrl(
@@ -531,27 +521,29 @@ export default async function ChallengePage({
                                                                                                                     );
 
                                                                                                                 return (
-                                                                                                                    <>
-                                                                                                                        <h4 className='text-sm font-semibold text-slate-800 mb-1'>
-                                                                                                                            {docUrl ? (
-                                                                                                                                <Link
-                                                                                                                                    href={
-                                                                                                                                        docUrl
-                                                                                                                                    }
-                                                                                                                                    target='_blank'
-                                                                                                                                    rel='noopener noreferrer'
-                                                                                                                                    className='text-emerald-600 hover:text-emerald-700 hover:underline transition-colors duration-200'
-                                                                                                                                >
-                                                                                                                                    {
-                                                                                                                                        requirement.name
-                                                                                                                                    }
-                                                                                                                                    <ExternalLink className='w-3 h-3 inline ml-1' />
-                                                                                                                                </Link>
-                                                                                                                            ) : (
-                                                                                                                                requirement.name
-                                                                                                                            )}
-                                                                                                                        </h4>
-                                                                                                                    </>
+                                                                                                                    <div className='break-words'>
+                                                                                                                        {docUrl ? (
+                                                                                                                            <Link
+                                                                                                                                href={
+                                                                                                                                    docUrl
+                                                                                                                                }
+                                                                                                                                target='_blank'
+                                                                                                                                rel='noopener noreferrer'
+                                                                                                                                className='text-sm sm:text-base text-green-600 hover:text-green-700 hover:underline transition-colors duration-200 font-medium'
+                                                                                                                            >
+                                                                                                                                {
+                                                                                                                                    requirement.name
+                                                                                                                                }
+                                                                                                                                <ExternalLink className='w-3 h-3 sm:w-4 sm:h-4 inline ml-1' />
+                                                                                                                            </Link>
+                                                                                                                        ) : (
+                                                                                                                            <span className='text-sm sm:text-base text-slate-700 font-medium'>
+                                                                                                                                {
+                                                                                                                                    requirement.name
+                                                                                                                                }
+                                                                                                                            </span>
+                                                                                                                        )}
+                                                                                                                    </div>
                                                                                                                 );
                                                                                                             })()}
                                                                                                         </div>

@@ -278,10 +278,18 @@ export function TaskGeneratorFormFromFileUpload() {
             formData.append('file', selectedFile);
 
             // ! TODO: update the fetch to use model or server action
-            const extractResponse = await fetch('/api/extract-text', {
-                method: 'POST',
-                body: formData,
-            });
+            const extractResponse = await Promise.race([
+                fetch('/api/extract-text', {
+                    method: 'POST',
+                    body: formData,
+                }),
+                new Promise<Response>((_, reject) =>
+                    setTimeout(
+                        () => reject(new Error('Text extraction timed out')),
+                        30000,
+                    ),
+                ),
+            ]);
 
             if (!extractResponse.ok) {
                 const errorData = await extractResponse.json();
@@ -304,11 +312,19 @@ export function TaskGeneratorFormFromFileUpload() {
             updateStep('translate', { status: 'in_progress' });
 
             // ! TODO: update the fetch to use model or server action
-            const translateResponse = await fetch('/api/translate-text', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ text: extractResult.extractedText }),
-            });
+            const translateResponse = await Promise.race([
+                fetch('/api/translate-text', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: extractResult.extractedText }),
+                }),
+                new Promise<Response>((_, reject) =>
+                    setTimeout(
+                        () => reject(new Error('Translation timed out')),
+                        30000,
+                    ),
+                ),
+            ]);
 
             if (!translateResponse.ok) {
                 const errorData = await translateResponse.json();
@@ -324,15 +340,26 @@ export function TaskGeneratorFormFromFileUpload() {
             const formattedText = formatTextToMarkdown(translatedText);
 
             // ! TODO: update the fetch to use model or server action
-            const techStackResponse = await fetch('/api/extract-tech-stack', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    formattedText,
-                    existingJsonConfig: jsonConfig,
-                    issueDescription: form.getValues('issueDescription'),
+            const techStackResponse = await Promise.race([
+                fetch('/api/extract-tech-stack', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        formattedText,
+                        existingJsonConfig: jsonConfig,
+                        issueDescription: form.getValues('issueDescription'),
+                    }),
                 }),
-            });
+                new Promise<Response>((_, reject) =>
+                    setTimeout(
+                        () =>
+                            reject(
+                                new Error('Tech stack extraction timed out'),
+                            ),
+                        30000,
+                    ),
+                ),
+            ]);
 
             if (!techStackResponse.ok) {
                 const errorData = await techStackResponse.json();
@@ -359,26 +386,39 @@ export function TaskGeneratorFormFromFileUpload() {
 
             // Step 4: Generate challenge
             updateStep('generate', { status: 'in_progress' });
-            //
-            const companyDescription = await getCompanyDescriptionAction();
 
-            const issueDescription = await translateIssueDescriptionAction(
-                form.getValues('issueDescription'),
-            );
+            let challengeResult: string;
+            try {
+                const companyDescription = await getCompanyDescriptionAction();
 
-            // Check if company description exists and extract the description
-            if (!companyDescription || companyDescription.length === 0) {
-                throw new Error('No company found for the current user');
+                const issueDescription = await translateIssueDescriptionAction(
+                    form.getValues('issueDescription'),
+                );
+
+                // Check if company description exists and extract the description
+                if (!companyDescription || companyDescription.length === 0) {
+                    throw new Error('No company found for the current user');
+                }
+
+                challengeResult = await createTechChallenge(
+                    extractResult.extractedText,
+                    mergedJsonString,
+                    issueDescription,
+                    companyDescription[0],
+                );
+                setResult(challengeResult);
+                updateStep('generate', { status: 'completed' });
+            } catch (challengeError: any) {
+                const errorMessage =
+                    challengeError instanceof Error
+                        ? challengeError.message
+                        : 'Failed to generate challenge';
+                updateStep('generate', {
+                    status: 'error',
+                    error: errorMessage,
+                });
+                throw challengeError; // Re-throw to be caught by outer try-catch
             }
-
-            const challengeResult = await createTechChallenge(
-                extractResult.extractedText,
-                mergedJsonString,
-                issueDescription,
-                companyDescription[0],
-            );
-            setResult(challengeResult);
-            updateStep('generate', { status: 'completed' });
 
             // Automatically save the challenge draft to database
             try {
