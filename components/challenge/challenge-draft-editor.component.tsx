@@ -19,8 +19,6 @@ import { type ChallengeType } from '@/types/challenge.type';
 import {
     Edit3,
     Save,
-    Users,
-    Globe,
     FileText,
     CheckCircle2,
     Target,
@@ -29,6 +27,7 @@ import {
     BarChart3,
     Sparkles,
     ArrowLeft,
+    ChevronDown,
 } from 'lucide-react';
 import techUrls from '@/app/data-json/tech-logo-url.json';
 
@@ -84,172 +83,6 @@ const getTechLogoUrl = (techName: string): string => {
             const logoUrl = (tech as { logo_url: string }).logo_url;
             if (logoUrl && logoUrl.startsWith('http')) {
                 return convertToGitHubUrl(logoUrl);
-            }
-        }
-    }
-
-    // Try fuzzy matching for common variations
-    const fuzzyMatches: Record<string, string> = {
-        js: 'JavaScript',
-        ts: 'TypeScript',
-        py: 'Python',
-        java: 'Java',
-        cpp: 'C++',
-        csharp: 'C#',
-        'c#': 'C#',
-        reactjs: 'React',
-        vuejs: 'Vue.js',
-        angularjs: 'Angular.js',
-        nodejs: 'Node.js',
-        expressjs: 'Express.js',
-        mongodb: 'MongoDB',
-        postgresql: 'PostgreSQL',
-        mysql: 'MySQL',
-        redis: 'Redis',
-        sqlite: 'SQLite',
-        docker: 'Docker',
-        kubernetes: 'Kubernetes',
-        git: 'Git',
-        github: 'GitHub',
-        gitlab: 'GitLab',
-        bash: 'Bash',
-        nginx: 'Nginx',
-        apache: 'Apache',
-        webpack: 'webpack',
-        bootstrap: 'Bootstrap',
-        tailwind: 'Tailwind CSS',
-        sass: 'Sass',
-        less: 'Less',
-        jest: 'Jest',
-        mocha: 'Mocha',
-        cypress: 'Cypress',
-        selenium: 'Selenium',
-        numpy: 'NumPy',
-        pandas: 'Pandas',
-        tensorflow: 'TensorFlow',
-        pytorch: 'PyTorch',
-        keras: 'Keras',
-        'scikit-learn': 'Scikit-learn',
-        matplotlib: 'Matplotlib',
-        jupyter: 'Jupyter',
-        'react-native': 'React Native',
-        flutter: 'Flutter',
-        unity: 'Unity',
-        aws: 'AWS',
-        gcp: 'Google Cloud',
-        azure: 'Azure',
-        heroku: 'Heroku',
-        vercel: 'Vercel',
-        netlify: 'Netlify',
-        npm: 'npm',
-        yarn: 'Yarn',
-        pnpm: 'pnpm',
-        composer: 'Composer',
-        pip: 'Pip',
-        gem: 'Gem',
-        vite: 'Vite',
-        parcel: 'Parcel',
-        rollup: 'Rollup',
-        babel: 'Babel',
-        gulp: 'Gulp',
-        grunt: 'Grunt',
-        wordpress: 'WordPress',
-        drupal: 'Drupal',
-        joomla: 'Joomla',
-        graphql: 'GraphQL',
-        grpc: 'gRPC',
-        websocket: 'WebSocket',
-        markdown: 'Markdown',
-        jsdoc: 'JSDoc',
-        modernizr: 'Modernizr',
-        moment: 'Moment.js',
-        underscore: 'Underscore.js',
-        ramda: 'Ramda',
-        vuex: 'Vuex',
-        marionette: 'Marionette.js',
-        doctrine: 'Doctrine',
-        mongoose: 'Mongoose',
-        requests: 'Requests (Python)',
-        codeceptjs: 'CodeceptJS',
-        nix: 'Nix',
-        fish: 'Fish shell',
-        dom: 'DOM',
-        http: 'HTTP',
-        sql: 'SQL (SQLite)',
-        solidity: 'Solidity',
-        openjdk: 'OpenJDK (Java EE Security APIs)',
-        qt: 'Qt',
-        // DevOps tools
-        jenkins: 'Jenkins',
-        terraform: 'Terraform',
-        ansible: 'Ansible',
-        chef: 'Chef',
-        'github-actions': 'GitHub Actions',
-        'gitlab-ci': 'GitLab CI/CD',
-        circleci: 'CircleCI',
-        'travis-ci': 'Travis CI',
-        'azure-devops': 'Azure DevOps',
-        'aws-codepipeline': 'AWS CodePipeline',
-        openshift: 'OpenShift',
-        podman: 'Podman',
-        rancher: 'Rancher',
-        nomad: 'Nomad (HashiCorp)',
-        pulumi: 'Pulumi',
-        'aws-cloudformation': 'AWS CloudFormation',
-        'gcp-deployment-manager': 'Google Cloud Deployment Manager',
-        crossplane: 'Crossplane',
-        prometheus: 'Prometheus',
-        grafana: 'Grafana',
-        'elk-stack': 'ELK Stack (Elasticsearch, Logstash, Kibana)',
-        datadog: 'Datadog',
-        newrelic: 'New Relic',
-        splunk: 'Splunk',
-        nagios: 'Nagios',
-        zabbix: 'Zabbix',
-        puppet: 'Puppet',
-        saltstack: 'SaltStack',
-        bitbucket: 'Bitbucket',
-        'jfrog-artifactory': 'JFrog Artifactory',
-        'nexus-repository': 'Nexus Repository',
-        harbor: 'Harbor',
-        'amazon-web-services': 'Amazon Web Services (AWS)',
-        'microsoft-azure': 'Microsoft Azure',
-        'google-cloud-platform': 'Google Cloud Platform (GCP)',
-        'ibm-cloud': 'IBM Cloud',
-        'oracle-cloud': 'Oracle Cloud',
-        digitalocean: 'DigitalOcean',
-        // Mobile development
-        android: 'Android',
-        ios: 'iOS',
-        swiftui: 'SwiftUI',
-        uikit: 'UIKit',
-        'jetpack-compose': 'Jetpack Compose',
-        'material-design': 'Material Design',
-        'android-studio': 'Android Studio',
-        xcode: 'Xcode',
-        fastlane: 'Fastlane',
-        gradle: 'Gradle',
-        firebase: 'Firebase',
-        'aws-amplify': 'AWS Amplify',
-        supabase: 'Supabase',
-        'parse-platform': 'Parse Platform',
-        nativescript: 'NativeScript',
-        'kotlin-multiplatform': 'Kotlin Multiplatform Mobile (KMM)',
-        'windows-uwp': 'Windows UWP (Universal Windows Platform)',
-        ionic: 'Ionic',
-        xamarin: 'Xamarin',
-        cordova: 'Cordova',
-    };
-
-    const fuzzyMatch = fuzzyMatches[normalizedName.toLowerCase()];
-    if (fuzzyMatch) {
-        for (const category of categories) {
-            const tech = category[fuzzyMatch as keyof typeof category];
-            if (tech && typeof tech === 'object' && 'logo_url' in tech) {
-                const logoUrl = (tech as { logo_url: string }).logo_url;
-                if (logoUrl && logoUrl.startsWith('http')) {
-                    return convertToGitHubUrl(logoUrl);
-                }
             }
         }
     }
@@ -344,6 +177,14 @@ export function ChallengeDraftEditor({
         ),
     );
 
+    const [isCollapsed, setIsCollapsed] = useState<Record<string, boolean>>(
+        Object.fromEntries(
+            SECTION_HEADERS.map((header) => {
+                return [header, false];
+            }),
+        ),
+    );
+
     const textareaRefs = useRef<
         Record<string, HTMLTextAreaElement | undefined>
     >({});
@@ -371,218 +212,263 @@ export function ChallengeDraftEditor({
     };
 
     return (
-        <div className='w-full max-w-6xl mx-auto space-y-6 sm:space-y-8'>
-            {/* Header Section */}
-            <div className='text-start space-y-4 sm:space-y-6'>
-                <div className='flex flex-col sm:flex-row items-start justify-start gap-3 sm:gap-4 mb-4 sm:mb-6'>
-                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-lg'>
-                        <Edit3 className='size-5 sm:size-6' />
-                    </div>
-                    <h1 className='text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-gray-900 font-source-code-pro'>
-                        Edit Challenge
-                    </h1>
-                </div>
-                <p className='text-base sm:text-lg text-gray-600 max-w-2xl mx-0 leading-relaxed px-4 sm:px-0'>
-                    Refine and customize your technical challenge before
-                    publishing
-                </p>
-                <div className='flex flex-col sm:flex-row gap-3 sm:gap-4'>
-                    <Button
-                        variant='outline'
-                        className='flex-1 sm:flex-none justify-center sm:justify-start'
-                    >
-                        <Users className='size-4 mr-2' />
-                        Invite Team Review
-                    </Button>
-                    <Button
-                        variant='outline'
-                        className='flex-1 sm:flex-none justify-center sm:justify-start'
-                    >
-                        <Globe className='size-4 mr-2' />
-                        Publish Challenge
-                    </Button>
-                    <Button className='flex-1 sm:flex-none justify-center sm:justify-start bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700'>
-                        <Save className='size-4 mr-2' />
-                        Save Draft
-                    </Button>
-                </div>
-            </div>
+        <div className='flex flex-1 flex-col min-h-screen relative overflow-hidden'>
+            {/* Content with relative positioning */}
+            <div className='relative z-10 flex flex-1 flex-col min-h-screen overflow-hidden'>
+                {/* Enhanced Main Content - Responsive Layout */}
+                <div className='flex flex-1 flex-col overflow-hidden'>
+                    <div className='flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 lg:p-8'>
+                        <div className='max-w-7xl mx-auto'>
+                            {/* Enhanced Back Button */}
+                            <Link href='/challenge/all'>
+                                <Button
+                                    variant='ghost'
+                                    className='mb-4 sm:mb-6 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-colors duration-200 w-full sm:w-auto'
+                                >
+                                    <ArrowLeft className='w-4 h-4 mr-2' />
+                                    Back to Challenges
+                                </Button>
+                            </Link>
 
-            {/* Challenge Overview Card */}
-            <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg'>
-                <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-4 sm:p-6'>
-                    <div className='flex flex-row items-start sm:items-center gap-3 sm:gap-4'>
-                        <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-md flex-shrink-0'>
-                            <Sparkles className='size-5' />
-                        </div>
-                        <CardTitle className='text-lg sm:text-xl font-semibold text-gray-900'>
-                            Challenge Details
-                        </CardTitle>
-                    </div>
-                    <div className='flex flex-row items-start sm:items-center gap-3 sm:gap-4 mt-4'>
-                        <div className='flex-1'>
-                            <CardDescription className='text-sm text-gray-600'>
-                                <div className='flex flex-col gap-2'>
-                                    <Badge
-                                        variant='outline'
-                                        className='text-base px-3 py-1 border-cyan-400/50 text-cyan-600 bg-cyan-400/10'
-                                    >
-                                        <Target className='size-3 mr-1' />
-                                        Role Title:{' '}
-                                        {challengeDraft.challenge_name ||
-                                            'Not specified'}
-                                    </Badge>
-                                    <Badge
-                                        variant='outline'
-                                        className='text-sm px-3 py-1 border-gray-600 text-gray-600 bg-gray-50/80'
-                                    >
-                                        <Award className='size-3 mr-1' />
-                                        Seniority Target:{' '}
-                                        {challengeDraft.challenge_difficulty ||
-                                            'Not specified'}
-                                    </Badge>
-                                    <Badge
-                                        variant='outline'
-                                        className='text-sm px-3 py-1 border-green-400/50 text-green-600 bg-green-400/10'
-                                    >
-                                        <CheckCircle2 className='size-3 mr-1' />
-                                        Tech Stack:{' '}
-                                        {challengeDraft.challenge_requirements
-                                            ?.length || 0}{' '}
-                                        technologies identified
-                                    </Badge>
-                                    {/* Display logo of each technology => need fixing, will add later */}
-                                    {/* <div className='flex flex-row gap-2'>
-                                        {challengeDraft.challenge_requirements?.map(
-                                            (requirement) => (
-                                                <Badge
-                                                    key={requirement.id}
-                                                    variant='outline'
-                                                    className='text-sm px-3 py-1 border-gray-600 text-gray-600 bg-gray-50/80'
-                                                >
-                                                    <Image
-                                                        width={16}
-                                                        height={16}
-                                                        className='size-3 mr-1'
-                                                        src={getTechLogoUrl(
-                                                            requirement.name,
-                                                        )}
-                                                        alt={requirement.name}
-                                                        onError={(e) => {
-                                                            console.warn(
-                                                                `Failed to load image for ${requirement.name}`,
-                                                            );
-                                                            e.currentTarget.src =
-                                                                getFallbackIconUrl();
-                                                        }}
-                                                    />
-                                                    {requirement.name}
+                            {/* Full Width Challenge Header */}
+                            <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200 mb-4 sm:mb-6 lg:mb-8'>
+                                <div className='p-4 sm:p-6 lg:p-8'>
+                                    <div className='flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6'>
+                                        {/* Left side - Title and badges */}
+                                        <div className='flex flex-col gap-4'>
+                                            <div className='flex flex-wrap items-center gap-3'>
+                                                <Badge className='bg-cyan-100 text-cyan-800 border border-cyan-400/50 text-sm'>
+                                                    <Edit3 className='w-4 h-4 mr-1' />
+                                                    Edit Mode
                                                 </Badge>
-                                            ),
-                                        )}
-                                    </div> */}
+                                                <Badge className='bg-gray-100 text-gray-800 border border-gray-400/50 text-sm'>
+                                                    <Target className='w-4 h-4 mr-1' />
+                                                    {challengeDraft.challenge_difficulty ||
+                                                        'Not specified'}
+                                                </Badge>
+                                            </div>
+
+                                            <div className='space-y-3'>
+                                                <h1 className='text-2xl sm:text-2xl lg:text-3xl font-bold text-slate-900 leading-tight'>
+                                                    Edit Challenge:{' '}
+                                                    {challengeDraft.challenge_name ||
+                                                        'Untitled Challenge'}
+                                                </h1>
+                                                <div className='h-1 w-20 sm:w-24 bg-cyan-600 rounded-sm'></div>
+                                            </div>
+                                        </div>
+
+                                        {/* Right side - Stats and Action */}
+                                        <div className='flex flex-col gap-4 lg:items-end'>
+                                            <div className='flex flex-wrap gap-3'>
+                                                <div className='flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-md border border-slate-200'>
+                                                    <CheckCircle2 className='w-4 h-4 text-slate-600 flex-shrink-0' />
+                                                    <span className='text-slate-700'>
+                                                        Tech Stack:{' '}
+                                                        <span className='font-semibold text-slate-700'>
+                                                            {challengeDraft
+                                                                .challenge_requirements
+                                                                ?.length ||
+                                                                0}{' '}
+                                                            technologies
+                                                        </span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div className='flex flex-col sm:flex-row gap-2 sm:gap-3'>
+                                                <Button
+                                                    className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 flex-1 sm:flex-none disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'
+                                                    size='sm'
+                                                >
+                                                    <Save className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                                                    <span className='hidden sm:inline'>
+                                                        Save Draft
+                                                    </span>
+                                                    <span className='sm:hidden'>
+                                                        Save
+                                                    </span>
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </CardDescription>
+                            </div>
+
+                            {/* Challenge Sections */}
+                            <div className='space-y-4 sm:space-y-6'>
+                                {SECTION_HEADERS.map((header) => {
+                                    const IconComponent =
+                                        SECTION_ICONS[
+                                            header as keyof typeof SECTION_ICONS
+                                        ];
+
+                                    // Get color scheme based on section type
+                                    const getSectionColor = (
+                                        header: string,
+                                    ) => {
+                                        switch (header) {
+                                            case '## 1. Problem Overview:':
+                                                return {
+                                                    bg: 'bg-blue-500',
+                                                    accent: 'bg-blue-600',
+                                                    hover: 'hover:border-blue-200',
+                                                    icon: IconComponent,
+                                                };
+                                            case '## 2. Problem Statement:':
+                                                return {
+                                                    bg: 'bg-cyan-500',
+                                                    accent: 'bg-cyan-600',
+                                                    hover: 'hover:border-cyan-200',
+                                                    icon: IconComponent,
+                                                };
+                                            case '## 3. Requirements:':
+                                                return {
+                                                    bg: 'bg-emerald-500',
+                                                    accent: 'bg-emerald-600',
+                                                    hover: 'hover:border-emerald-200',
+                                                    icon: IconComponent,
+                                                };
+                                            case '## 4. Optional Requirements:':
+                                                return {
+                                                    bg: 'bg-purple-500',
+                                                    accent: 'bg-purple-600',
+                                                    hover: 'hover:border-purple-200',
+                                                    icon: IconComponent,
+                                                };
+                                            case '## 5. Deliverables:':
+                                                return {
+                                                    bg: 'bg-purple-500',
+                                                    accent: 'bg-purple-600',
+                                                    hover: 'hover:border-purple-200',
+                                                    icon: IconComponent,
+                                                };
+                                            case '## 6. Evaluation Rubric:':
+                                                return {
+                                                    bg: 'bg-amber-500',
+                                                    accent: 'bg-amber-600',
+                                                    hover: 'hover:border-amber-200',
+                                                    icon: IconComponent,
+                                                };
+                                            default:
+                                                return {
+                                                    bg: 'bg-gray-500',
+                                                    accent: 'bg-gray-600',
+                                                    hover: 'hover:border-gray-200',
+                                                    icon: IconComponent,
+                                                };
+                                        }
+                                    };
+
+                                    const colors = getSectionColor(header);
+
+                                    return (
+                                        <div
+                                            key={header}
+                                            className={`bg-white rounded-lg border border-gray-200 ${colors.hover} transition-colors duration-200`}
+                                        >
+                                            <div className='p-4 sm:p-6'>
+                                                <div className='mb-6'>
+                                                    <div className='flex items-center gap-3 mb-3'>
+                                                        <div
+                                                            className={`p-2 ${colors.bg} rounded-md`}
+                                                        >
+                                                            <colors.icon className='w-5 h-5 text-white' />
+                                                        </div>
+                                                        <h2 className='text-xl font-bold text-slate-900'>
+                                                            {headerToTitle(
+                                                                header,
+                                                            )}
+                                                        </h2>
+                                                    </div>
+                                                    <div
+                                                        className={`h-0.5 w-16 ${colors.accent} rounded-sm`}
+                                                    ></div>
+                                                </div>
+
+                                                <div className='mb-6'>
+                                                    {isEditing[header] ? (
+                                                        <Textarea
+                                                            ref={
+                                                                setTextareaRef(
+                                                                    header,
+                                                                ) as React.Ref<HTMLTextAreaElement>
+                                                            }
+                                                            value={
+                                                                editedSections[
+                                                                    header
+                                                                ]
+                                                            }
+                                                            onChange={handleChange(
+                                                                header,
+                                                            )}
+                                                            className='resize-none overflow-hidden min-h-[120px] border-gray-200 focus:border-cyan-400 focus:ring-cyan-400/20'
+                                                            placeholder={`Enter content for ${headerToTitle(header)}...`}
+                                                        />
+                                                    ) : (
+                                                        <div className='max-h-40 overflow-hidden'>
+                                                            <ScrollArea className='h-40'>
+                                                                <div className='prose prose-slate max-w-none pr-4'>
+                                                                    <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                        {editedSections[
+                                                                            header
+                                                                        ] || (
+                                                                            <span className='text-gray-400 italic'>
+                                                                                No
+                                                                                content
+                                                                                available
+                                                                            </span>
+                                                                        )}
+                                                                    </div>
+                                                                </div>
+                                                            </ScrollArea>
+                                                        </div>
+                                                    )}
+                                                </div>
+
+                                                <div className='flex justify-end'>
+                                                    <Button
+                                                        variant={
+                                                            isEditing[header]
+                                                                ? 'default'
+                                                                : 'outline'
+                                                        }
+                                                        onClick={() => {
+                                                            setIsEditing({
+                                                                ...isEditing,
+                                                                [header]:
+                                                                    !isEditing[
+                                                                        header
+                                                                    ],
+                                                            });
+                                                        }}
+                                                        className={
+                                                            isEditing[header]
+                                                                ? 'bg-cyan-600 hover:bg-cyan-700 text-white'
+                                                                : 'hover:border-cyan-400 hover:text-cyan-600'
+                                                        }
+                                                        size='sm'
+                                                    >
+                                                        {isEditing[header] ? (
+                                                            <>
+                                                                <Save className='w-4 h-4 mr-2' />
+                                                                Save Changes
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <Edit3 className='w-4 h-4 mr-2' />
+                                                                Edit Section
+                                                            </>
+                                                        )}
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
                         </div>
                     </div>
-                </CardHeader>
-            </Card>
-
-            {/* Challenge Sections */}
-            <div className='space-y-4 sm:space-y-6'>
-                {SECTION_HEADERS.map((header) => {
-                    const IconComponent =
-                        SECTION_ICONS[header as keyof typeof SECTION_ICONS];
-                    return (
-                        <Card
-                            key={header}
-                            className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300'
-                        >
-                            <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-4 sm:p-6'>
-                                <div className='flex items-center gap-3 sm:gap-4'>
-                                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-8 sm:size-10 items-center justify-center rounded-lg shadow-md flex-shrink-0'>
-                                        <IconComponent className='size-4 sm:size-5' />
-                                    </div>
-                                    <CardTitle className='text-lg sm:text-xl font-semibold text-gray-900'>
-                                        {headerToTitle(header)}
-                                    </CardTitle>
-                                </div>
-                            </CardHeader>
-                            <CardContent className='p-4 sm:p-6'>
-                                <ScrollArea className='max-h-96'>
-                                    {isEditing[header] ? (
-                                        <Textarea
-                                            ref={
-                                                setTextareaRef(
-                                                    header,
-                                                ) as React.Ref<HTMLTextAreaElement>
-                                            }
-                                            value={editedSections[header]}
-                                            onChange={handleChange(header)}
-                                            className='resize-none overflow-hidden min-h-[120px] border-gray-200 focus:border-cyan-400 focus:ring-cyan-400/20'
-                                            placeholder={`Enter content for ${headerToTitle(header)}...`}
-                                        />
-                                    ) : (
-                                        <div className='prose prose-sm max-w-none text-gray-700 leading-relaxed whitespace-pre-wrap'>
-                                            {editedSections[header] || (
-                                                <span className='text-gray-400 italic'>
-                                                    No content available
-                                                </span>
-                                            )}
-                                        </div>
-                                    )}
-                                </ScrollArea>
-                            </CardContent>
-                            <CardFooter className='border-t border-gray-200/60 bg-gray-50/50 p-4 sm:p-6'>
-                                <div className='flex justify-end w-full'>
-                                    <Button
-                                        variant={
-                                            isEditing[header]
-                                                ? 'default'
-                                                : 'outline'
-                                        }
-                                        onClick={() => {
-                                            setIsEditing({
-                                                ...isEditing,
-                                                [header]: !isEditing[header],
-                                            });
-                                        }}
-                                        className={
-                                            isEditing[header]
-                                                ? 'bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700'
-                                                : 'hover:border-cyan-400 hover:text-cyan-600'
-                                        }
-                                    >
-                                        {isEditing[header] ? (
-                                            <>
-                                                <Save className='size-4 mr-2' />
-                                                Save Changes
-                                            </>
-                                        ) : (
-                                            <>
-                                                <Edit3 className='size-4 mr-2' />
-                                                Edit Section
-                                            </>
-                                        )}
-                                    </Button>
-                                </div>
-                            </CardFooter>
-                        </Card>
-                    );
-                })}
-            </div>
-
-            {/* Back Navigation */}
-            <div className='flex justify-center pt-6'>
-                <Link href='/challenge/all'>
-                    <Button
-                        variant='ghost'
-                        className='text-gray-600 hover:text-gray-900'
-                    >
-                        <ArrowLeft className='size-4 mr-2' />
-                        Back to Challenge List
-                    </Button>
-                </Link>
+                </div>
             </div>
         </div>
     );
