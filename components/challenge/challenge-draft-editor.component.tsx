@@ -2,14 +2,6 @@
 
 import { useRef, useState } from 'react';
 import * as print from '@/lib/print-helpers';
-import {
-    Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-    CardDescription,
-} from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -25,9 +17,7 @@ import {
     Award,
     ClipboardList,
     BarChart3,
-    Sparkles,
     ArrowLeft,
-    ChevronDown,
 } from 'lucide-react';
 import techUrls from '@/app/data-json/tech-logo-url.json';
 
