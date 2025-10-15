@@ -30,6 +30,7 @@ import {
     parseRequirementsSubsections,
     getTechDocumentationUrl,
     parseDeliverablesList,
+    parseEvaluationRubricList,
 } from '@/lib/challenge-parser';
 import Link from 'next/link';
 
@@ -721,13 +722,49 @@ export default async function ChallengePage({
                                                                 </div>
                                                                 <div className='h-0.5 w-12 bg-amber-600 rounded-sm'></div>
                                                             </div>
-                                                            <div className='prose prose-slate max-w-none'>
-                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
-                                                                    {
-                                                                        sections.evaluationRubric
-                                                                    }
-                                                                </div>
-                                                            </div>
+
+                                                            {(() => {
+                                                                const evaluationCriteria =
+                                                                    parseEvaluationRubricList(
+                                                                        sections.evaluationRubric,
+                                                                    );
+
+                                                                return (
+                                                                    <div className='space-y-3'>
+                                                                        {evaluationCriteria.length >
+                                                                        0 ? (
+                                                                            evaluationCriteria.map(
+                                                                                (
+                                                                                    criterion,
+                                                                                    index,
+                                                                                ) => (
+                                                                                    <div
+                                                                                        key={
+                                                                                            index
+                                                                                        }
+                                                                                        className='flex items-start gap-3'
+                                                                                    >
+                                                                                        <div className='w-1.5 h-1.5 bg-amber-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                        <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                            {
+                                                                                                criterion
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+                                                                                ),
+                                                                            )
+                                                                        ) : (
+                                                                            <div className='prose prose-slate max-w-none'>
+                                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                                    {
+                                                                                        sections.evaluationRubric
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                );
+                                                            })()}
                                                         </div>
                                                     </div>
                                                 )}

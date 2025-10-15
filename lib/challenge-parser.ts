@@ -373,6 +373,40 @@ export function parseDeliverablesList(deliverablesText: string): string[] {
 }
 
 /**
+ * Parses the evaluation rubric section into structured list items
+ * @param evaluationText - The evaluation rubric text from the challenge description
+ * @returns An array of evaluation criteria items
+ */
+export function parseEvaluationRubricList(evaluationText: string): string[] {
+    if (!evaluationText || typeof evaluationText !== 'string') {
+        return [];
+    }
+
+    const lines = evaluationText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    const criteria: string[] = [];
+
+    for (const line of lines) {
+        // Skip section headers
+        if (line.toLowerCase().includes('evaluation rubric') || line.toLowerCase().includes('evaluation:')) {
+            continue;
+        }
+
+        // Check for list items (bullets, numbers, dashes)
+        if (line.startsWith('-') || line.startsWith('•') || line.startsWith('*') || /^\d+\./.test(line)) {
+            const cleanItem = line.replace(/^[-•*]\s*/, '').replace(/^\d+\.\s*/, '').trim();
+            if (cleanItem) {
+                criteria.push(cleanItem);
+            }
+        } else if (line.length > 0 && !line.toLowerCase().includes('evaluation')) {
+            // This might be a continuation or standalone criterion
+            criteria.push(line);
+        }
+    }
+
+    return criteria;
+}
+
+/**
  * Extracts all structured sections from a challenge description
  * @param challengeDescription - The full markdown challenge description
  * @returns An object containing all extracted sections
