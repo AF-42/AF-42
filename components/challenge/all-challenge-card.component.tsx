@@ -165,7 +165,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
 
     return (
         <Card
-            className='group relative border shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 overflow-hidden rounded-2xl'
+            className='group relative border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 overflow-hidden rounded-2xl'
             style={{
                 backgroundColor: 'white',
                 borderColor: '#e5e7eb',
@@ -184,8 +184,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                     {/* Icon and status indicator */}
                     <div className='relative flex-shrink-0 self-center sm:self-start'>
                         <div
-                            className='text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300'
-                            style={{ backgroundColor: '#3b82f6' }}
+                            className='bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300'
                         >
                             <Code className='size-4 sm:size-5' />
                         </div>
