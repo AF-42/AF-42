@@ -11,10 +11,27 @@ import {
     Target,
     Award,
     PlusCircle,
+    ClipboardList,
+    Package,
+    Star,
+    Settings,
+    Shield,
+    Wrench,
+    XCircle,
+    ExternalLink,
 } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ChallengeNotFound } from '@/components/challenge/challenge-not-found.component';
+import * as print from '@/lib/print-helpers';
+import {
+    extractAllSections,
+    parseRequirementsSubsections,
+    getTechDocumentationUrl,
+    parseDeliverablesList,
+} from '@/lib/challenge-parser';
+import Link from 'next/link';
 
 export default async function ChallengePage({
     params,
@@ -29,6 +46,7 @@ export default async function ChallengePage({
     }
 
     const challenge = result.data[0];
+
     // Get difficulty color scheme
     const getDifficultyColor = (difficulty: string) => {
         switch (difficulty.toLowerCase()) {
@@ -141,18 +159,13 @@ export default async function ChallengePage({
                                         {/* Right side - Stats and Action */}
                                         <div className='flex flex-col gap-4 lg:items-end'>
                                             <div className='flex flex-wrap gap-3'>
-                                                <div className='flex items-center gap-2 bg-yellow-50 px-4 py-2 rounded-md border border-yellow-200'>
-                                                    <Trophy className='w-4 h-4 text-yellow-600 flex-shrink-0' />
-                                                    <span className='font-semibold text-yellow-700'>
-                                                        {/* {challenge[0].challenge_points}{' '} */}
-                                                        points
-                                                    </span>
-                                                </div>
                                                 <div className='flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-md border border-slate-200'>
                                                     <Target className='w-4 h-4 text-slate-600 flex-shrink-0' />
                                                     <span className='text-slate-700'>
-                                                        Challenge #
-                                                        {challenge.id}
+                                                        Challenge ID:{' '}
+                                                        <span className='font-semibold text-slate-700'>
+                                                            {challenge.id}
+                                                        </span>
                                                     </span>
                                                 </div>
                                                 <div
@@ -237,12 +250,6 @@ export default async function ChallengePage({
                                             </div>
                                             <div className='space-y-6'>
                                                 <div className='flex flex-col gap-4'>
-                                                    <div className='flex items-center gap-3 p-4 bg-slate-50 rounded-md border border-slate-200'>
-                                                        <Clock className='w-5 h-5 text-slate-600 flex-shrink-0' />
-                                                        <span className='text-sm font-medium text-slate-700'>
-                                                            Estimated: 2-4 hours
-                                                        </span>
-                                                    </div>
                                                     <div className='flex items-center gap-3 p-4 bg-blue-50 rounded-md border border-blue-200'>
                                                         <Users className='w-5 h-5 text-blue-600 flex-shrink-0' />
                                                         <span className='text-sm font-medium text-slate-700'>
@@ -279,63 +286,454 @@ export default async function ChallengePage({
                                     </div>
                                 </div>
 
-                                {/* Main Content - Description and Requirements */}
+                                {/* Main Content - Structured Challenge Sections */}
                                 <div className='lg:col-span-2 xl:col-span-3 space-y-4 sm:space-y-6 order-2 lg:order-2'>
-                                    {/* Challenge Description */}
-                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200'>
-                                        <div className='p-4 sm:p-6'>
-                                            <div className='mb-6'>
-                                                <div className='flex items-center gap-3 mb-3'>
-                                                    <div className='p-2 bg-cyan-500 rounded-md'>
-                                                        <BookOpen className='w-5 h-5 text-white' />
-                                                    </div>
-                                                    <h2 className='text-xl font-bold text-slate-900'>
-                                                        Challenge Description
-                                                    </h2>
-                                                </div>
-                                                <div className='h-0.5 w-16 bg-cyan-600 rounded-sm'></div>
-                                            </div>
-                                            <p className='text-slate-700 leading-relaxed text-base'>
-                                                {
-                                                    challenge.challenge_description
-                                                }
-                                            </p>
-                                        </div>
-                                    </div>
+                                    {(() => {
+                                        const sections = extractAllSections(
+                                            challenge.challenge_description,
+                                        );
 
-                                    {/* Requirements Card */}
-                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200'>
-                                        <div className='p-4 sm:p-6'>
-                                            <div className='mb-6'>
-                                                <div className='flex items-center gap-3 mb-3'>
-                                                    <div className='p-2 bg-emerald-500 rounded-md'>
-                                                        <CheckCircle className='w-5 h-5 text-white' />
-                                                    </div>
-                                                    <h3 className='text-lg font-bold text-slate-900'>
-                                                        Requirements
-                                                    </h3>
-                                                </div>
-                                                <div className='h-0.5 w-12 bg-emerald-600 rounded-sm'></div>
-                                            </div>
-                                            <div className='space-y-4'>
-                                                {challenge.challenge_requirements.map(
-                                                    (requirement, index) => (
-                                                        <div
-                                                            key={index}
-                                                            className='flex items-start gap-4 p-4 bg-emerald-50/80 rounded-xl border border-emerald-200/60 hover:border-emerald-300/70 transition-all duration-200'
-                                                        >
-                                                            <PlusCircle className='w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5' />
-                                                            <span className='text-sm font-medium text-slate-700 leading-relaxed'>
-                                                                {
-                                                                    requirement.description
-                                                                }
-                                                            </span>
+                                        return (
+                                            <>
+                                                {/* Problem Overview */}
+                                                {sections.problemOverview && (
+                                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-blue-200 transition-colors duration-200'>
+                                                        <div className='p-4 sm:p-6'>
+                                                            <div className='mb-6'>
+                                                                <div className='flex items-center gap-3 mb-3'>
+                                                                    <div className='p-2 bg-blue-500 rounded-md'>
+                                                                        <BookOpen className='w-5 h-5 text-white' />
+                                                                    </div>
+                                                                    <h2 className='text-xl font-bold text-slate-900'>
+                                                                        Problem
+                                                                        Overview
+                                                                    </h2>
+                                                                </div>
+                                                                <div className='h-0.5 w-16 bg-blue-600 rounded-sm'></div>
+                                                            </div>
+                                                            <div className='prose prose-slate max-w-none'>
+                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                    {
+                                                                        sections.problemOverview
+                                                                    }
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    ),
+                                                    </div>
                                                 )}
-                                            </div>
-                                        </div>
-                                    </div>
+
+                                                {/* Problem Statement */}
+                                                {sections.problemStatement && (
+                                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200'>
+                                                        <div className='p-4 sm:p-6'>
+                                                            <div className='mb-6'>
+                                                                <div className='flex items-center gap-3 mb-3'>
+                                                                    <div className='p-2 bg-cyan-500 rounded-md'>
+                                                                        <Target className='w-5 h-5 text-white' />
+                                                                    </div>
+                                                                    <h2 className='text-xl font-bold text-slate-900'>
+                                                                        Problem
+                                                                        Statement
+                                                                    </h2>
+                                                                </div>
+                                                                <div className='h-0.5 w-16 bg-cyan-600 rounded-sm'></div>
+                                                            </div>
+                                                            <div className='prose prose-slate max-w-none'>
+                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                    {
+                                                                        sections.problemStatement
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Requirements */}
+                                                {sections.requirements && (
+                                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-emerald-200 transition-colors duration-200'>
+                                                        <div className='p-4 sm:p-6'>
+                                                            <div className='mb-6'>
+                                                                <div className='flex items-center gap-3 mb-3'>
+                                                                    <div className='p-2 bg-emerald-500 rounded-md'>
+                                                                        <CheckCircle className='w-5 h-5 text-white' />
+                                                                    </div>
+                                                                    <h3 className='text-lg font-bold text-slate-900'>
+                                                                        Requirements
+                                                                    </h3>
+                                                                </div>
+                                                                <div className='h-0.5 w-12 bg-emerald-600 rounded-sm'></div>
+                                                            </div>
+
+                                                            {(() => {
+                                                                const requirementsSubsections =
+                                                                    parseRequirementsSubsections(
+                                                                        sections.requirements,
+                                                                    );
+
+                                                                return (
+                                                                    <div className='space-y-6'>
+                                                                        {/* Functional Requirements */}
+                                                                        {requirementsSubsections
+                                                                            .functionalRequirements
+                                                                            .length >
+                                                                            0 && (
+                                                                            <div className='space-y-3'>
+                                                                                <div className='flex items-center gap-2'>
+                                                                                    <div className='p-1.5 bg-blue-100 rounded-md'>
+                                                                                        <Settings className='w-4 h-4 text-blue-600' />
+                                                                                    </div>
+                                                                                    <h4 className='text-md font-semibold text-slate-800'>
+                                                                                        Functional
+                                                                                        Requirements
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className='ml-6 space-y-2'>
+                                                                                    {requirementsSubsections.functionalRequirements.map(
+                                                                                        (
+                                                                                            req,
+                                                                                            index,
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    index
+                                                                                                }
+                                                                                                className='flex items-start gap-3'
+                                                                                            >
+                                                                                                <div className='w-1.5 h-1.5 bg-blue-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                                    {
+                                                                                                        req
+                                                                                                    }
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        ),
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* Non-Functional Requirements */}
+                                                                        {requirementsSubsections
+                                                                            .nonFunctionalRequirements
+                                                                            .length >
+                                                                            0 && (
+                                                                            <div className='space-y-3'>
+                                                                                <div className='flex items-center gap-2'>
+                                                                                    <div className='p-1.5 bg-purple-100 rounded-md'>
+                                                                                        <Shield className='w-4 h-4 text-purple-600' />
+                                                                                    </div>
+                                                                                    <h4 className='text-md font-semibold text-slate-800'>
+                                                                                        Non-Functional
+                                                                                        Requirements
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className='ml-6 space-y-2'>
+                                                                                    {requirementsSubsections.nonFunctionalRequirements.map(
+                                                                                        (
+                                                                                            req,
+                                                                                            index,
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    index
+                                                                                                }
+                                                                                                className='flex items-start gap-3'
+                                                                                            >
+                                                                                                <div className='w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                                    {
+                                                                                                        req
+                                                                                                    }
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        ),
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* Constraints */}
+                                                                        {requirementsSubsections
+                                                                            .constraints
+                                                                            .length >
+                                                                            0 && (
+                                                                            <div className='space-y-3'>
+                                                                                <div className='flex items-center gap-2'>
+                                                                                    <div className='p-1.5 bg-orange-100 rounded-md'>
+                                                                                        <XCircle className='w-4 h-4 text-orange-600' />
+                                                                                    </div>
+                                                                                    <h4 className='text-md font-semibold text-slate-800'>
+                                                                                        Constraints
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className='ml-6 space-y-2'>
+                                                                                    {requirementsSubsections.constraints.map(
+                                                                                        (
+                                                                                            constraint,
+                                                                                            index,
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    index
+                                                                                                }
+                                                                                                className='flex items-start gap-3'
+                                                                                            >
+                                                                                                <div className='w-1.5 h-1.5 bg-orange-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                                    {
+                                                                                                        constraint
+                                                                                                    }
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        ),
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* Allowed Tools */}
+                                                                        {requirementsSubsections
+                                                                            .allowedTools
+                                                                            .length >
+                                                                            0 && (
+                                                                            <div className='space-y-3'>
+                                                                                <div className='flex items-center gap-2'>
+                                                                                    <div className='p-1.5 bg-green-100 rounded-md'>
+                                                                                        <Wrench className='w-4 h-4 text-green-600' />
+                                                                                    </div>
+                                                                                    <h4 className='text-md font-semibold text-slate-800'>
+                                                                                        Allowed
+                                                                                        Tools
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className='ml-6 space-y-2'>
+                                                                                    <ScrollArea className='h-[200px]'>
+                                                                                        <div className='space-y-4'>
+                                                                                            {challenge.challenge_requirements.map(
+                                                                                                (
+                                                                                                    requirement,
+                                                                                                    index,
+                                                                                                ) => (
+                                                                                                    <div
+                                                                                                        key={
+                                                                                                            index
+                                                                                                        }
+                                                                                                        className='flex items-start gap-3'
+                                                                                                    >
+                                                                                                        <div className='w-1.5 h-1.5 bg-emerald-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                        <div className='flex-1'>
+                                                                                                            {(() => {
+                                                                                                                const docUrl =
+                                                                                                                    getTechDocumentationUrl(
+                                                                                                                        requirement.name,
+                                                                                                                    );
+
+                                                                                                                return (
+                                                                                                                    <>
+                                                                                                                        <h4 className='text-sm font-semibold text-slate-800 mb-1'>
+                                                                                                                            {docUrl ? (
+                                                                                                                                <Link
+                                                                                                                                    href={
+                                                                                                                                        docUrl
+                                                                                                                                    }
+                                                                                                                                    target='_blank'
+                                                                                                                                    rel='noopener noreferrer'
+                                                                                                                                    className='text-emerald-600 hover:text-emerald-700 hover:underline transition-colors duration-200'
+                                                                                                                                >
+                                                                                                                                    {
+                                                                                                                                        requirement.name
+                                                                                                                                    }
+                                                                                                                                    <ExternalLink className='w-3 h-3 inline ml-1' />
+                                                                                                                                </Link>
+                                                                                                                            ) : (
+                                                                                                                                requirement.name
+                                                                                                                            )}
+                                                                                                                        </h4>
+                                                                                                                    </>
+                                                                                                                );
+                                                                                                            })()}
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                ),
+                                                                                            )}
+                                                                                        </div>
+                                                                                    </ScrollArea>
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* External Services */}
+                                                                        {requirementsSubsections
+                                                                            .externalServices
+                                                                            .length >
+                                                                            0 && (
+                                                                            <div className='space-y-3'>
+                                                                                <div className='flex items-center gap-2'>
+                                                                                    <div className='p-1.5 bg-indigo-100 rounded-md'>
+                                                                                        <ExternalLink className='w-4 h-4 text-indigo-600' />
+                                                                                    </div>
+                                                                                    <h4 className='text-md font-semibold text-slate-800'>
+                                                                                        External
+                                                                                        Services
+                                                                                    </h4>
+                                                                                </div>
+                                                                                <div className='ml-6 space-y-2'>
+                                                                                    {requirementsSubsections.externalServices.map(
+                                                                                        (
+                                                                                            service,
+                                                                                            index,
+                                                                                        ) => (
+                                                                                            <div
+                                                                                                key={
+                                                                                                    index
+                                                                                                }
+                                                                                                className='flex items-start gap-3'
+                                                                                            >
+                                                                                                <div className='w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                                <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                                    {
+                                                                                                        service
+                                                                                                    }
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        ),
+                                                                                    )}
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+
+                                                                        {/* Fallback: If no subsections were parsed, show the raw text */}
+                                                                        {requirementsSubsections
+                                                                            .functionalRequirements
+                                                                            .length ===
+                                                                            0 &&
+                                                                            requirementsSubsections
+                                                                                .nonFunctionalRequirements
+                                                                                .length ===
+                                                                                0 &&
+                                                                            requirementsSubsections
+                                                                                .constraints
+                                                                                .length ===
+                                                                                0 &&
+                                                                            requirementsSubsections
+                                                                                .allowedTools
+                                                                                .length ===
+                                                                                0 &&
+                                                                            requirementsSubsections
+                                                                                .disallowedTools
+                                                                                .length ===
+                                                                                0 &&
+                                                                            requirementsSubsections
+                                                                                .externalServices
+                                                                                .length ===
+                                                                                0 && (
+                                                                                <div className='prose prose-slate max-w-none'>
+                                                                                    <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                                        {
+                                                                                            sections.requirements
+                                                                                        }
+                                                                                    </div>
+                                                                                </div>
+                                                                            )}
+                                                                    </div>
+                                                                );
+                                                            })()}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Deliverables */}
+                                                {sections.deliverables && (
+                                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-purple-200 transition-colors duration-200'>
+                                                        <div className='p-4 sm:p-6'>
+                                                            <div className='mb-6'>
+                                                                <div className='flex items-center gap-3 mb-3'>
+                                                                    <div className='p-2 bg-purple-500 rounded-md'>
+                                                                        <Package className='w-5 h-5 text-white' />
+                                                                    </div>
+                                                                    <h3 className='text-lg font-bold text-slate-900'>
+                                                                        Deliverables
+                                                                    </h3>
+                                                                </div>
+                                                                <div className='h-0.5 w-12 bg-purple-600 rounded-sm'></div>
+                                                            </div>
+
+                                                            {(() => {
+                                                                const deliverablesList =
+                                                                    parseDeliverablesList(
+                                                                        sections.deliverables,
+                                                                    );
+
+                                                                return (
+                                                                    <div className='space-y-3'>
+                                                                        {deliverablesList.length >
+                                                                        0 ? (
+                                                                            deliverablesList.map(
+                                                                                (
+                                                                                    deliverable,
+                                                                                    index,
+                                                                                ) => (
+                                                                                    <div
+                                                                                        key={
+                                                                                            index
+                                                                                        }
+                                                                                        className='flex items-start gap-3'
+                                                                                    >
+                                                                                        <div className='w-1.5 h-1.5 bg-purple-500 rounded-full mt-2 flex-shrink-0'></div>
+                                                                                        <span className='text-sm text-slate-700 leading-relaxed'>
+                                                                                            {
+                                                                                                deliverable
+                                                                                            }
+                                                                                        </span>
+                                                                                    </div>
+                                                                                ),
+                                                                            )
+                                                                        ) : (
+                                                                            <div className='prose prose-slate max-w-none'>
+                                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                                    {
+                                                                                        sections.deliverables
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                        )}
+                                                                    </div>
+                                                                );
+                                                            })()}
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                {/* Evaluation Rubric */}
+                                                {sections.evaluationRubric && (
+                                                    <div className='bg-white rounded-lg border border-gray-200 hover:border-amber-200 transition-colors duration-200'>
+                                                        <div className='p-4 sm:p-6'>
+                                                            <div className='mb-6'>
+                                                                <div className='flex items-center gap-3 mb-3'>
+                                                                    <div className='p-2 bg-amber-500 rounded-md'>
+                                                                        <Star className='w-5 h-5 text-white' />
+                                                                    </div>
+                                                                    <h3 className='text-lg font-bold text-slate-900'>
+                                                                        Evaluation
+                                                                        Rubric
+                                                                    </h3>
+                                                                </div>
+                                                                <div className='h-0.5 w-12 bg-amber-600 rounded-sm'></div>
+                                                            </div>
+                                                            <div className='prose prose-slate max-w-none'>
+                                                                <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
+                                                                    {
+                                                                        sections.evaluationRubric
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             </div>
                         </div>

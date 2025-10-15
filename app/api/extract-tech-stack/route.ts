@@ -14,10 +14,14 @@
 
 import { type NextRequest, NextResponse } from 'next/server';
 import { extractTechStackFromFormattedText } from '@/mastra/utils/extract-tech-stack-from-formatted-text';
+import * as print from '@/lib/print-helpers';
 
 export async function POST(request: NextRequest) {
     try {
         const { formattedText, existingJsonConfig, issueDescription } = await request.json();
+        print.log('[extract-tech-stack] formattedText: ', formattedText);
+        print.log('[extract-tech-stack] existingJsonConfig: ', existingJsonConfig);
+        print.log('[extract-tech-stack] issueDescription: ', issueDescription);
 
         if (!formattedText || typeof formattedText !== 'string') {
             return NextResponse.json({ error : 'formatted text is required and must be a string' }, { status : 400 });

@@ -5,6 +5,7 @@ import { getUserByKindeIdController } from '@/backend/controllers/users/get-user
 import { getCompanyByUserIdController } from '@/backend/controllers/companies/get-company-by-user-id.controller';
 import { challengeService } from '@/backend/services/challenge.service';
 import * as print from '@/lib/print-helpers';
+import { extractProblemOverview, extractProblemStatement } from '@/lib/challenge-parser';
 
 export type SaveChallengeDraftParams = {
     challengeDraft: string;
@@ -46,6 +47,10 @@ export const saveChallengeDraftAction = async (
         // Generate a single unique ID to use for both DB and response
         const challengeId = crypto.randomUUID();
 
+        // Extract problem overview and statement from challenge description
+        const problemOverview = extractProblemOverview(parameters.challengeDraft);
+        const problemStatement = extractProblemStatement(parameters.challengeDraft);
+
         // Create challenge object using the same ID
         const challengeData = {
             id: challengeId,
@@ -57,9 +62,11 @@ export const saveChallengeDraftAction = async (
             challenge_name: `${parameters.extractedTechStack?.role_title || 'Not specified'}`,
             challenge_description: parameters.challengeDraft,
             challenge_difficulty:
-                parameters.extractedTechStack?.difficulty || 'mid',
+                parameters.extractedTechStack?.difficulty || 'Not specified',
             challenge_type: 'technical',
             challenge_status: 'draft',
+            challenge_problem_overview: problemOverview,
+            challenge_problem_statement: problemStatement,
             challenge_requirements:
                 parameters.extractedTechStack?.technical_stack?.map(
                     (tech: string, index: number) => {

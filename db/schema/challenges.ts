@@ -17,6 +17,8 @@ export const challengesTable = sqliteTable('challenges', {
     challenge_difficulty   : text('challenge_difficulty', { length : 255 }).notNull(),
     challenge_type         : text('challenge_type', { length : 255 }).notNull(),
     challenge_status       : text('challenge_status', { length : 255 }).notNull(),
+    challenge_problem_overview : text('challenge_problem_overview', { length : 255 }).notNull(),
+    challenge_problem_statement : text('challenge_problem_statement', { length : 255 }).notNull(),
     challenge_requirements : text('challenge_requirements', { mode : 'json' })
         .notNull()
         .$type<Array<{id : string;

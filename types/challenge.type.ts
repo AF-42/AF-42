@@ -10,6 +10,8 @@ export type ChallengeType = {
 	challenge_difficulty: string;
 	challenge_type: string;
 	challenge_status: string;
+	challenge_problem_overview: string;
+	challenge_problem_statement: string;
 	challenge_requirements: Array<{
 		id: string;
 		name: string;
