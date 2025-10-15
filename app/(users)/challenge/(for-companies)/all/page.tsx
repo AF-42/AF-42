@@ -1,5 +1,7 @@
 import { challengeService } from '@/backend/services/challenge.service';
 import { AllChallengeCardComponent } from '@/components/challenge';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export default async function AllChallengesPage() {
     const challenges = await challengeService.getAllChallenges();
@@ -38,10 +40,15 @@ export default async function AllChallengesPage() {
                                         No Challenges Yet
                                     </h3>
                                     <p className='text-gray-600 mb-4'>
-                                        Create your first technical challenge to
-                                        get started.
+                                        Generate your first technical challenge
+                                        to get started.
                                     </p>
                                 </div>
+                                <Link href='/challenge/generate'>
+                                    <Button className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 flex-1 sm:flex-none disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'>
+                                        Generate Challenge
+                                    </Button>
+                                </Link>
                             </div>
                         )}
                     </div>

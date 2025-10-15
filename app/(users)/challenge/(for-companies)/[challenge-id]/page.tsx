@@ -110,13 +110,15 @@ export default async function ChallengePage({
                     <div className='flex-1 overflow-y-auto p-3 sm:p-4 md:p-6 lg:p-8'>
                         <div className='max-w-7xl mx-auto'>
                             {/* Enhanced Back Button */}
-                            <Button
-                                variant='ghost'
-                                className='mb-4 sm:mb-6 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-colors duration-200 w-full sm:w-auto'
-                            >
-                                <ArrowLeft className='w-4 h-4 mr-2' />
-                                Back to Challenges
-                            </Button>
+                            <Link href='/challenge/all'>
+                                <Button
+                                    variant='ghost'
+                                    className='mb-4 sm:mb-6 text-cyan-600 hover:text-cyan-700 hover:bg-cyan-50 transition-colors duration-200 w-full sm:w-auto'
+                                >
+                                    <ArrowLeft className='w-4 h-4 mr-2' />
+                                    Back to Challenges
+                                </Button>
+                            </Link>
 
                             {/* Full Width Challenge Header */}
                             <div className='bg-white rounded-lg border border-gray-200 hover:border-cyan-200 transition-colors duration-200 mb-4 sm:mb-6 lg:mb-8'>

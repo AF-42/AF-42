@@ -321,7 +321,7 @@ export function TaskGeneratorFormFromFileUpload() {
                 new Promise<Response>((_, reject) =>
                     setTimeout(
                         () => reject(new Error('Translation timed out')),
-                        30000,
+                        60000,
                     ),
                 ),
             ]);
@@ -432,8 +432,8 @@ export function TaskGeneratorFormFromFileUpload() {
                 if (saveResult.success) {
                     setSavedChallengeId(saveResult.challengeId);
 
-                    // Automatically redirect to edit page
-                    const redirectUrl = `/challenge/${saveResult.challengeId}/edit`;
+                    // Automatically redirect to challenge view page
+                    const redirectUrl = `/challenge/${saveResult.challengeId}`;
                     setTimeout(() => {
                         router.push(redirectUrl);
                     }, 2000); // Give user 2 seconds to see the success message

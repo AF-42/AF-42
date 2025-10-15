@@ -274,20 +274,20 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                 {isDeleting ? 'Deleting...' : 'Delete'}
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className='sm:max-w-md'>
+                        <DialogContent className='sm:max-w-md bg-white'>
                             <DialogHeader>
                                 <DialogTitle className='flex items-center gap-2'>
                                     <Trash2 className='size-5 text-red-600' />
                                     Delete Challenge
                                 </DialogTitle>
-                                <DialogDescription className='pt-2'>
+                                <DialogDescription className='pt-2 bg-white'>
                                     Are you sure you want to delete "
                                     {challenge.challenge_name}"? This action
                                     cannot be undone and will permanently remove
                                     the challenge.
                                 </DialogDescription>
                             </DialogHeader>
-                            <DialogFooter className='flex-col sm:flex-row gap-2 pt-4'>
+                            <DialogFooter className='flex-col sm:flex-row gap-2 pt-4 bg-white'>
                                 <Button
                                     variant='outline'
                                     onClick={() => setIsDialogOpen(false)}
@@ -300,7 +300,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                     variant='destructive'
                                     onClick={handleDelete}
                                     disabled={isDeleting}
-                                    className='w-full sm:w-auto'
+                                    className='w-full sm:w-auto bg-red-600 text-white hover:bg-red-700'
                                 >
                                     {isDeleting
                                         ? 'Deleting...'
