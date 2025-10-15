@@ -537,9 +537,9 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                 className='cursor-pointer flex-1 sm:flex-none h-9 sm:h-10 justify-center sm:justify-start border-2 hover:shadow-lg transition-all duration-300 font-semibold disabled:opacity-50 disabled:cursor-not-allowed group/btn'
                                 disabled={isDeleting}
                                 style={{
-                                    borderColor: '#f59e0b',
+                                    borderColor: '#dc2626',
                                     backgroundColor: 'white',
-                                    color: '#f59e0b',
+                                    color: '#dc2626',
                                 }}
                             >
                                 <Trash2 className='size-4 mr-2 group-hover/btn:scale-110 transition-transform duration-200' />
@@ -561,7 +561,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                     <div
                                         className='w-12 h-12 rounded-xl flex items-center justify-center'
                                         style={{
-                                            backgroundColor: '#f59e0b',
+                                            backgroundColor: '#dc2626',
                                         }}
                                     >
                                         <Trash2
