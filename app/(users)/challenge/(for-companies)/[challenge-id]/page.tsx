@@ -6,10 +6,8 @@ import {
     Clock,
     Users,
     CheckCircle,
-    PlayCircle,
     BookOpen,
     Target,
-    Award,
     Package,
     Star,
     Settings,
@@ -30,6 +28,7 @@ import {
     getTechDocumentationUrl,
     parseDeliverablesList,
     parseEvaluationRubricList,
+    stripSubmissionInstructions,
 } from '@/lib/challenge-parser';
 import Link from 'next/link';
 
@@ -177,19 +176,23 @@ export default async function ChallengePage({
                                                 </div>
                                             </div>
                                             <div className='flex flex-col sm:flex-row gap-2 sm:gap-3'>
-                                                <Button
-                                                    variant='outline'
-                                                    className='hover:border-cyan-400 hover:text-white hover:bg-cyan-600 flex-1 sm:flex-none'
-                                                    size='sm'
+                                                <Link
+                                                    href={`/challenge/${challenge.id}/edit`}
                                                 >
-                                                    <Edit3 className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
-                                                    <span className='hidden sm:inline'>
-                                                        Edit Challenge
-                                                    </span>
-                                                    <span className='sm:hidden'>
-                                                        Edit
-                                                    </span>
-                                                </Button>
+                                                    <Button
+                                                        variant='outline'
+                                                        className='hover:border-cyan-400 hover:text-white hover:bg-cyan-600 flex-1 sm:flex-none'
+                                                        size='sm'
+                                                    >
+                                                        <Edit3 className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
+                                                        <span className='hidden sm:inline'>
+                                                            Edit Challenge
+                                                        </span>
+                                                        <span className='sm:hidden'>
+                                                            Edit
+                                                        </span>
+                                                    </Button>
+                                                </Link>
                                                 <Button
                                                     variant='outline'
                                                     className='hover:border-cyan-400 hover:text-cyan-600 flex-1 sm:flex-none'
@@ -685,9 +688,9 @@ export default async function ChallengePage({
                                                                         ) : (
                                                                             <div className='prose prose-slate max-w-none'>
                                                                                 <div className='text-slate-700 leading-relaxed text-base whitespace-pre-line'>
-                                                                                    {
-                                                                                        sections.deliverables
-                                                                                    }
+                                                                                    {stripSubmissionInstructions(
+                                                                                        sections.deliverables,
+                                                                                    )}
                                                                                 </div>
                                                                             </div>
                                                                         )}

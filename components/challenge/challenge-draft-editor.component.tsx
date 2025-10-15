@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useTransition } from 'react';
 import * as print from '@/lib/print-helpers';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ import {
     ArrowLeft,
 } from 'lucide-react';
 import techUrls from '@/app/data-json/tech-logo-url.json';
+import { updateChallengeDraftAction } from '@/app/actions/update-challenge-draft.action';
 
 // Helper function to convert CDN URLs to GitHub direct URLs
 const convertToGitHubUrl = (url: string): string => {
@@ -179,6 +180,11 @@ export function ChallengeDraftEditor({
         Record<string, HTMLTextAreaElement | undefined>
     >({});
 
+    const [isPending, startTransition] = useTransition();
+    const [saveMessage, setSaveMessage] = useState<string | undefined>(
+        undefined,
+    );
+
     const setTextareaRef = (header: string) => {
         return (element: HTMLTextAreaElement | undefined) => {
             textareaRefs.current[header] = element;
@@ -199,6 +205,53 @@ export function ChallengeDraftEditor({
             e.target.style.height = 'auto';
             e.target.style.height = `${e.target.scrollHeight}px`;
         };
+    };
+
+    const rebuildDescriptionFromSections = (
+        sectionsMap: Record<string, string>,
+    ) => {
+        return SECTION_HEADERS.map((header) => {
+            const body = sectionsMap[header] ?? '';
+            return `${header}\n\n${body}\n\n`;
+        })
+            .join('')
+            .trim();
+    };
+
+    const handleSaveAll = async () => {
+        const newDescription = rebuildDescriptionFromSections(editedSections);
+        startTransition(async () => {
+            try {
+                await updateChallengeDraftAction({
+                    id: challengeDraft.id,
+                    challenge_description: newDescription,
+                });
+                setSaveMessage('Draft saved');
+                setTimeout(() => setSaveMessage(undefined), 2000);
+            } catch (e) {
+                setSaveMessage('Save failed');
+                setTimeout(() => setSaveMessage(undefined), 3000);
+            }
+        });
+    };
+
+    const handleSaveSection = async (header: string) => {
+        const updated = { ...editedSections };
+        const newDescription = rebuildDescriptionFromSections(updated);
+        startTransition(async () => {
+            try {
+                await updateChallengeDraftAction({
+                    id: challengeDraft.id,
+                    challenge_description: newDescription,
+                });
+                setIsEditing({ ...isEditing, [header]: false });
+                setSaveMessage('Section saved');
+                setTimeout(() => setSaveMessage(undefined), 2000);
+            } catch (e) {
+                setSaveMessage('Save failed');
+                setTimeout(() => setSaveMessage(undefined), 3000);
+            }
+        });
     };
 
     return (
@@ -269,6 +322,8 @@ export function ChallengeDraftEditor({
                                                 <Button
                                                     className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 flex-1 sm:flex-none disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'
                                                     size='sm'
+                                                    onClick={handleSaveAll}
+                                                    disabled={isPending}
                                                 >
                                                     <Save className='w-4 h-4 sm:w-5 sm:h-5 mr-2' />
                                                     <span className='hidden sm:inline'>
@@ -278,6 +333,11 @@ export function ChallengeDraftEditor({
                                                         Save
                                                     </span>
                                                 </Button>
+                                                {saveMessage && (
+                                                    <span className='text-sm text-slate-600 self-center'>
+                                                        {saveMessage}
+                                                    </span>
+                                                )}
                                             </div>
                                         </div>
                                     </div>
@@ -423,6 +483,15 @@ export function ChallengeDraftEditor({
                                                                 : 'outline'
                                                         }
                                                         onClick={() => {
+                                                            if (
+                                                                isEditing[
+                                                                    header
+                                                                ]
+                                                            ) {
+                                                                void handleSaveSection(
+                                                                    header,
+                                                                );
+                                                            }
                                                             setIsEditing({
                                                                 ...isEditing,
                                                                 [header]:
@@ -437,6 +506,7 @@ export function ChallengeDraftEditor({
                                                                 : 'hover:border-cyan-400 hover:text-cyan-600'
                                                         }
                                                         size='sm'
+                                                        disabled={isPending}
                                                     >
                                                         {isEditing[header] ? (
                                                             <>

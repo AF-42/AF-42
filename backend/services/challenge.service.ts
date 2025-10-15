@@ -17,6 +17,9 @@ export const challengeService = {
     async getChallengeByCompanyId(company_id: string) {
         return model.challenges.getByCompanyId(company_id);
     },
+    async updateChallenge(id: string, update: Partial<typeof challengesTable.$inferInsert>) {
+        return model.challenges.update(id, update);
+    },
     async deleteChallenge(id: string) {
         return model.challenges.delete(id);
     }

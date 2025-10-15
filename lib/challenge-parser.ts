@@ -307,8 +307,13 @@ export function parseRequirementsSubsections(requirementsText: string): {
             currentSection = 'externalServices';
             currentItems = [];
         } else if (line.startsWith('-') || line.startsWith('•') || line.startsWith('*') || /^\d+\./.test(line)) {
-            // This is a list item
-            const cleanItem = line.replace(/^[-•*]\s*/, '').replace(/^\d+\.\s*/, '').trim();
+            // This is a list item. If no subsection header has been encountered yet,
+            // treat these as functional requirements by default.
+            if (!currentSection) {
+                currentSection = 'functionalRequirements';
+                currentItems = [];
+            }
+            const cleanItem = line.replace(/^[\-•*]\s*/, '').replace(/^\d+\.\s*/, '').trim();
             if (cleanItem) {
                 currentItems.push(cleanItem);
             }
@@ -351,6 +356,31 @@ export function parseDeliverablesList(deliverablesText: string): string[] {
     const lines = deliverablesText.split('\n').map(line => line.trim()).filter(line => line.length > 0);
     const deliverables: string[] = [];
 
+    const isSubmissionInstruction = (line: string) => {
+        const l = line.toLowerCase();
+        return (
+            l.includes('submission instructions') ||
+            l.includes('how to submit') ||
+            l.includes('where to submit') ||
+            l.startsWith('submission:') ||
+            l.startsWith('submissions:') ||
+            l.includes('submit your') ||
+            l.includes('submit via') ||
+            l.includes('submit a pull request') ||
+            l.startsWith('submit a ') ||
+            l.includes('turn in') ||
+            l.includes('delivery instructions') ||
+            l.includes('upload to') ||
+            l.includes('send to') ||
+            l.includes('deadline') ||
+            l.includes('due date') ||
+            l.includes('fork the provided repository') ||
+            l.startsWith('fork the ') ||
+            l.startsWith('complete the challenge') ||
+            l.includes('push your changes')
+        );
+    };
+
     for (const line of lines) {
         // Skip section headers
         if (line.toLowerCase().includes('deliverables') || line.toLowerCase().includes('deliverable:')) {
@@ -359,17 +389,54 @@ export function parseDeliverablesList(deliverablesText: string): string[] {
 
         // Check for list items (bullets, numbers, dashes)
         if (line.startsWith('-') || line.startsWith('•') || line.startsWith('*') || /^\d+\./.test(line)) {
-            const cleanItem = line.replace(/^[-•*]\s*/, '').replace(/^\d+\.\s*/, '').trim();
-            if (cleanItem) {
+            const cleanItem = line.replace(/^[\-•*]\s*/, '').replace(/^\d+\.\s*/, '').trim();
+            if (cleanItem && !isSubmissionInstruction(cleanItem)) {
                 deliverables.push(cleanItem);
             }
         } else if (line.length > 0 && !line.toLowerCase().includes('deliverables')) {
             // This might be a continuation or standalone deliverable
-            deliverables.push(line);
+            if (!isSubmissionInstruction(line)) {
+                deliverables.push(line);
+            }
         }
     }
 
     return deliverables;
+}
+
+/**
+ * Removes submission instruction lines from a block of text intended for deliverables display
+ */
+export function stripSubmissionInstructions(text: string): string {
+    if (!text) return '';
+    const lines = text.split('\n');
+    const cleaned = lines.filter((line) => {
+        const l = line.trim().toLowerCase();
+        if (l.length === 0) return true; // keep blank lines for spacing
+        if (l.includes('deliverables')) return !/submission/i.test(l);
+        return !(
+            l.includes('submission instructions') ||
+            l.includes('how to submit') ||
+            l.includes('where to submit') ||
+            l.startsWith('submission:') ||
+            l.startsWith('submissions:') ||
+            l.includes('submit your') ||
+            l.includes('submit via') ||
+            l.includes('submit a pull request') ||
+            l.startsWith('submit a ') ||
+            l.includes('turn in') ||
+            l.includes('delivery instructions') ||
+            l.includes('upload to') ||
+            l.includes('send to') ||
+            l.includes('deadline') ||
+            l.includes('due date') ||
+            l.includes('fork the provided repository') ||
+            l.startsWith('fork the ') ||
+            l.startsWith('complete the challenge') ||
+            l.includes('push your changes')
+        );
+    });
+    return cleaned.join('\n');
 }
 
 /**

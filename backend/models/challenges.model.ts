@@ -18,6 +18,12 @@ export const challengesModel = {
     getByCompanyId(company_id: string) {
         return database.select().from(challengesTable).where(eq(challengesTable.company_id, company_id));
     },
+    update(id: string, update: Partial<typeof challengesTable.$inferInsert>) {
+        return database
+            .update(challengesTable)
+            .set(update)
+            .where(eq(challengesTable.id, id));
+    },
     delete(id: string) {
         return database.delete(challengesTable).where(eq(challengesTable.id, id));
     }
