@@ -133,37 +133,37 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
     };
 
     return (
-        <Card className='border border-gray-200/60 bg-white/95 backdrop-blur-sm shadow-lg hover:shadow-xl transition-all duration-300'>
-            <CardHeader className='border-b border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-4 sm:p-6'>
-                <div className='flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4'>
-                    <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-white flex aspect-square size-10 items-center justify-center rounded-lg shadow-md flex-shrink-0'>
-                        <Code className='size-5' />
+        <Card className='group border border-gray-200/60 bg-white/90 backdrop-blur-sm shadow-sm hover:shadow-xl transition-all duration-300 hover:border-gray-300/60 overflow-hidden'>
+            <CardHeader className='border-b border-gray-200/40 bg-gradient-to-r from-gray-50/50 to-white/80 backdrop-blur-sm p-6'>
+                <div className='flex items-start gap-4'>
+                    <div className='bg-gradient-to-br from-blue-500 to-emerald-500 text-white flex aspect-square size-12 items-center justify-center rounded-xl shadow-lg flex-shrink-0 group-hover:scale-105 transition-transform duration-200'>
+                        <Code className='size-6' />
                     </div>
                     <div className='flex-1 min-w-0'>
-                        <CardTitle className='text-lg sm:text-xl font-semibold text-gray-900 truncate'>
+                        <CardTitle className='text-xl font-bold text-gray-900 mb-3 group-hover:text-gray-700 transition-colors duration-200'>
                             {challenge.challenge_name || 'Untitled Challenge'}
                         </CardTitle>
-                        <div className='flex flex-wrap gap-2 mt-2'>
+                        <div className='flex flex-wrap gap-2'>
                             <Badge
                                 variant='outline'
-                                className={`text-sm px-3 py-1 ${statusConfig.color}`}
+                                className={`text-xs px-3 py-1.5 font-medium ${statusConfig.color} border-0 shadow-sm`}
                             >
-                                <StatusIcon className='size-3 mr-1' />
+                                <StatusIcon className='size-3 mr-1.5' />
                                 {statusConfig.label}
                             </Badge>
                             <Badge
                                 variant='outline'
-                                className={`text-sm px-3 py-1 ${difficultyConfig.color}`}
+                                className={`text-xs px-3 py-1.5 font-medium ${difficultyConfig.color} border-0 shadow-sm`}
                             >
-                                <Award className='size-3 mr-1' />
+                                <Award className='size-3 mr-1.5' />
                                 {difficultyConfig.label}
                             </Badge>
                             {challenge.challenge_industry && (
                                 <Badge
                                     variant='outline'
-                                    className='text-sm px-3 py-1 border-blue-400/50 text-blue-600 bg-blue-400/10'
+                                    className='text-xs px-3 py-1.5 font-medium border-0 shadow-sm bg-blue-50 text-blue-700'
                                 >
-                                    <Target className='size-3 mr-1' />
+                                    <Target className='size-3 mr-1.5' />
                                     {challenge.challenge_industry}
                                 </Badge>
                             )}
@@ -172,72 +172,113 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                 </div>
             </CardHeader>
 
-            <CardContent className='p-4 sm:p-6'>
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6'>
+            <CardContent className='p-6'>
+                <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
                     {/* Challenge Details */}
-                    <div className='space-y-3'>
-                        <div className='flex items-center gap-2 text-sm text-gray-600'>
-                            <Calendar className='size-4 text-gray-400' />
-                            <span className='font-medium'>Type:</span>
-                            <span>
-                                {challenge.challenge_type || 'Not specified'}
-                            </span>
+                    <div className='space-y-4'>
+                        <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
+                            <div className='w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                                <Calendar className='size-4 text-blue-600' />
+                            </div>
+                            <div className='flex-1 min-w-0'>
+                                <p className='text-sm font-medium text-gray-600'>
+                                    Challenge Type
+                                </p>
+                                <p className='text-sm font-semibold text-gray-900 truncate'>
+                                    {challenge.challenge_type ||
+                                        'Not specified'}
+                                </p>
+                            </div>
                         </div>
-                        <div className='flex items-center gap-2 text-sm text-gray-600'>
-                            <Globe className='size-4 text-gray-400' />
-                            <span className='font-medium'>Published:</span>
-                            <span
-                                className={
-                                    challenge.is_published
-                                        ? 'text-green-600'
-                                        : 'text-gray-500'
-                                }
-                            >
-                                {challenge.is_published ? 'Yes' : 'No'}
-                            </span>
-                        </div>
-                        {challenge.github_url && (
-                            <div className='flex items-center gap-2 text-sm text-gray-600'>
-                                <Github className='size-4 text-gray-400' />
-                                <span className='font-medium'>Repository:</span>
-                                <a
-                                    href={challenge.github_url}
-                                    target='_blank'
-                                    rel='noopener noreferrer'
-                                    className='text-cyan-600 hover:text-cyan-700 truncate'
+
+                        <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
+                            <div className='w-8 h-8 bg-emerald-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                                <Globe className='size-4 text-emerald-600' />
+                            </div>
+                            <div className='flex-1 min-w-0'>
+                                <p className='text-sm font-medium text-gray-600'>
+                                    Publication Status
+                                </p>
+                                <p
+                                    className={`text-sm font-semibold ${
+                                        challenge.is_published
+                                            ? 'text-emerald-600'
+                                            : 'text-gray-500'
+                                    }`}
                                 >
-                                    View on GitHub
-                                </a>
+                                    {challenge.is_published
+                                        ? 'Published'
+                                        : 'Draft'}
+                                </p>
+                            </div>
+                        </div>
+
+                        {challenge.github_url && (
+                            <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
+                                <div className='w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                                    <Github className='size-4 text-gray-600' />
+                                </div>
+                                <div className='flex-1 min-w-0'>
+                                    <p className='text-sm font-medium text-gray-600'>
+                                        Repository
+                                    </p>
+                                    <a
+                                        href={challenge.github_url}
+                                        target='_blank'
+                                        rel='noopener noreferrer'
+                                        className='text-sm font-semibold text-blue-600 hover:text-blue-700 truncate block'
+                                    >
+                                        View on GitHub →
+                                    </a>
+                                </div>
                             </div>
                         )}
                     </div>
 
                     {/* Challenge Stats */}
-                    <div className='space-y-3'>
-                        <div className='flex items-center gap-2 text-sm text-gray-600'>
-                            <CheckCircle2 className='size-4 text-gray-400' />
-                            <span className='font-medium'>Requirements:</span>
-                            <span>
-                                {challenge.challenge_requirements?.length || 0}{' '}
-                                items
-                            </span>
+                    <div className='space-y-4'>
+                        <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
+                            <div className='w-8 h-8 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                                <CheckCircle2 className='size-4 text-amber-600' />
+                            </div>
+                            <div className='flex-1 min-w-0'>
+                                <p className='text-sm font-medium text-gray-600'>
+                                    Requirements
+                                </p>
+                                <p className='text-sm font-semibold text-gray-900'>
+                                    {challenge.challenge_requirements?.length ||
+                                        0}{' '}
+                                    items
+                                </p>
+                            </div>
                         </div>
-                        <div className='flex items-center gap-2 text-sm text-gray-600'>
-                            <Clock className='size-4 text-gray-400' />
-                            <span className='font-medium'>Created:</span>
-                            <span>
-                                {challenge.created_at
-                                    ? new Date(
-                                          challenge.created_at,
-                                      ).toLocaleDateString()
-                                    : 'Unknown'}
-                            </span>
+
+                        <div className='flex items-center gap-3 p-3 bg-gray-50/50 rounded-lg'>
+                            <div className='w-8 h-8 bg-purple-100 rounded-lg flex items-center justify-center flex-shrink-0'>
+                                <Clock className='size-4 text-purple-600' />
+                            </div>
+                            <div className='flex-1 min-w-0'>
+                                <p className='text-sm font-medium text-gray-600'>
+                                    Created
+                                </p>
+                                <p className='text-sm font-semibold text-gray-900'>
+                                    {challenge.created_at
+                                        ? new Date(
+                                              challenge.created_at,
+                                          ).toLocaleDateString('en-US', {
+                                              year: 'numeric',
+                                              month: 'short',
+                                              day: 'numeric',
+                                          })
+                                        : 'Unknown'}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </CardContent>
 
-            <CardFooter className='border-t border-gray-200/60 bg-gray-50/50 p-4 sm:p-6'>
+            <CardFooter className='border-t border-gray-200/40 bg-gradient-to-r from-gray-50/30 to-white/50 p-6'>
                 <div className='flex flex-col sm:flex-row gap-3 w-full'>
                     <Link
                         href={`/challenge/${challenge.id}`}
@@ -245,7 +286,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                     >
                         <Button
                             variant='outline'
-                            className='w-full justify-center sm:justify-start hover:border-cyan-400 hover:text-cyan-600'
+                            className='w-full justify-center sm:justify-start border-gray-200 hover:border-blue-300 hover:text-blue-600 hover:bg-blue-50/50 transition-all duration-200 font-medium'
                         >
                             <Eye className='size-4 mr-2' />
                             View Challenge
@@ -257,7 +298,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                     >
                         <Button
                             variant='outline'
-                            className='w-full justify-center sm:justify-start hover:border-cyan-400 hover:text-cyan-600'
+                            className='w-full justify-center sm:justify-start border-gray-200 hover:border-emerald-300 hover:text-emerald-600 hover:bg-emerald-50/50 transition-all duration-200 font-medium'
                         >
                             <Edit3 className='size-4 mr-2' />
                             Edit Challenge
@@ -267,32 +308,37 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                         <DialogTrigger asChild>
                             <Button
                                 variant='outline'
-                                className='flex-1 sm:flex-none justify-center sm:justify-start text-red-600 hover:text-red-700 hover:border-red-300'
+                                className='flex-1 sm:flex-none justify-center sm:justify-start border-gray-200 text-red-600 hover:text-red-700 hover:border-red-300 hover:bg-red-50/50 transition-all duration-200 font-medium'
                                 disabled={isDeleting}
                             >
                                 <Trash2 className='size-4 mr-2' />
                                 {isDeleting ? 'Deleting...' : 'Delete'}
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className='sm:max-w-md bg-white'>
+                        <DialogContent className='sm:max-w-md bg-white border border-gray-200 shadow-xl'>
                             <DialogHeader>
-                                <DialogTitle className='flex items-center gap-2'>
-                                    <Trash2 className='size-5 text-red-600' />
+                                <DialogTitle className='flex items-center gap-2 text-lg font-semibold'>
+                                    <div className='w-8 h-8 bg-red-100 rounded-lg flex items-center justify-center'>
+                                        <Trash2 className='size-4 text-red-600' />
+                                    </div>
                                     Delete Challenge
                                 </DialogTitle>
-                                <DialogDescription className='pt-2 bg-white'>
+                                <DialogDescription className='pt-3 text-gray-600 leading-relaxed'>
                                     Are you sure you want to delete "
-                                    {challenge.challenge_name}"? This action
-                                    cannot be undone and will permanently remove
-                                    the challenge.
+                                    <span className='font-medium text-gray-900'>
+                                        {challenge.challenge_name}
+                                    </span>
+                                    "? This action cannot be undone and will
+                                    permanently remove the challenge and all
+                                    associated data.
                                 </DialogDescription>
                             </DialogHeader>
-                            <DialogFooter className='flex-col sm:flex-row gap-2 pt-4 bg-white'>
+                            <DialogFooter className='flex-col sm:flex-row gap-3 pt-6'>
                                 <Button
                                     variant='outline'
                                     onClick={() => setIsDialogOpen(false)}
                                     disabled={isDeleting}
-                                    className='w-full sm:w-auto'
+                                    className='w-full sm:w-auto border-gray-200 hover:border-gray-300'
                                 >
                                     Cancel
                                 </Button>
@@ -300,7 +346,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                     variant='destructive'
                                     onClick={handleDelete}
                                     disabled={isDeleting}
-                                    className='w-full sm:w-auto bg-red-600 text-white hover:bg-red-700'
+                                    className='w-full sm:w-auto bg-red-600 text-white hover:bg-red-700 shadow-sm'
                                 >
                                     {isDeleting
                                         ? 'Deleting...'
