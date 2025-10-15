@@ -77,7 +77,7 @@ export function NavMain({
                                     isActive={itemIsActive}
                                     className={`sidebar-menu-button ${
                                         itemIsActive
-                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_20%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_20%,var(--color-surface))] text-black border-l-2 border-[var(--color-primary)] shadow-sm'
                                             : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-surface))] hover:text-[var(--color-text)]'
                                     }`}
                                 >
@@ -129,7 +129,7 @@ export function NavMain({
                                                                     }
                                                                     className={`sidebar-sub-menu-button ${
                                                                         subItemIsActive
-                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_15%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_15%,var(--color-surface))] text-black border-l-2 border-[var(--color-primary)] shadow-sm'
                                                                             : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_8%,var(--color-surface))] hover:text-[var(--color-text)]'
                                                                     }`}
                                                                 >
@@ -184,7 +184,7 @@ export function NavMain({
                                                                                                     }
                                                                                                     className={`sidebar-sub-menu-button ${
                                                                                                         subSubItemIsActive
-                                                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-surface))] text-black border-l-2 border-[var(--color-primary)] shadow-sm'
                                                                                                             : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_6%,var(--color-surface))] hover:text-[var(--color-text)]'
                                                                                                     }`}
                                                                                                 >

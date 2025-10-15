@@ -219,13 +219,13 @@ export function AppSidebar({
             className='border-r border-[color:var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-sm'
         >
             <SidebarHeader className='border-b border-[color:var(--color-border)] bg-gradient-to-br from-[color:var(--color-surface)] via-[color:var(--color-surface)] to-[color:var(--color-surface)] relative overflow-hidden'>
-                <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,color-mix(in_oklab,var(--color-primary)_10%,transparent),transparent_50%)]'></div>
+                <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,color-mix(in_oklab,var(--color-primary)_5%,transparent),transparent_50%)]'></div>
                 <SidebarMenu className='relative z-10'>
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             size='lg'
                             asChild
-                            className='hover:bg-[color-mix(in_oklab,var(--color-primary)_15%,var(--color-surface))] hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
+                            className='hover:bg-[color-mix(in_oklab,var(--color-primary)_8%,var(--color-surface))] hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
                         >
                             <Link href='#' className='group'>
                                 <div className='bg-[var(--color-primary)] text-[var(--color-darker)] flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-200'>
@@ -244,7 +244,7 @@ export function AppSidebar({
                                                     'var(--color-primary)',
                                                 color: 'var(--color-primary)',
                                                 background:
-                                                    'color-mix(in oklab, var(--color-primary) 12%, transparent)',
+                                                    'color-mix(in oklab, var(--color-primary) 8%, transparent)',
                                             }}
                                         >
                                             {currentUser.role === 'engineer' ? (
