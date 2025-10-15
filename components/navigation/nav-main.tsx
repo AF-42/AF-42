@@ -77,8 +77,8 @@ export function NavMain({
                                     isActive={itemIsActive}
                                     className={`sidebar-menu-button ${
                                         itemIsActive
-                                            ? 'bg-cyan-100/80 text-cyan-700 border-l-2 border-cyan-400 shadow-sm'
-                                            : 'hover:bg-gray-100/60'
+                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_20%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                            : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-surface))] hover:text-[var(--color-text)]'
                                     }`}
                                 >
                                     <Link href={item.url}>
@@ -129,8 +129,8 @@ export function NavMain({
                                                                     }
                                                                     className={`sidebar-sub-menu-button ${
                                                                         subItemIsActive
-                                                                            ? 'bg-cyan-50/80 text-cyan-600 border-l-2 border-cyan-300 shadow-sm'
-                                                                            : 'hover:bg-gray-50/80'
+                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_15%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                                                            : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_8%,var(--color-surface))] hover:text-[var(--color-text)]'
                                                                     }`}
                                                                 >
                                                                     <Link
@@ -184,8 +184,8 @@ export function NavMain({
                                                                                                     }
                                                                                                     className={`sidebar-sub-menu-button ${
                                                                                                         subSubItemIsActive
-                                                                                                            ? 'bg-cyan-50/60 text-cyan-500 border-l-2 border-cyan-200 shadow-sm'
-                                                                                                            : 'hover:bg-gray-50/60'
+                                                                                                            ? 'bg-[color-mix(in_oklab,var(--color-primary)_12%,var(--color-surface))] text-white border-l-2 border-[var(--color-primary)] shadow-sm'
+                                                                                                            : 'hover:bg-[color-mix(in_oklab,var(--color-primary)_6%,var(--color-surface))] hover:text-[var(--color-text)]'
                                                                                                     }`}
                                                                                                 >
                                                                                                     <Link

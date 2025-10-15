@@ -29,7 +29,7 @@ export function NavSecondary({
                                 <SidebarMenuButton
                                     asChild
                                     size='sm'
-                                    className='sidebar-secondary-item'
+                                    className='sidebar-secondary-item hover:bg-[color-mix(in_oklab,var(--color-primary)_10%,var(--color-surface))] hover:text-[var(--color-text)] transition-all duration-200'
                                 >
                                     <Link href={item.url}>
                                         <item.icon />

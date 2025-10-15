@@ -216,29 +216,36 @@ export function AppSidebar({
     return (
         <Sidebar
             variant='inset'
-            className='border-r border-gray-200/60 bg-white shadow-sm'
+            className='border-r border-[color:var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text)] shadow-sm'
         >
-            <SidebarHeader className='border-b border-gray-200/60 bg-gradient-to-br from-white via-gray-50/80 to-white relative overflow-hidden'>
-                <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.04),transparent_50%)]'></div>
+            <SidebarHeader className='border-b border-[color:var(--color-border)] bg-gradient-to-br from-[color:var(--color-surface)] via-[color:var(--color-surface)] to-[color:var(--color-surface)] relative overflow-hidden'>
+                <div className='absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,color-mix(in_oklab,var(--color-primary)_10%,transparent),transparent_50%)]'></div>
                 <SidebarMenu className='relative z-10'>
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             size='lg'
                             asChild
-                            className='hover:bg-gray-100/60 hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
+                            className='hover:bg-[color-mix(in_oklab,var(--color-primary)_15%,var(--color-surface))] hover:shadow-sm transition-all duration-200 group-hover:scale-[1.02]'
                         >
                             <Link href='#' className='group'>
-                                <div className='bg-gradient-to-br from-cyan-400 to-cyan-600 text-black flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg group-hover:shadow-cyan-400/30 group-hover:shadow-xl group-hover:scale-105 transition-all duration-200'>
+                                <div className='bg-[var(--color-primary)] text-[var(--color-darker)] flex aspect-square size-10 items-center justify-center rounded-xl shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-200'>
                                     <Command className='size-5 group-hover:rotate-12 transition-transform duration-200' />
                                 </div>
                                 <div className='grid flex-1 text-left text-sm leading-tight'>
-                                    <span className='truncate font-semibold text-gray-900 font-source-code-pro'>
+                                    <span className='truncate font-semibold text-[var(--color-text)] font-source-code-pro'>
                                         {currentUser.username}
                                     </span>
                                     <div className='flex items-center gap-2'>
                                         <Badge
                                             variant='outline'
-                                            className='text-xs px-2 py-0.5 h-5 border-cyan-400/50 text-cyan-400 bg-cyan-400/10 hover:bg-cyan-400/20 hover:border-cyan-400/70 hover:shadow-sm transition-all duration-200 hover:scale-105'
+                                            className='text-xs px-2 py-0.5 h-5 transition-all duration-200 hover:shadow-sm hover:scale-105'
+                                            style={{
+                                                borderColor:
+                                                    'var(--color-primary)',
+                                                color: 'var(--color-primary)',
+                                                background:
+                                                    'color-mix(in oklab, var(--color-primary) 12%, transparent)',
+                                            }}
                                         >
                                             {currentUser.role === 'engineer' ? (
                                                 <>
@@ -259,7 +266,7 @@ export function AppSidebar({
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-            <SidebarContent className='px-2 py-4 bg-white/95 backdrop-blur-sm flex flex-col'>
+            <SidebarContent className='px-2 py-4 bg-[var(--color-surface)] backdrop-blur-sm flex flex-col'>
                 <div className='flex-1'>
                     <NavMain
                         items={
@@ -279,7 +286,7 @@ export function AppSidebar({
                     />
                 </div>
             </SidebarContent>
-            <SidebarFooter className='border-t border-gray-200/60 bg-gradient-to-r from-gray-50/80 to-white/95 backdrop-blur-sm p-2 shadow-sm'>
+            <SidebarFooter className='border-t border-[color:var(--color-border)] bg-gradient-to-r from-[color:var(--color-surface)] to-[color:var(--color-surface)] backdrop-blur-sm p-2 shadow-sm'>
                 <NavUser user={currentUser} />
             </SidebarFooter>
         </Sidebar>

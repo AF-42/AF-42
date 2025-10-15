@@ -22,7 +22,13 @@
 }
 
 .sidebar-nav-item:hover {
-    @apply bg-gray-100/60 shadow-sm transform scale-[1.01];
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 12%,
+        var(--color-surface)
+    );
+    color: var(--color-text);
+    @apply shadow-sm transform scale-[1.01];
 }
 
 .sidebar-nav-item:active {
@@ -35,16 +41,33 @@
 }
 
 .sidebar-menu-button:hover:not([data-active='true']) {
-    @apply bg-gray-100/50 shadow-sm;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 10%,
+        var(--color-surface)
+    );
+    color: var(--color-text);
+    @apply shadow-sm;
 }
 
 .sidebar-menu-button:active {
-    @apply bg-gray-200/50;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 15%,
+        var(--color-surface)
+    );
 }
 
 /* Active state styling */
 .sidebar-menu-button[data-active='true'] {
-    @apply bg-cyan-100/80 text-cyan-700 border-l-2 border-cyan-400 shadow-sm;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 20%,
+        var(--color-surface)
+    );
+    color: white;
+    border-left: 2px solid var(--color-primary);
+    @apply shadow-sm;
 }
 
 /* Enhanced Sidebar Sub Menu Hover Effects */
@@ -53,16 +76,33 @@
 }
 
 .sidebar-sub-menu-button:hover:not([data-active='true']) {
-    @apply bg-gray-50/80 shadow-sm transform translate-x-1;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 8%,
+        var(--color-surface)
+    );
+    color: var(--color-text);
+    @apply shadow-sm transform translate-x-1;
 }
 
 .sidebar-sub-menu-button:active {
-    @apply bg-gray-100/60;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 12%,
+        var(--color-surface)
+    );
 }
 
 /* Active state styling for sub-menu */
 .sidebar-sub-menu-button[data-active='true'] {
-    @apply bg-cyan-50/80 text-cyan-600 border-l-2 border-cyan-300 shadow-sm;
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 15%,
+        var(--color-surface)
+    );
+    color: white;
+    border-left: 2px solid var(--color-primary);
+    @apply shadow-sm;
 }
 
 /* Enhanced Sidebar Secondary Navigation */
@@ -71,7 +111,13 @@
 }
 
 .sidebar-secondary-item:hover {
-    @apply bg-gray-100/40 shadow-sm transform scale-[1.02];
+    background-color: color-mix(
+        in oklab,
+        var(--color-primary) 10%,
+        var(--color-surface)
+    );
+    color: var(--color-text);
+    @apply shadow-sm transform scale-[1.02];
 }
 
 .sidebar-secondary-item:active {
