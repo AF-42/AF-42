@@ -1,18 +1,8 @@
 import { challengeService } from '@/backend/services/challenge.service';
 import { AllChallengeCardComponent } from '@/components/challenge';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Badge } from '@/components/ui/badge';
-import {
-    Search,
-    Filter,
-    Plus,
-    Code2,
-    Sparkles,
-    TrendingUp,
-    Users,
-    Calendar,
-} from 'lucide-react';
+import { Plus, Code2, Sparkles, TrendingUp, Calendar } from 'lucide-react';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import Link from 'next/link';
 
 export default async function AllChallengesPage() {
@@ -26,7 +16,7 @@ export default async function AllChallengesPage() {
     ).length;
 
     return (
-        <div className='min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 relative'>
+        <div className='max-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 relative'>
             {/* Background decoration */}
             <div className='absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]'></div>
             <div className='absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.05),transparent_50%)]'></div>
@@ -151,13 +141,15 @@ export default async function AllChallengesPage() {
                     {/* Challenges Grid */}
                     <div className='space-y-6'>
                         {challenges.length > 0 ? (
-                            <div className='grid gap-6'>
-                                {challenges.map((challenge) => (
-                                    <AllChallengeCardComponent
-                                        key={challenge.id}
-                                        {...challenge}
-                                    />
-                                ))}
+                            <div className='grid gap-6 overflow-y-auto'>
+                                <ScrollArea className='max-h-[1000px]'>
+                                    {challenges.map((challenge) => (
+                                        <AllChallengeCardComponent
+                                            key={challenge.id}
+                                            {...challenge}
+                                        />
+                                    ))}
+                                </ScrollArea>
                             </div>
                         ) : (
                             <div className='text-center py-16'>
