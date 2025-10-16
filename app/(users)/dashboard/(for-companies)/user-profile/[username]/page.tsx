@@ -271,7 +271,7 @@ export default function UserProfilePage() {
                             {/* Icon and title section */}
                             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6'>
                                 <div className='relative group'>
-                                    <div className='inline-flex items-center justify-center size-10 sm:size-12 bg-gradient-to-br from-blue-400 via-blue-700 to-blue-900 rounded-xl shadow-lg group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300'>
+                                    <div className='inline-flex items-center justify-center size-10 sm:size-12 bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 rounded-xl shadow-lg group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300'>
                                         <User className='size-6 sm:size-8 text-white' />
                                     </div>
                                     <div className='absolute -top-1 -right-1 size-3 sm:size-4 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full shadow-lg flex items-center justify-center'>
@@ -292,7 +292,7 @@ export default function UserProfilePage() {
 
                             {/* Status indicators */}
                             <div className='flex flex-wrap gap-4 sm:gap-6'>
-                                <div className='flex items-center gap-2 px-3 py-2 bg-blue-50 rounded-lg border border-blue-200'>
+                                <div className='flex items-center gap-2 px-3 py-2 bg-cyan-50 rounded-lg border border-cyan-200'>
                                     <div className='w-2 h-2 bg-blue-500 rounded-full'></div>
                                     <span className='text-sm font-medium text-blue-700'>
                                         Active Account
@@ -317,7 +317,7 @@ export default function UserProfilePage() {
                         <div className='flex-shrink-0 w-full sm:w-auto'>
                             <Button
                                 onClick={handleEdit}
-                                className='cursor-pointer w-full text-sm sm:w-auto h-9 sm:h-10 sm:px-8 bg-blue-600 text-white shadow-xl hover:shadow-2xl hover:bg-blue-700 transition-all duration-300 font-semibold sm:text-base group'
+                                className='cursor-pointer w-full text-sm sm:w-auto h-9 sm:h-10 sm:px-8 bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 text-white shadow-xl hover:shadow-2xl hover:from-cyan-500 hover:to-cyan-600 transition-all duration-300 font-semibold sm:text-base group'
                             >
                                 <Edit2 className='w-5 h-5 sm:w-6 sm:h-6 sm:mr-3 group-hover:scale-110 transition-transform duration-200' />
                                 <span className='hidden sm:inline'>
@@ -332,8 +332,8 @@ export default function UserProfilePage() {
                     <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6'>
                         <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200'>
                             <div className='flex items-center gap-2 sm:gap-3'>
-                                <div className='size-10 sm:size-12 bg-blue-100 rounded-lg flex items-center justify-center'>
-                                    <User className='size-4 sm:size-5 text-blue-600' />
+                                <div className='size-10 sm:size-12 bg-cyan-100 rounded-lg flex items-center justify-center'>
+                                    <User className='size-4 sm:size-5 text-cyan-600' />
                                 </div>
                                 <div>
                                     <p className='text-xs sm:text-sm font-medium text-gray-600'>
@@ -391,7 +391,7 @@ export default function UserProfilePage() {
                     <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl shadow-sm hover:shadow-md transition-all duration-200'>
                         <div className='p-6 sm:p-8'>
                             <div className='flex items-center gap-3 mb-6'>
-                                <div className='size-8 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center'>
+                                <div className='size-8 bg-gradient-to-br from-cyan-500 to-cyan-600 rounded-lg flex items-center justify-center'>
                                     <Building2 className='size-4 text-white' />
                                 </div>
                                 <h2 className='text-lg font-semibold text-gray-900'>
@@ -407,7 +407,7 @@ export default function UserProfilePage() {
                                             Profile Picture
                                         </p>
                                         <Avatar className='h-20 w-20 border-2 border-gray-200'>
-                                            <AvatarFallback className='text-lg bg-gradient-to-br from-blue-500 to-blue-600 text-white'>
+                                            <AvatarFallback className='text-lg bg-gradient-to-br from-cyan-500 to-cyan-600 text-white'>
                                                 {userData.first_name?.charAt(
                                                     0,
                                                 ) || 'U'}
