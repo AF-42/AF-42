@@ -16,13 +16,10 @@ export default async function AllChallengesPage() {
     ).length;
 
     return (
-        <div className='max-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-50 relative'>
-            {/* Background decoration */}
-            <div className='absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(59,130,246,0.05),transparent_50%)]'></div>
-            <div className='absolute inset-0 bg-[radial-gradient(circle_at_70%_80%,rgba(16,185,129,0.05),transparent_50%)]'></div>
-
+        <div className='min-h-screen relative'>
             {/* Main content */}
-            <div className='relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12'>
+
+            <div className='w-full space-y-8 px-4 sm:px-6 lg:px-8 py-8 sm:py-12'>
                 <div className='w-full max-w-7xl mx-auto space-y-8'>
                     {/* Header Section */}
                     <div className='flex flex-col lg:flex-row gap-6 lg:gap-8 items-start lg:items-center justify-between'>
@@ -31,19 +28,19 @@ export default async function AllChallengesPage() {
                             {/* Icon and title section */}
                             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6'>
                                 <div className='relative group'>
-                                    <div className='inline-flex items-center justify-center w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 rounded-2xl sm:rounded-3xl shadow-xl group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300'>
-                                        <Code2 className='w-8 h-8 sm:w-10 sm:h-10 text-white' />
+                                    <div className='inline-flex items-center justify-center size-10 sm:size-12 bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 rounded-xl shadow-lg group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300'>
+                                        <Code2 className='size-6 sm:size-8 text-white' />
                                     </div>
-                                    <div className='absolute -top-1 -right-1 w-6 h-6 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full shadow-lg flex items-center justify-center'>
-                                        <div className='w-3 h-3 bg-white rounded-full'></div>
+                                    <div className='absolute -top-1 -right-1 size-3 sm:size-4 bg-gradient-to-br from-emerald-400 to-emerald-500 rounded-full shadow-lg flex items-center justify-center'>
+                                        <div className='size-1.5 sm:size-2 bg-white rounded-full'></div>
                                     </div>
                                 </div>
 
                                 <div className='flex-1 min-w-0'>
-                                    <h1 className='text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight text-gray-900 bg-clip-text  leading-tight'>
-                                        Challenge Management
+                                    <h1 className='text-base sm:text-lg lg:text-xl xl:text-2xl font-bold tracking-tight text-gray-900 bg-clip-text leading-tight'>
+                                        Challenges
                                     </h1>
-                                    <p className='mt-2 text-sm sm:text-base lg:text-lg text-gray-600 leading-relaxed max-w-2xl'>
+                                    <p className='text-xs sm:text-sm lg:text-base text-gray-600 leading-relaxed max-w-2xl'>
                                         Create, manage, and track your technical
                                         challenges with professional-grade tools
                                     </p>
@@ -76,9 +73,7 @@ export default async function AllChallengesPage() {
                         {/* Action button section */}
                         <div className='flex-shrink-0 w-full sm:w-auto'>
                             <Link href='/challenge/generate' className='block'>
-                                <Button
-                                    className='cursor-pointer w-full text-sm sm:w-auto h-10 sm:h-14 sm:px-8 bg-emerald-600 text-white shadow-xl hover:shadow-2xl hover:bg-emerald-700 transition-all duration-300 font-semibold sm:text-base group'
-                                >
+                                <Button className='cursor-pointer w-full text-sm sm:w-auto h-9 sm:h-10 sm:px-8 bg-cyan-600 text-white shadow-xl hover:shadow-2xl hover:bg-cyan-700 transition-all duration-300 font-semibold sm:text-base group'>
                                     <Plus className='w-5 h-5 sm:w-6 sm:h-6 sm:mr-3 group-hover:scale-110 transition-transform duration-200' />
                                     <span className='hidden sm:inline'>
                                         Generate New Challenge
@@ -92,47 +87,47 @@ export default async function AllChallengesPage() {
                     </div>
 
                     {/* Stats Cards */}
-                    <div className='grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6'>
-                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200'>
-                            <div className='flex items-center gap-3'>
-                                <div className='w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center'>
-                                    <Code2 className='w-5 h-5 text-blue-600' />
+                    <div className='grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6'>
+                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200'>
+                            <div className='flex items-center gap-2 sm:gap-3'>
+                                <div className='size-10 sm:size-12 bg-blue-100 rounded-lg flex items-center justify-center'>
+                                    <Code2 className='size-4 sm:size-5 text-blue-600' />
                                 </div>
                                 <div>
-                                    <p className='text-sm font-medium text-gray-600'>
+                                    <p className='text-xs sm:text-sm font-medium text-gray-600'>
                                         Total Challenges
                                     </p>
-                                    <p className='text-2xl font-bold text-gray-900'>
+                                    <p className='text-lg sm:text-xl font-bold text-gray-900'>
                                         {totalChallenges}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200'>
-                            <div className='flex items-center gap-3'>
-                                <div className='w-10 h-10 bg-emerald-100 rounded-lg flex items-center justify-center'>
-                                    <TrendingUp className='w-5 h-5 text-emerald-600' />
+                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200'>
+                            <div className='flex items-center gap-2 sm:gap-3'>
+                                <div className='size-10 sm:size-12 bg-emerald-100 rounded-lg flex items-center justify-center'>
+                                    <TrendingUp className='size-4 sm:size-5 text-emerald-600' />
                                 </div>
                                 <div>
-                                    <p className='text-sm font-medium text-gray-600'>
+                                    <p className='text-xs sm:text-sm font-medium text-gray-600'>
                                         Published
                                     </p>
-                                    <p className='text-2xl font-bold text-gray-900'>
+                                    <p className='text-lg sm:text-xl font-bold text-gray-900'>
                                         {publishedChallenges}
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-6 shadow-sm hover:shadow-md transition-all duration-200'>
-                            <div className='flex items-center gap-3'>
-                                <div className='w-10 h-10 bg-amber-100 rounded-lg flex items-center justify-center'>
-                                    <Calendar className='w-5 h-5 text-amber-600' />
+                        <div className='bg-white/80 backdrop-blur-sm border border-gray-200/60 rounded-xl p-4 sm:p-6 shadow-sm hover:shadow-md transition-all duration-200'>
+                            <div className='flex items-center gap-2 sm:gap-3'>
+                                <div className='size-10 sm:size-12 bg-amber-100 rounded-lg flex items-center justify-center'>
+                                    <Calendar className='size-4 sm:size-5 text-amber-600' />
                                 </div>
                                 <div>
-                                    <p className='text-sm font-medium text-gray-600'>
+                                    <p className='text-xs sm:text-sm font-medium text-gray-600'>
                                         Drafts
                                     </p>
-                                    <p className='text-2xl font-bold text-gray-900'>
+                                    <p className='text-lg sm:text-xl font-bold text-gray-900'>
                                         {draftChallenges}
                                     </p>
                                 </div>
@@ -144,7 +139,7 @@ export default async function AllChallengesPage() {
                     <div className='space-y-6'>
                         {challenges.length > 0 ? (
                             <div className='grid gap-6 overflow-y-auto'>
-                                <ScrollArea className='max-h-[1000px]'>
+                                <ScrollArea className='h-[500px]'>
                                     {challenges.map((challenge) => (
                                         <AllChallengeCardComponent
                                             key={challenge.id}

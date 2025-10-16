@@ -35,6 +35,7 @@ import {
     Clock,
     CheckCircle2,
     AlertCircle,
+    Users,
 } from 'lucide-react';
 
 // Helper functions for status and difficulty styling
@@ -165,27 +166,17 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
 
     return (
         <Card
-            className='group relative border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 overflow-hidden rounded-2xl'
+            className='group relative border border-gray-200 bg-white/80 backdrop-blur-sm shadow-sm hover:shadow-lg transition-all duration-500 hover:-translate-y-1 overflow-hidden rounded-2xl mb-3'
             style={{
                 backgroundColor: 'white',
                 borderColor: '#e5e7eb',
             }}
         >
-            <CardHeader className='relative p-4 sm:p-6 pb-3 sm:pb-4'>
-                {/* Background gradient overlay */}
-                <div
-                    className='absolute inset-0'
-                    style={{
-                        background: `linear-gradient(135deg, #f8fafc 0%, #ffffff 50%, #f0f9ff)`,
-                    }}
-                ></div>
-
+            <CardHeader className='relative p-4 sm:p-6 sm:pb-4'>
                 <div className='relative flex flex-col sm:flex-row items-start gap-3 sm:gap-4'>
                     {/* Icon and status indicator */}
                     <div className='relative flex-shrink-0 self-center sm:self-start'>
-                        <div
-                            className='bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300'
-                        >
+                        <div className='bg-gradient-to-br from-cyan-400 via-cyan-700 to-cyan-900 text-white flex aspect-square size-10 sm:size-12 items-center justify-center rounded-xl shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300'>
                             <Code className='size-4 sm:size-5' />
                         </div>
                         <div
@@ -218,7 +209,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                         </div>
 
                         {/* Badges section */}
-                        <div className='flex flex-wrap justify-center sm:justify-start gap-2'>
+                        <div className='flex flex-wrap justify-start gap-2'>
                             <Badge
                                 variant='outline'
                                 className={`text-xs px-2.5 py-1 font-semibold ${statusConfig.color}`}
@@ -402,7 +393,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                         backgroundColor: '#f59e0b',
                                     }}
                                 >
-                                    <CheckCircle2
+                                    <Users
                                         className='size-3.5'
                                         style={{ color: 'white' }}
                                     />
@@ -414,13 +405,13 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
                                             color: '#6b7280',
                                         }}
                                     >
-                                        Requirements
+                                        Potential Candidates
                                     </p>
                                     <p
                                         className='text-lg font-bold'
                                         style={{ color: '#111827' }}
                                     >
-                                        {challenge.challenge_requirements
+                                        {challenge.challenge_candidates_list
                                             ?.length || 0}
                                     </p>
                                 </div>
@@ -478,20 +469,7 @@ export function AllChallengeCardComponent(challenge: ChallengeType) {
             </CardContent>
 
             {/* Action buttons section */}
-            <CardFooter
-                className='relative px-4 sm:px-6 py-3 sm:py-4'
-                style={{
-                    background: `linear-gradient(90deg, #f8fafc 0%, #ffffff 50%, #f0f9ff)`,
-                }}
-            >
-                {/* Subtle border */}
-                <div
-                    className='absolute top-0 left-4 right-4 sm:left-6 sm:right-6 h-px'
-                    style={{
-                        background: `linear-gradient(90deg, transparent 0%, #e5e7eb 50%, transparent 100%)`,
-                    }}
-                ></div>
-
+            <CardFooter className='relative px-2 sm:px-6 py-2 sm:py-1'>
                 <div className='flex flex-col max-w-sm sm:flex-row gap-3 w-full'>
                     <Link
                         href={`/challenge/${challenge.id}`}
