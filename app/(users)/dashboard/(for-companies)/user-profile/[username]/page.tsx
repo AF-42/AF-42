@@ -340,9 +340,9 @@ export default function UserProfilePage() {
                                         Member Since
                                     </p>
                                     <p className='text-lg sm:text-xl font-bold text-gray-900'>
-                                        {userData.user_since
+                                        {userData.created_at
                                             ? new Date(
-                                                  userData.user_since * 1000,
+                                                  userData.created_at,
                                               ).toLocaleDateString()
                                             : 'N/A'}
                                     </p>
@@ -361,7 +361,7 @@ export default function UserProfilePage() {
                                     <p className='text-lg sm:text-xl font-bold text-gray-900'>
                                         {userData.last_login
                                             ? new Date(
-                                                  userData.last_login * 1000,
+                                                  userData.last_login,
                                               ).toLocaleDateString()
                                             : 'N/A'}
                                     </p>
@@ -469,8 +469,7 @@ export default function UserProfilePage() {
                                             <p className='text-sm font-semibold text-gray-900'>
                                                 {userData.created_at
                                                     ? new Date(
-                                                          userData.created_at *
-                                                              1000,
+                                                          userData.created_at,
                                                       ).toLocaleDateString()
                                                     : 'N/A'}
                                             </p>
