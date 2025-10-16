@@ -19,6 +19,8 @@ import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { getUserData } from '@/app/actions/get-user-data.action';
 import * as print from '@/lib/print-helpers';
 import { type UserProfileType } from '@/types/user-profile.type';
+import { getCompanyInfoAction } from '@/app/actions/get-company-info.action';
+import { type companiesTable } from '@/db/schema/companies';
 
 // User profile data type
 type UserProfile = {
@@ -49,7 +51,13 @@ export default function UserProfilePage() {
         undefined,
     );
     const [error, setError] = useState<string | undefined>(undefined);
-
+    const [companyInfo, setCompanyInfo] = useState<
+        typeof companiesTable.$inferSelect | undefined
+    >(undefined);
+    const [companyInfoLoading, setCompanyInfoLoading] = useState(true);
+    const [companyInfoError, setCompanyInfoError] = useState<
+        string | undefined
+    >(undefined);
     // Wait for authentication to load
     useEffect(() => {
         if (authLoading) {
@@ -127,6 +135,50 @@ export default function UserProfilePage() {
     const handleEdit = () => {
         router.push('/dashboard/user-profile/edit/');
     };
+
+    const fetchCompanyInfo = async () => {
+        try {
+            setCompanyInfoLoading(true);
+            setCompanyInfoError(undefined);
+
+            const companyId = userData?.organizations || '';
+            print.message(
+                `[fetchCompanyInfo] Attempting to fetch company with ID: ${companyId}`,
+            );
+
+            if (!companyId) {
+                print.error(
+                    '[fetchCompanyInfo] No company ID found in userData.organizations',
+                    null,
+                );
+                setCompanyInfoError('No company ID found');
+                return;
+            }
+
+            const result = await getCompanyInfoAction(companyId);
+            if (result.length > 0) {
+                print.log(
+                    `[fetchCompanyInfo] Successfully fetched company:`,
+                    result[0],
+                );
+                setCompanyInfo(result[0]);
+            } else {
+                setCompanyInfoError('Company not found');
+            }
+        } catch (error: any) {
+            print.error('Error fetching company info:', error);
+            setCompanyInfoError('Failed to fetch company info');
+        } finally {
+            setCompanyInfoLoading(false);
+        }
+    };
+
+    // Fetch company info when userData is available
+    useEffect(() => {
+        if (userData?.organizations) {
+            fetchCompanyInfo();
+        }
+    }, [userData?.organizations]);
 
     // Show loading state while auth is loading or data is loading
     if (authLoading || isLoading) {
@@ -442,6 +494,29 @@ export default function UserProfilePage() {
                                             </p>
                                             <p className='text-sm text-gray-700'>
                                                 {userData.email}
+                                            </p>
+                                        </div>
+                                        <div className='flex items-center gap-2'>
+                                            <Building2 className='h-4 w-4 text-gray-500' />
+                                            <p className='text-sm font-medium text-gray-600'>
+                                                Company
+                                            </p>
+                                            <p className='text-sm text-gray-700'>
+                                                {companyInfoLoading ? (
+                                                    <span className='text-gray-400'>
+                                                        Loading...
+                                                    </span>
+                                                ) : companyInfoError ? (
+                                                    <span className='text-red-500'>
+                                                        {companyInfoError}
+                                                    </span>
+                                                ) : companyInfo ? (
+                                                    companyInfo.name
+                                                ) : (
+                                                    <span className='text-gray-400'>
+                                                        No company
+                                                    </span>
+                                                )}
                                             </p>
                                         </div>
                                     </div>
