@@ -195,7 +195,8 @@ export default async function ChallengePage({
                                                         </span>
                                                     </Button>
                                                 </Link>
-                                                <Button
+                                                {/* TODO: Add invite team review button when team review is implemented */}
+                                                {/* <Button
                                                     variant='outline'
                                                     className='hover:border-cyan-400 hover:text-cyan-600 flex-1 sm:flex-none'
                                                     size='sm'
@@ -207,7 +208,7 @@ export default async function ChallengePage({
                                                     <span className='sm:hidden'>
                                                         Review
                                                     </span>
-                                                </Button>
+                                                </Button> */}
                                                 <Button
                                                     className='bg-cyan-600 hover:bg-cyan-700 text-white transition-colors duration-200 flex-1 sm:flex-none disabled:bg-gray-400 disabled:hover:bg-gray-400 disabled:cursor-not-allowed'
                                                     size='sm'
