@@ -25,5 +25,5 @@ export const companiesService = {
     },
     async getCompanyMembers(companyId: string) {
         return model.companies.getMembers(companyId);
-    }
+    },
 };
