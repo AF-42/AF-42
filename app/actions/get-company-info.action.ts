@@ -6,7 +6,6 @@ import * as print from '@/lib/print-helpers';
 export const getCompanyInfoAction = async (companyId: string) => {
     try {
         const company = await companiesService.getCompanyById(companyId);
-
         if (!company || company.length === 0) {
             print.error(
                 `[getCompanyInfoAction] No company found for ID: ${companyId}`,
