@@ -3,22 +3,8 @@
 import { useEffect, useState } from 'react';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
 import { useRouter } from 'next/navigation';
-import {
-    Briefcase,
-    Building2,
-    Edit2,
-    ExternalLink,
-    Mail,
-    MapPin,
-    Globe,
-    Calendar,
-    Users,
-    Shield,
-    TrendingUp,
-    Award,
-} from 'lucide-react';
+import { Briefcase, Building2, Edit2, Mail, MapPin, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import * as print from '@/lib/print-helpers';
 

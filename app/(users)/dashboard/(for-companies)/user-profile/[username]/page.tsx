@@ -27,8 +27,8 @@ type UserProfile = {
     first_name: string;
     last_name: string;
     username: string;
-    email: string;
     role: string;
+    email: string;
     organizations: string;
     is_password_reset_requested: boolean;
     is_suspended: boolean;
