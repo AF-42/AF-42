@@ -1,27 +1,30 @@
 import { createTool } from '@mastra/core/tools';
 import { z } from 'zod';
+import * as print from '@/lib/print-helpers';
 
 export const extractTechStackFromJobOfferTool = createTool({
-    id          : 'extract-tech-stack-from-job-offer',
-    description : 'Extract the stack from a job offer',
-    inputSchema : z.object({
-        jobOffer : z.string()
+    id: 'extract-tech-stack-from-job-offer',
+    description: 'Extract the stack from a job offer',
+    inputSchema: z.object({
+        jobOffer: z.string(),
     }),
-    outputSchema : z.object({
-        techStack      : z.array(z.string()),
-        techStackCount : z.number(),
-        success        : z.boolean()
+    outputSchema: z.object({
+        techStack: z.array(z.string()),
+        techStackCount: z.number(),
+        success: z.boolean(),
     }),
     async execute({ context, mastra }) {
         const { jobOffer } = context;
         console.log('❓ Generating tech stack from extracted text...');
 
         if (!jobOffer || jobOffer.trim() === '') {
-            console.error('❌ No extracted text provided for tech stack extraction');
+            console.error(
+                '❌ No extracted text provided for tech stack extraction',
+            );
             return {
-                techStack      : [],
-                techStackCount : 0,
-                success        : false
+                techStack: [],
+                techStackCount: 0,
+                success: false,
             };
         }
 
@@ -33,13 +36,17 @@ export const extractTechStackFromJobOfferTool = createTool({
 
             const streamResponse = await agent.stream([
                 {
-                    role    : 'user',
-                    content : `Please create tech stack based on the following content extracted from a job offer.
+                    role: 'user',
+                    content: `Please create tech stack based on the following content extracted from a job offer.
 
-                    ${jobOffer}`
-                }
+                    ${jobOffer}`,
+                },
             ]);
-            console.log('streamResponse', streamResponse);
+            // ! DEBUG =========================================================
+            print.log(
+                '[extract-tech-stack-from-job-offer-tool] streamResponse',
+                streamResponse,
+            );
 
             let generatedContent = '';
 
@@ -50,42 +57,57 @@ export const extractTechStackFromJobOfferTool = createTool({
             if (generatedContent.trim().length > 20) {
                 // Parse the tech stack from the generated content
                 const techStack = parseTechStackFromText(generatedContent);
-                console.log('techStack', techStack);
-                console.log('techStackCount', techStack.length);
-                console.log('success', true);
 
-                console.log(`✅ Tech stack extraction successful: ${techStack.length} tech stack generated`);
+                // ! DEBUG =====================================================
+                print.log(
+                    '[extract-tech-stack-from-job-offer-tool] techStack',
+                    techStack,
+                );
+                print.log('techStackCount', techStack.length);
+                print.log('success', true);
+                print.message(
+                    `✅ Tech stack extraction successful: ${techStack.length} tech stack generated`,
+                );
 
                 return {
                     techStack,
-                    techStackCount : techStack.length,
-                    success        : true
+                    techStackCount: techStack.length,
+                    success: true,
                 };
             }
-            console.warn('⚠️ Generated content too short for tech stack parsing');
+            console.warn(
+                '⚠️ Generated content too short for tech stack parsing',
+            );
             return {
-                techStack      : [],
-                techStackCount : 0,
-                success        : false
+                techStack: [],
+                techStackCount: 0,
+                success: false,
             };
-        }
-        catch (error) {
-            console.log('error', error);
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            console.error('❌ Tech stack extraction failed:', errorMessage);
+        } catch (error) {
+            const errorMessage =
+                error instanceof Error ? error.message : 'Unknown error';
+            print.error(
+                '[extract-tech-stack-from-job-offer-tool] error',
+                errorMessage,
+            );
 
             // Check if it's a token limit error
-            if (errorMessage.includes('context length') || errorMessage.includes('token')) {
-                console.error('💡 Tip: Try using a smaller PDF file. Large documents exceed the token limit.');
+            if (
+                errorMessage.includes('context length') ||
+                errorMessage.includes('token')
+            ) {
+                console.error(
+                    '💡 Tip: Try using a smaller PDF file. Large documents exceed the token limit.',
+                );
             }
 
             return {
-                techStack      : [],
-                techStackCount : 0,
-                success        : false
+                techStack: [],
+                techStackCount: 0,
+                success: false,
             };
         }
-    }
+    },
 });
 
 // Helper function to parse tech stack from generated text
