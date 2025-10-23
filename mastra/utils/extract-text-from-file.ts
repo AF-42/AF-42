@@ -1,19 +1,32 @@
+/**
+ * Text Extraction Utility for Multiple File Formats
+ *
+ * This module provides comprehensive text extraction capabilities from various file formats
+ * commonly used in document processing workflows. It supports PDF documents, Microsoft Office
+ * files (Word, Excel, PowerPoint), plain text files, JSON data, and image files. The utility
+ * is designed to handle file validation, size limits, type restrictions, and provides detailed
+ * metadata about the extraction process including word counts, character counts, and page/sheet
+ * information where applicable. It's particularly useful for content analysis, document indexing,
+ * and automated text processing pipelines where consistent extraction across multiple formats
+ * is required.
+ */
+
 import mammoth from 'mammoth';
 import * as XLSX from 'xlsx';
 import { extractTextFromPDF } from './extract-text-from-pdf';
 
 // TypeScript interfaces for the extraction result
 export type TextExtractionResult = {
-    success : boolean;
-    fileName : string;
-    fileType : string;
-    fileSize : number;
+    success: boolean;
+    fileName: string;
+    fileType: string;
+    fileSize: number;
     extractedText: string;
     metadata?: {
-        pagesCount? : number;
-        sheetsCount? : number;
-        wordCount? : number;
-        charCount? : number;
+        pagesCount?: number;
+        sheetsCount?: number;
+        wordCount?: number;
+        charCount?: number;
         extractionMethod?: string;
     };
     error?: string;
@@ -21,8 +34,8 @@ export type TextExtractionResult = {
 
 export type FileProcessingOptions = {
     includeMetadata?: boolean;
-    maxFileSize? : number; // In bytes
-    allowedTypes? : string[];
+    maxFileSize?: number; // In bytes
+    allowedTypes?: string[];
 };
 
 /**
@@ -31,7 +44,7 @@ export type FileProcessingOptions = {
  */
 export async function extractTextFromFile(
     file: File,
-    options: FileProcessingOptions = {}
+    options: FileProcessingOptions = {},
 ): Promise<TextExtractionResult> {
     const {
         includeMetadata = true,
@@ -50,41 +63,41 @@ export async function extractTextFromFile(
             'image/jpeg',
             'image/png',
             'image/gif',
-            'image/webp'
-        ]
+            'image/webp',
+        ],
     } = options;
 
     // Validate file
     if (!file) {
         return {
-            success       : false,
-            fileName      : '',
-            fileType      : '',
-            fileSize      : 0,
-            extractedText : '',
-            error         : 'No file provided'
+            success: false,
+            fileName: '',
+            fileType: '',
+            fileSize: 0,
+            extractedText: '',
+            error: 'No file provided',
         };
     }
 
     if (file.size > maxFileSize) {
         return {
-            success       : false,
-            fileName      : file.name,
-            fileType      : file.type,
-            fileSize      : file.size,
-            extractedText : '',
-            error         : `File size exceeds maximum allowed size of ${Math.round(maxFileSize / 1024 / 1024)}MB`
+            success: false,
+            fileName: file.name,
+            fileType: file.type,
+            fileSize: file.size,
+            extractedText: '',
+            error: `File size exceeds maximum allowed size of ${Math.round(maxFileSize / 1024 / 1024)}MB`,
         };
     }
 
     if (allowedTypes.length > 0 && !allowedTypes.includes(file.type)) {
         return {
-            success       : false,
-            fileName      : file.name,
-            fileType      : file.type,
-            fileSize      : file.size,
-            extractedText : '',
-            error         : `File type ${file.type} is not supported`
+            success: false,
+            fileName: file.name,
+            fileType: file.type,
+            fileSize: file.size,
+            extractedText: '',
+            error: `File type ${file.type} is not supported`,
         };
     }
 
@@ -99,8 +112,8 @@ export async function extractTextFromFile(
                 const pdfResult = await extractTextFromPDF(buffer);
                 extractedText = pdfResult.extractedText;
                 metadata = {
-                    pagesCount       : pdfResult.pagesCount,
-                    extractionMethod : 'pdf2json'
+                    pagesCount: pdfResult.pagesCount,
+                    extractionMethod: 'pdf2json',
                 };
                 break;
             }
@@ -109,7 +122,7 @@ export async function extractTextFromFile(
                 const docxResult = await mammoth.extractRawText({ buffer });
                 extractedText = docxResult.value;
                 metadata = {
-                    extractionMethod : 'mammoth'
+                    extractionMethod: 'mammoth',
                 };
                 break;
             }
@@ -121,14 +134,13 @@ export async function extractTextFromFile(
                     const docResult = await mammoth.extractRawText({ buffer });
                     extractedText = docResult.value;
                     metadata = {
-                        extractionMethod : 'mammoth (limited support for .doc)'
+                        extractionMethod: 'mammoth (limited support for .doc)',
                     };
-                }
-                catch {
-                    extractedText
-						= 'Unable to extract text from .doc file. Please convert to .docx format for better support.';
+                } catch {
+                    extractedText =
+                        'Unable to extract text from .doc file. Please convert to .docx format for better support.';
                     metadata = {
-                        extractionMethod : 'unsupported'
+                        extractionMethod: 'unsupported',
                     };
                 }
                 break;
@@ -138,7 +150,7 @@ export async function extractTextFromFile(
             case 'text/markdown': {
                 extractedText = buffer.toString('utf-8');
                 metadata = {
-                    extractionMethod : 'utf-8'
+                    extractionMethod: 'utf-8',
                 };
                 break;
             }
@@ -148,13 +160,12 @@ export async function extractTextFromFile(
                     const jsonData = JSON.parse(buffer.toString('utf-8'));
                     extractedText = JSON.stringify(jsonData, null, 2);
                     metadata = {
-                        extractionMethod : 'json-parse'
+                        extractionMethod: 'json-parse',
                     };
-                }
-                catch {
+                } catch {
                     extractedText = buffer.toString('utf-8');
                     metadata = {
-                        extractionMethod : 'utf-8 (invalid json)'
+                        extractionMethod: 'utf-8 (invalid json)',
                     };
                 }
                 break;
@@ -162,7 +173,7 @@ export async function extractTextFromFile(
 
             case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
             case 'application/vnd.ms-excel': {
-                const workbook = XLSX.read(buffer, { type : 'buffer' });
+                const workbook = XLSX.read(buffer, { type: 'buffer' });
                 const sheetNames = workbook.SheetNames;
                 let allText = '';
 
@@ -174,8 +185,8 @@ export async function extractTextFromFile(
 
                 extractedText = allText.trim();
                 metadata = {
-                    sheetsCount      : sheetNames.length,
-                    extractionMethod : 'xlsx'
+                    sheetsCount: sheetNames.length,
+                    extractionMethod: 'xlsx',
                 };
                 break;
             }
@@ -184,10 +195,10 @@ export async function extractTextFromFile(
             case 'application/vnd.ms-powerpoint': {
                 // PowerPoint files are complex and would require additional libraries
                 // For now, we'll return a message indicating limited support
-                extractedText
-					= 'PowerPoint file detected. Text extraction from PowerPoint files requires additional processing. Please convert to PDF or extract text manually.';
+                extractedText =
+                    'PowerPoint file detected. Text extraction from PowerPoint files requires additional processing. Please convert to PDF or extract text manually.';
                 metadata = {
-                    extractionMethod : 'unsupported'
+                    extractionMethod: 'unsupported',
                 };
                 break;
             }
@@ -198,10 +209,10 @@ export async function extractTextFromFile(
             case 'image/webp': {
                 // For images, we would need OCR capabilities
                 // For now, we'll return a message indicating that OCR is needed
-                extractedText
-					= 'Image file detected. Text extraction from images requires OCR (Optical Character Recognition) capabilities. Please use a tool that supports OCR or convert the image to PDF with text layer.';
+                extractedText =
+                    'Image file detected. Text extraction from images requires OCR (Optical Character Recognition) capabilities. Please use a tool that supports OCR or convert the image to PDF with text layer.';
                 metadata = {
-                    extractionMethod : 'unsupported (requires OCR)'
+                    extractionMethod: 'unsupported (requires OCR)',
                 };
                 break;
             }
@@ -211,13 +222,13 @@ export async function extractTextFromFile(
                 try {
                     extractedText = buffer.toString('utf-8');
                     metadata = {
-                        extractionMethod : 'utf-8 (unknown type)'
+                        extractionMethod: 'utf-8 (unknown type)',
                     };
-                }
-                catch {
-                    extractedText = 'Unable to extract text from this file type.';
+                } catch {
+                    extractedText =
+                        'Unable to extract text from this file type.';
                     metadata = {
-                        extractionMethod : 'unsupported'
+                        extractionMethod: 'unsupported',
                     };
                 }
             }
@@ -233,27 +244,29 @@ export async function extractTextFromFile(
             metadata = {
                 ...metadata,
                 wordCount,
-                charCount
+                charCount,
             };
         }
 
         return {
-            success  : true,
-            fileName : file.name,
-            fileType : file.type,
-            fileSize : file.size,
+            success: true,
+            fileName: file.name,
+            fileType: file.type,
+            fileSize: file.size,
             extractedText,
-            metadata
+            metadata,
         };
-    }
-    catch (error) {
+    } catch (error) {
         return {
-            success       : false,
-            fileName      : file.name,
-            fileType      : file.type,
-            fileSize      : file.size,
-            extractedText : '',
-            error         : error instanceof Error ? error.message : 'Unknown error occurred during text extraction'
+            success: false,
+            fileName: file.name,
+            fileType: file.type,
+            fileSize: file.size,
+            extractedText: '',
+            error:
+                error instanceof Error
+                    ? error.message
+                    : 'Unknown error occurred during text extraction',
         };
     }
 }
@@ -262,31 +275,47 @@ export async function extractTextFromFile(
  * Utility function to get file type information
  */
 export function getFileTypeInfo(file: File): {
-    type : string;
-    category : 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other';
+    type: string;
+    category:
+        | 'document'
+        | 'spreadsheet'
+        | 'presentation'
+        | 'text'
+        | 'image'
+        | 'other';
     supported: boolean;
 } {
     const { type } = file;
-    let category: 'document' | 'spreadsheet' | 'presentation' | 'text' | 'image' | 'other' = 'other';
+    let category:
+        | 'document'
+        | 'spreadsheet'
+        | 'presentation'
+        | 'text'
+        | 'image'
+        | 'other' = 'other';
     let supported = false;
 
-    if (type.includes('pdf') || type.includes('word') || type.includes('document')) {
+    if (
+        type.includes('pdf') ||
+        type.includes('word') ||
+        type.includes('document')
+    ) {
         category = 'document';
         supported = true;
-    }
-    else if (type.includes('excel') || type.includes('spreadsheet')) {
+    } else if (type.includes('excel') || type.includes('spreadsheet')) {
         category = 'spreadsheet';
         supported = true;
-    }
-    else if (type.includes('powerpoint') || type.includes('presentation')) {
+    } else if (type.includes('powerpoint') || type.includes('presentation')) {
         category = 'presentation';
         supported = type.includes('openxml'); // Only .pptx is supported
-    }
-    else if (type.includes('text') || type.includes('json') || type.includes('markdown')) {
+    } else if (
+        type.includes('text') ||
+        type.includes('json') ||
+        type.includes('markdown')
+    ) {
         category = 'text';
         supported = true;
-    }
-    else if (type.includes('image')) {
+    } else if (type.includes('image')) {
         category = 'image';
         supported = false; // Requires OCR
     }
@@ -294,7 +323,7 @@ export function getFileTypeInfo(file: File): {
     return {
         type,
         category,
-        supported
+        supported,
     };
 }
 
@@ -303,7 +332,7 @@ export function getFileTypeInfo(file: File): {
  */
 export async function extractTextFromFiles(
     files: File[],
-    options: FileProcessingOptions = {}
+    options: FileProcessingOptions = {},
 ): Promise<TextExtractionResult[]> {
     const results: TextExtractionResult[] = [];
 
@@ -311,15 +340,14 @@ export async function extractTextFromFiles(
         try {
             const result = await extractTextFromFile(file, options);
             results.push(result);
-        }
-        catch (error) {
+        } catch (error) {
             results.push({
-                success       : false,
-                fileName      : file.name,
-                fileType      : file.type,
-                fileSize      : file.size,
-                extractedText : '',
-                error         : error instanceof Error ? error.message : 'Unknown error'
+                success: false,
+                fileName: file.name,
+                fileType: file.type,
+                fileSize: file.size,
+                extractedText: '',
+                error: error instanceof Error ? error.message : 'Unknown error',
             });
         }
     }
