@@ -1,5 +1,5 @@
-// Import AI SDK for OpenAI integration
-import { openai } from '@ai-sdk/openai';
+// Import AI SDK for Anthropic integration
+import { anthropic } from '@ai-sdk/anthropic';
 
 // Import Mastra agent framework and memory components
 import { Agent } from '@mastra/core/agent';
@@ -11,13 +11,13 @@ import { jsonValidatorTool } from '../tools/json-validator-tool';
 
 // Timmy agent configuration with AI model, tools, and memory
 export const timmy = new Agent({
-    // Agent identifier for reference in workflows and other components
-    name : 'Timmy',
-    description :
+	// Agent identifier for reference in workflows and other components
+	name: 'Timmy',
+	description:
 		'Transforms job-offer technical specs and a JSON config into a realistic, production-grade coding challenge.',
 
-    // Detailed instructions defining the agent's behavior and capabilities
-    instructions : `
+	// Detailed instructions defining the agent's behavior and capabilities
+	instructions: `
         You are **Timmy**, the **Technical Challenge Generator**.
 
         Your purpose is to transform the *technical specifications* of a job offer and a user-provided JSON configuration into a realistic, production-relevant **technical coding challenge**.
@@ -132,16 +132,9 @@ export const timmy = new Agent({
         - Handle malformed or missing inputs gracefully.
     `,
 
-    // AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
-    model : openai('gpt-4o-mini'),
+	// AI model configuration using OpenAI's GPT-4o-mini for cost-effective performance
+	model: anthropic('claude-3-5-sonnet-20241022'),
 
-    // Tools available to the agent for executing specific tasks
-    tools : { jsonValidatorTool },
-
-    // Memory system for maintaining conversation context and learning
-    memory : new Memory({
-        storage : new LibSQLStore({
-            url : 'file:../mastra.db' // SQLite database path (relative to .mastra/output directory)
-        })
-    })
+	// Tools available to the agent for executing specific tasks
+	tools: { jsonValidatorTool },
 });
